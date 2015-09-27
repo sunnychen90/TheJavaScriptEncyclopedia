@@ -1,0 +1,581 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: Special Characters</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+<body>
+<h1> <a href="#bang">!</a> <a href="#doublequote">&quot;</a>
+    <a href="#dollar">$</a> <a href="#percent">%</a>
+    <a href="#ampersand">&amp;</a> <a href="#singlequote">'</a>
+    <a href="#leftparen">(</a> <a href="#rightparen">)</a>
+    <a href="#asterisk">*</a> <a href="#plus">+</a>
+    <a href="#comma">,</a> <a href="#minus">-</a>
+    <a href="#period">.</a> <a href="#slash">/</a> <a href="#colon">:</a>
+    <a href="#semicolon">;</a> <a href="#less">&lt;</a>
+    <a href="#equal">=</a> <a href="#greater">&gt;</a>
+    <a href="#question">?</a> <a href="#leftbracket">[</a>
+    <a href="#backslash">\</a> <a href="#rightbracket">]</a>
+    <a href="#caret">^</a> <a href="#underbar">_</a>
+    <a href="#leftbrace">{</a> <a href="#bar">|</a> <a href="#rightbrace">}</a>
+    <a href="#tilde">~</a> </h1>
+<h2 id="bang"><code>!</code> <dfn>exclamation point</dfn></h2>
+<h3 id="bang prefix operator"><code>!</code> <a href="P.html#prefix operator">prefix operator</a> <dfn>not</dfn></h3>
+<p>The <code>!</code> operator produces <a href="F.html#false"><code>false</code></a> if its operand is <a href="T.html#truthy">truthy</a>, and <a href="T.html#true"><code>true</code></a> if its operand is <a href="F.html#falsy">falsy</a>.</p>
+<pre>! true        // false
+! false       // true
+! 'false'     // false
+! 0           // true
+! 42          // false
+!! 42         // true </pre>
+<h3 id="bang= infix operator"><code>!=</code> <a href="I.html#infix operator">infix operator</a> <dfn>coercing
+  not equal</dfn></h3>
+<p>The <code>!=</code> operator determines if two
+  operands are not equal. If the operands have different types it may
+  attempt to coerce the types of the operands before comparing them. It
+  produces the opposite of the <a href="#equal= infix operator"><code>==</code> infix operator</a>. </p>
+<p>The <code>!=</code> operator produces the same result as this function:</p>
+<pre>function coercing_not_equal(left, right) {
+    return !(left <a href="#equal= infix operator"><code>==</code></a> right);
+}</pre>
+<p>Avoid this operator. Always use the <a href="#bang== infix operator"><code>!==</code> infix operator</a> instead.</p>
+<h3 id="bang== infix operator"><code>!==</code> <a href="I.html#infix operator">infix operator</a> <dfn>not equal</dfn></h3>
+<p>The <code>!==</code> operator determines if two
+  operands are not equal. It produces the opposite of the <a href="#equal== infix operator"><code>===</code> infix operator</a>. The result is <a href="F.htmlfalse"><code>false</code></a> only if the types of the operands are the same. </p>
+<p>If the operands are objects, the result is <a href="F.htmlfalse"><code>false</code></a> only if the operands are the same object. If the operands are similar
+  objects, the result is <a href="T.html#true"><code>true</code></a>. </p>
+<p>The <code>!=</code> operator produces the same result as this function:</p>
+<pre>function not_equal(left, right) {
+    return <a href="#bang prefix operator">!</a>(left <a href="#equal== infix operator"><code>===</code></a> right);
+}</pre>
+<p>The expression<code> x !== x </code>will always result in <a href="F.html#false"><code>false</code></a> except when the value of<code> x </code>is <a href="N.html#NaN"><code>NaN</code></a>.
+  This bizarre behavior is intentional.</p>
+<pre>false != 'false'             // true
+1 !== '1'                    // true
+null !== undefined           // true
+{} !== {}                    // true
+1 !== 1.0                    // false
+'cat' !== 'c' + 'a' + 't'    // false
+NaN !== NaN                  // true
+</pre>
+<h2 id='"'><code>"</code> <dfn>double quotation mark</dfn></h2>
+<p>See <a href="S.html#string literal">string literal</a>. </p>
+<h2 id="$"><code>$</code> <dfn>dollar sign</dfn></h2>
+<h3 id="$ identifier character"><code>$</code> <a href="I.html#identifier">identifier character</a></h3>
+<p>The <code>$</code> character is treated as a letter in an <a href="I.html#identifier">identifier</a>.
+  It was added to the language specifically for the use of code generators
+  and macro processors so that they could generate identifiers with confidence
+  that they would not collide with  programs produced by humans. Unfortunately, the developer
+  community ignored the intention of <code>$</code> and used it to create
+  ugly, cryptic identifiers that collide with each other.</p>
+<p><a href="E.html#ES5">ES5</a> does not attempt to discourage the use of <code>$</code>. </p>
+<h2 id="%"><code>%</code> <dfn>percent sign</dfn></h2>
+<h3 id="% infix operator"><code>%</code> <a href="I.html#infix operator">infix operator</a> <dfn>remainder</dfn></h3>
+<p>The <code>%</code> operator computes the remainder produced by the division
+  of two operands, a dividend and a divisor. If the operands are not numbers,
+  it attempts to coerce them to numbers. If either operand cannot be coerced to a
+  number or is <a href="N.html#NaN"><code>NaN</code></a>, or if the dividend
+  is an <a href="I.html#Infinity"><code>Infinity</code></a>, or
+  if the divisor is a <a href="Z.html#zero">zero</a>,
+  then the result is <a href="N.html#NaN"><code>NaN</code></a>. Otherwise, if
+  the divisor is an <a href="I.html#Infinity"><code>Infinity</code></a>,
+  the result is the dividend.</p>
+<p>The <code>%</code> operator produces the same result as this function:</p>
+<pre>function remainder(left, right) {
+    <a href="V.html#var">var</a> dividend = <a href="#plus prefix operator">+</a>left,
+        divisor = <a href="#plus prefix operator">+</a>right,
+        quotient = dividend <a href="#slash infix operator">/</a> divisor;
+    if (divisor === Infinity || divisor === -Infinity) {
+        return isFinite(dividend) ? dividend : NaN;
+    } else {
+        return dividend - (divisor * <a href="M.html#Math"><code>Math</code></a>[quotient &gt;= 0 ?
+                '<a href="F.html#floor Math function"><code>floor</code></a>' : '<a href="C.html#ceil Math function"><code>ceil</code></a>'](quotient));
+    }
+}</pre>
+<p>The sign of the result will be the sign of the dividend, not
+  the divisor. This differs from the modulo operator found in some other
+  languages, where the result has the sign of the divisor. The modulo function
+  can be computed with this function, which adds the
+  divisor to the remainder if the remainder has the wrong sign:</p>
+<pre>function modulo(left, right) {
+    var dividend = <a href="#plus prefix operator">+</a>left,
+        divisor = <a href="#plus prefix operator">+</a>right,
+        mod = dividend % divisor;
+    if (mod &amp;&amp; (divisor &gt; 0) === (mod &lt; 0)) {
+        mod += divisor;
+    }
+    return mod;
+}</pre>
+<p>Examples:</p>
+<pre> 15 %  4            //  3
+-15 %  4            // -3
+-15 % -4            // -3
+ 15 % -4            //  3
+ 15 %  0            // NaN
+ 15 % -Infinity     // 15
+  0 %  Infinity     //  0
+  0 %  0            // NaN
+Infinity % 4        // NaN
+Infinity % Infinity // NaN
+</pre>
+<h3 id="%= assignment infix operator"><code>%=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>remainder</dfn></h3>
+<p>The <code>%=</code> operator replaces the left value with the remainder
+  of the left value divided by the right value. So</p>
+<pre>left %= divisor;</pre>
+<p> is a streamlined equivalent of</p>
+<pre>left = left % divisor;</pre>
+<h2 id="&"><code>&amp;</code> <dfn>ampersand</dfn></h2>
+<h3 id="& infix operator"><code>&amp;</code> <a href="I.html#infix operator">infix operator</a> <dfn>bitwise and</dfn></h3>
+<p>The <code>&amp;</code> infix operator performs the bitwise <var>and</var> operation. The <var>and</var> operation uses 32 bits from each operand. If two corresponding bits are 1, then the corresponding result bit is 1. Otherwise, the corresponding result bit is 0. The operands are converted from a number (64 bit floating point) to a 32-bit <a href="I.html#integer">integer</a>. It produces the same result as this function:</p>
+<pre>
+function bitwise_and(left, right) {
+    var result = 0, bit, i, left_int, right_int,
+        two_32 = 4294967296,    // Math.pow(2, 32)
+        two_31 = 2147483648;    // Math.pow(2, 31)
+
+// Make 32-bit unsigned integers from the operands. The % is a remainder
+// operator, not a modulo operator, so some sign correction may be necessary.
+
+    left_int = Math[left &gt;= 0 ? 'floor' : 'ceil'](left) % two_32;
+    if (left_int &lt; 0) {
+        left_int += two_32;
+    }
+    right_int = Math[right &gt;= 0 ? 'floor' : 'ceil'](right) % two_32;
+    if (right_int &lt; 0) {
+        right_int += two_32;
+    }
+
+// For each of the 32 bits,
+//      Double the current result
+//      Set the new bit to 1
+//      If the most significant bits are set, then subtract them out
+//      Otherwise clear the new bit
+//      Add the new bit to the result
+//      Double the ints, rotating the next most significant bit into position
+
+    for (i = 0; i &lt; 32; i += 1) {
+        result += result;
+        bit = 1;
+        if (left_int &gt;= two_31) {
+            left_int -= two_31;
+        } else {
+            bit = 0;
+        }
+        if (right_int &gt;= two_31) {
+            right_int -= two_31;
+        } else {
+            bit = 0;
+        }
+        result += bit;
+        left_int += left_int;
+        right_int += right_int;
+    }
+
+// If the most significant bit of the result is set, then produce a negative.
+
+    if (result &gt;= two_31) {
+        result -= two_32;
+    }
+    return result;
+}</pre>
+<h3 id="&& infix operator"><code>&amp;&amp;</code> <a href="I.html#infix operator">infix operator</a> <dfn> and</dfn></h3>
+<p>Blah.</p>
+<h3 id="&= assignment infix operator"><code>&amp;=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>bitwise and</dfn></h3>
+<p>Blah.</p>
+<h2 id="'"><code>'</code> <dfn>single quotation mark</dfn></h2>
+<h3 id="' string delimiter"><code>'</code> <dfn>string delimiter</dfn></h3>
+<p>See <a href="S.html#string literal">string literal</a>.</p>
+<h2 id="("><code>(</code> <dfn>left parenthesis</dfn></h2>
+<p>Parentheses have many uses. In operand position, they provide
+  grouping for overriding <a href="O.html#operator precedence">operator precedence</a> or to make the meaning
+  of complicated expressions clearer. In suffix position, they cause the invocation of
+  functions. In function definitions and <a href="C.html#catch"><code>catch</code></a> blocks they define parameters
+  and exception variables. In statement position, they can disambiguate <a href="F.html#function literal">function literal</a> from <a href="R.html#regexp">function statement</a>. In a <a href="S.html#statement">statement</a> they denote a conditional expression or a special variable. </p>
+<h3 id="() grouping"><code>(</code> <code>)</code> grouping</h3>
+<p>In expressions, parentheses can be used to override the precedence
+  of operators, or to break up complicated expressions to make them easier
+  to read. </p>
+<pre>3 + 4 * 5      // 23
+3 + (4 * 5)    // 23
+(3 + 4) * 5    // 35 </pre>
+<p>Parentheses can also be used to improve the readability of an <a href="I.html#immediate function">immediate function</a>.</p>
+<h3 id="() parameter list"><code>(</code> <code>)</code> parameter list</h3>
+<p>See <a href="F.html#function">function</a>.</p>
+<h3 id="() statement punctuator"><code>(</code> <code>)</code> statement punctuator</h3>
+<p>Parentheses are used in statements. See</p>
+<ul>
+  <li><a href="D.html#do statement"><code>do</code> statement</a></li>
+  <li><a href="A.html#if statement"><code>if</code> statement</a></li>
+  <li><a href="F.html#for in statement"><code>for</code> <code>in</code> statement</a></li>
+  <li><a href="F.html#for statement"><code>for</code> statement</a></li>
+  <li><a href="F.html#function statement"><code>function</code> statement</a></li>
+  <li><a href="S.html#switch statement"><code>switch</code> statement</a></li>
+  <li><a href="T.html#try statement"><code>try</code> statement</a></li>
+  <li><a href="W.html#while statement"><code>while</code> statement</a></li>
+  <li><a href="W.html#with statement"><code>with</code> statement</a></li>
+</ul>
+<h3 id="("><code>(</code> <code>)</code> <a href="S.html#suffix operator">suffix operator</a> <dfn>invoke</dfn></h3>
+<p>Blah.</p>
+<h2 id=")"><code>)</code> <dfn>right parenthesis</dfn></h2>
+<p>See <a href="#leftparen"><code>(</code> <dfn>left parenthesis</dfn></a>.</p>
+<h2 id="*"><code>*</code> <dfn>asterisk</dfn></h2>
+<h3 id="* infix operator"><code>*</code> <a href="I.html#infix operator">infix operator</a> <dfn>multiply</dfn></h3>
+<p>The <code>*</code> operator <var>multiplies</var> its operands together. If the
+  operands are not numbers, it attempts to coerce them to numbers. If either
+  operand cannot be coerced to a number or is <a href="N.html#NaN"><code>NaN</code></a>,
+  then the result will be <a href="N.html#NaN"><code>NaN</code></a>.</p>
+<pre>3 * 4    // 7</pre>
+<h3><code>*/</code> <dfn>Close comment</dfn></h3>
+<p>See <a href="#slash*"><code>/*</code></a>.</p>
+<h3 id="*= assignment infix operator"><code>*=</code> <a href="A.html#assignment infix operator">assignment infix operator</a></h3>
+<p>Blah.</p>
+<h2 id="+"><code>+</code> <dfn>plus sign</dfn></h2>
+<h3 id="+ infix operator"><code>+</code> <a href="I.html#infix operator">infix operator</a> <dfn>add or concatenate</dfn></h3>
+<p>The <code>+</code> operator can either <var>add</var> or <var>concatenate</var>, depending of the types of its operands.
+  If either operand is a string, then it converts both operands to strings and concatenates then,
+  producing a new string with all of the characters from both operands. Otherwise,
+  it converts both operands to numbers and then attempts to add them.
+  It produces the same result as this function:</p>
+<pre>
+function add_or_concatenate(left, right) {
+    if (left &amp;&amp; typeof left === 'object') {
+        left = left.valueOf();
+    }
+    if (right &amp;&amp; typeof right === 'object') {
+        right = right.valueOf();
+    }
+    if (typeof left === 'string' || typeof right === 'string') {
+        return String(left).concat(String(right));
+    }
+    return +left + (+right);    // return the sum of left + right
+}</pre>
+<p>The <code>+</code> operator is the only <a href="A.html#arithmetic operator">arithmetic
+  operator</a> with this type confusion.</p>
+<p>Examples:</p>
+<pre>
+1 + 0                  // 1
+1 + 1                  // 2
+1 + (-1)               // 0
+1 + ''                 // '1'
+1 + undefined          // NaN
+1 + null               // 1
+1 + false              // 1
+1 + true               // 2
+1 + NaN                // NaN
+1 + Infinity           // Infinity
+true + true            // 2
+true + false           // 1
+true + '!'             // 'true!'
+Infinity + (-1)        // Infinity
+Infinity + Infinity    // Infinity
+'' + ''                // ''
+'1' + "1"              // '11'
+'1' + 0                // '10'
+'1' + ''               // '1'
+'1' + undefined        // '1undefined'
+'1' + null             // '1null'
+'1' + NaN              // '1NaN'
+'1' + Infinity         // '1Infinity'
+'1' + true             // '1true'
+'$' + 3 + 4            // '$34'
+'$' + (3 + 4)          // '$7'
+</pre>
+<h3><code>+</code> <a href="P.html#prefix operator">prefix operator</a> <dfn>to number</dfn></h3>
+<p>Blah.</p>
+<h3 id="++ assignment prefix operator"><code>++</code> <a href="P.html#prefix operator">assignment prefix operator</a> <dfn>pre-increment</dfn></h3>
+<p>Blah.</p>
+<h3 id="++ assignment suffix operator"><code>++</code> <a href="S.html#suffix operator">assignment suffix operator</a> <dfn>post-increment</dfn></h3>
+<p>Blah.</p>
+<h3><code>+=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>add or concatenate</dfn></h3>
+<p>Blah.</p>
+<h2 id=","><code>,</code> <dfn>comma</dfn></h2>
+<h3><code>,</code> <a href="I.html#infix operator">infix operator</a></h3>
+<p>The <code>,</code> <a href="I.html#infix operator">infix operator</a> takes two operands, evalutes them both, and returns the value of the second operand. This operator may not be used in places where a comma can appear, such as in an <a href="A.html#argument list">argument list</a>, in a <a href="V.html#var statement"><code>var</code> statement</a>, or in an <a href="O.html#object literal">object literal</a> or <a href="A.html#array literal">array literal</a> unless the  operand it forms is wrapped in <a href="G.html#grouping parentheses">grouping parentheses</a>. This operator is marginally useful in the <a href="F.html#for statement"><code>for</code> statement</a> when initializing or incrementing multiple  variables. </p>
+<h3><code>,</code> separator</h3>
+<p>The comma is used to separate operands in the <a href="O.html#object literal">object literal</a>, the <a href="A.html#array literal">array literal</a>,
+  the <a href="A.html#argument list">argument list</a>. The comma is used to separate identifiers in the the <a href="P.html#parameter list">parameter list</a> and the <a href="V.html#var statement"><code>var</code> statement</a>. </p>
+<h2 id="-"><code>-</code> <dfn>minus</dfn></h2>
+<h3 id="- infix operator"><code>-</code> <a href="I.html#infix operator">infix operator</a> <dfn>subtract</dfn></h3>
+<p>Blah.</p>
+<h3 id="- prefix operator"><code>-</code> <a href="P.html#prefix operator">prefix operator</a> <dfn>negate</dfn></h3>
+<p>Blah.</p>
+<h3 id="-- assignment prefix operator"><code>--</code> <a href="P.html#assignment prefix operator">assignment prefix operator</a> <dfn>pre-decrement</dfn></h3>
+<p>Blah.</p>
+<h3 id="-- assignment suffix operator"><code>--</code> <a href="S.html#assignment suffix operator">assignment suffix operator</a> <dfn>post-decrement</dfn></h3>
+<p>Blah.</p>
+<h3 id="-= assignment infix operator"><code>-=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>subtract</dfn></h3>
+<p>Blah.</p>
+<h2 id=". decimal point"><code>.</code> <dfn>decimal point</dfn></h2>
+<p>Blah.</p>
+<h3 id=". suffix operator"><code>.</code> <a href="S.html#suffix operator">suffix operator</a> <dfn>select</dfn></h3>
+<p>Blah.</p>
+<h2 id="/"><code>/</code> <dfn>slash</dfn></h2>
+<p>The <code>/</code> <dfn>slash</dfn> character is also known as the solidus and as the virgule.
+  It is used as the division operator, and it is used to form comments and regexp literals. Be careful to not confuse it with <a href="#backslash"><code>\</code></a> <dfn>backslash</dfn>. </p>
+<h3 id="/ infix operator"><code>/</code> <a href="I.html#infix operator">infix operator</a> <dfn>divide</dfn></h3>
+<p>Blah.</p>
+<h3 id="/ regexp delimiter"><code>/</code> regexp delimiter</h3>
+<p>Blah.</p>
+<h3 id="/*"><code>/*</code> <a href="C.html#comment">comment</a> <code>*/</code></h3>
+<p>Blah.</p>
+<h3 id="//"><code>//</code> <a href="C.html#comment">comment</a></h3>
+<p>Blah.</p>
+<h3 id="/= assignment infix operator"><code>/=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>divide</dfn></h3>
+<p>Blah.</p>
+<h2 id=":"><code>:</code> <dfn>colon</dfn></h2>
+<h3 id=": pair separator"><code>:</code> pair separator</h3>
+<p>See <a href="O.html#object literal">object literal</a>.</p>
+<h3 id=": label"><code>:</code> <a href="L.html#label">label</a></h3>
+<p>See <a href="L.html#label">label</a>.</p>
+<h3><code>:</code> <a href="S.html#switch statement"><code>switch</code> statement</a> <dfn>case terminator</dfn></h3>
+<p>See <a href="S.html#switch statement"><code>switch</code> statement</a>.</p>
+<h3><code>:</code> <a href="T.html#ternary operator">ternary operator</a></h3>
+<p>See <a href="#question ternary operator"><code>?</code> ternary operator</a>.</p>
+<h2 id=";"><code>;</code> <dfn>semicolon</dfn></h2>
+<p>The <code>;</code> is used to terminate  a <a href="S.html#statement">statement</a>. It is required on these statements:</p>
+<ul>
+  <li><a href="B.html#break statement"><code>break</code> statement</a></li>
+  <li><a href="C.html#continue statement"><code>continue</code> statement</a></li>
+  <li><a href="D.html#debugger statement"><code>debugger</code> statement</a></li>
+  <li><a href="D.html#do statement"><code>do</code> statement</a></li>
+  <li><a href="E.html#empty statement">empty statement</a></li>
+  <li><a href="E.html#expression statement">expression statement</a></li>
+  <li><a href="R.html#return statement"><code>return</code> statement</a></li>
+  <li><a href="T.html#throw statement"><code>throw</code> statement</a></li>
+  <li><a href="V.html#var statement"><code>var</code> statement</a></li>
+</ul>
+<p>In some cases a mechanism called <a href="S.html#semicolon insertion">semicolon insertion</a> allows for
+  leaving off the terminating semicolon. Unfortunately, <a href="S.html#semicolon insertion">semicolon insertion</a> has
+  some inherent problems and should not be relied upon.</p>
+<p>Semicolon is also used to separate the control clauses in a <a href="F.html#for statement"><code>for</code> statement</a>.</p>
+<h2 id="<"><code>&lt;</code> <dfn>left angle bracket</dfn></h2>
+<h3 id="< infix operator"><code>&lt;</code> <a href="I.html#infix operator">infix operator</a> <dfn>less than</dfn></h3>
+<p>Blah.</p>
+<h3 id="<< infix operator"><code>&lt;&lt;</code> <a href="I.html#infix operator">infix
+  operator</a> <dfn>bitwise shift left</dfn></h3>
+<p>Blah.</p>
+<h3 id="<<= assignment infix operator"><code>&lt;&lt;=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>bitwise shift left</dfn></h3>
+<p>Blah.</p>
+<h3 id="<"><code>&lt;=</code> <a href="I.html#infix operator">infix operator</a> <dfn>less than or equal</dfn></h3>
+<h3 id="<">&nbsp;</h3>
+<h2 id="="><code>=</code> <dfn>equal sign</dfn></h2>
+<h3 id="= assignment infix operator"><code>=</code> <a href="A.html#assignment infix operator">assignment infix operator</a></h3>
+<p>Blah.</p>
+<h3 id="== infix operator"><code>==</code> <a href="I.html#infix operator">infix operator</a> <dfn>coercing equal</dfn></h3>
+<p>The <code>==</code> operator determines if two
+  operands are equal. If the operands have different types it may
+  attempt to coerce the types of the operands before comparing them. It
+  produces the opposite of the <a href="#bang= infix operator"><code>!=</code> infix operator</a>. </p>
+<p>The <code>==</code> operator produces the same result as this function:</p>
+<pre>
+function coercing_equal(left, right) {
+    if (left <a href="#equal== infix operator"><code>===</code></a> right) {
+        return true;
+    }
+    if (left <a href="#equal== infix operator"><code>===</code></a> null) {
+        return right <a href="#equal== infix operator"><code>===</code></a> undefined;
+    }
+    if (right <a href="#equal== infix operator"><code>===</code></a> null) {
+        return left <a href="#equal== infix operator"><code>===</code></a> undefined;
+    }
+    if (typeof left <a href="#equal== infix operator"><code>===</code></a> 'number' &amp;&amp; typeof right <a href="#equal== infix operator"><code>===</code></a> 'string') {
+        return left <a href="#equal== infix operator"><code>===</code></a> +right;
+    }
+    if (typeof left <a href="#equal== infix operator"><code>===</code></a> 'string' &amp;&amp; typeof right <a href="#equal== infix operator"><code>===</code></a> 'number') {
+        return +left <a href="#equal== infix operator"><code>===</code></a> right;
+    }
+    if (typeof left <a href="#equal== infix operator"><code>===</code></a> 'boolean') {
+        return coercing_equal(+left, right);
+    }
+    if (typeof right <a href="#equal== infix operator"><code>===</code></a> 'boolean') {
+        return coercing_equal(left, +right);
+    }
+    if (typeof left <a href="#equal== infix operator"><code>===</code></a> 'object' &amp;&amp;
+            (left.constructor <a href="#equal== infix operator"><code>===</code></a> Number || left.constructor <a href="#equal== infix operator"><code>===</code></a> String ||
+                left.constructor <a href="#equal== infix operator"><code>===</code></a> Boolean) &amp;&amp;
+            (typeof right <a href="#equal== infix operator"><code>===</code></a> 'string' || typeof right <a href="#equal== infix operator"><code>===</code></a> 'number')) {
+        return coercing_equal(left.valueOf(), right);
+    }
+    if ((typeof left <a href="#equal== infix operator"><code>===</code></a> 'string' || typeof left <a href="#equal== infix operator"><code>===</code></a> 'number') &amp;&amp;
+            typeof right <a href="#equal== infix operator"><code>===</code></a> 'object' &amp;&amp;
+            (right.constructor <a href="#equal== infix operator"><code>===</code></a> Number || right.constructor <a href="#equal== infix operator"><code>===</code></a> String ||
+                right.constructor <a href="#equal== infix operator"><code>===</code></a> Boolean)) {
+        return coercing_equal(left, right.valueOf());
+    }
+    return false;
+}</pre>
+<p>Avoid this operator. Always use the <a href="#equal== infix operator"><code>===</code> infix operator</a> instead.</p>
+<p>Examples:</p>
+<pre>
+'' == 0                  // false
+0 == ''                  // true
+0 == '0'                 // true
+false == 'false'         // false
+false == 0               // true
+false == undefined       // false
+false == null            // false
+null == undefined        // true
+' \t\r\n ' == 0          // true
+'cat' === "cat"          // true
+'cat' === 'CAT'          // false
+Infinity == Infinity     // true
+-Infinity == Infinity    // false
+Infinity == NaN          // false
+NaN == NaN               // false
+</pre>
+<h3 id="=== infix operator"><code>===</code> <a href="I.html#infix operator">infix operator</a> <dfn>equal</dfn></h3>
+<p>The <code>===</code> operator compares two values, producing <a href="T.html#true"><code>true</code></a> if they are
+  equal and <a href="F.html#false"><code>false</code></a> if they are not. Two strings
+  are considered equal if they have the same <a href="L.html#length"><code>length</code></a> and contain exactly the same code points in the same sequence.
+  To references to the same object or array are considered equal. Two similar objects or two similar arrays are not considered equal.</p>
+<p>The expression<code> x === x </code>will always result in <a href="T.html#true"><code>true</code></a> except when the value of<code> x </code>is <a href="N.html#NaN"><code>NaN</code></a>.
+  Surprisingly, there exist mathematicians that think this was a good idea. It presents
+  an obvious programming hazard. For example, suppose you need a function that tests that a function
+  returns the correct value. Special handling is required for the case where the expected value is <a href="N.html#NaN"><code>NaN</code></a><a href="N."></a>. Simply using <code>===</code> to compare the expected value and the result will
+  do the wrong thing when the expected value is <a href="N.html#NaN"><code>NaN</code></a>, so
+  much more complicated comparisons are required using the <a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a> and the <a href="I.html#isNaN global function"><code>isNaN</code> global function</a>.
+  (The <a href="I.html#isNaN global function"><code>isNaN</code> global function</a> can produce incorrect results when its argument is a string.) </p>
+<p>Two numbers that are only approximately equal may produce a <a href="F.html#false"><code>false</code></a> result.
+</p>
+<p>Examples:</p>
+<pre>
+'' === 0                  // false
+0 === ''                  // false
+0 === '0'                 // false
+false === 'false'         // false
+false === 0               // false
+false === undefined       // false
+false === null            // false
+null === undefined        // false
+' \t\r\n ' === 0          // false
+Infinity === Infinity     // true
+-Infinity === Infinity    // false
+Infinity === NaN          // false
+NaN === NaN               // false
+0 === 0.00                // true
+0 === -0                  // true
+{} === {}                 // false
+[] === []                 // false
+0.1 + 0.2 === 0.3         // false</pre>
+<h2 id=">"><code>&gt;</code> <dfn>right angle bracket</dfn></h2>
+<h3 id="> infix operator"><code>&gt;</code> <a href="I.html#infix operator">infix operator</a> <dfn>greater than</dfn></h3>
+<p>Blah.</p>
+<h3 id=">"><code>&gt;=</code> <a href="I.html#infix operator">infix operator</a> <dfn>greater than or equal</dfn></h3>
+<p>Blah.</p>
+<h3 id="> infix operator"><code>&gt;&gt;</code> <a href="I.html#infix operator">infix operator</a> <dfn>bitwise signed shift right</dfn></h3>
+<p>Blah.</p>
+<h3 id=">"><code>&gt;&gt;=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>bitwise signed shift right</dfn></h3>
+<p>Blah.</p>
+<h3 id=">"><code>&gt;&gt;&gt;</code> <a href="I.html#infix operator">infix operator</a> <dfn>bitwise unsigned
+  shift right</dfn></h3>
+<p>Blah.</p>
+<h3 id=">"><code>&gt;&gt;&gt;=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>bitwise unsigned
+  shift right</dfn></h3>
+<p>Blah.</p>
+<h2 id="?"><code>?</code> <dfn>question mark</dfn></h2>
+<h3 id="? ternary operator"><code>?</code> ternary operator <dfn>conditional</dfn></h3>
+<p>The <code>?</code> operator takes three operands which are separated by the <code>?</code> and a <code>:</code>.</p>
+<blockquote>
+  <p><var>condition</var><code> ? </code><var>then</var><code> : </code><var>else</var></p>
+</blockquote>
+<p>It is a short-circuiting operator in that either the <var>then</var> operand or the <var>else</var> operand will not be evaluated. If the <var>condition</var> operand is <a href="T.html#truthy">truthy</a> then the <var>then</var> operand will be evaluated and its value will be the value of the expression. If the <var>condition</var> operand is <a href="F.html#falsy">falsy</a> then the <var>else</var> operand will be evaluated and its value will be the value of the expression.</p>
+<pre>function signum(number) {
+
+// Return 0 if the number is zero,
+//        1 if the number is positive,
+//       -1 if the number is negative.
+
+    return number === 0 ? 0 : number &gt; 0 ? 1 : -1;
+}</pre>
+<h2 id="["><code>[</code> <dfn>left bracket</dfn></h2>
+<h3 id="[ ] array literal"><code>[ ]</code> array literal</h3>
+<p>See <a href="A.html#array literal">array literal</a>.</p>
+<h3 id="[ ] suffix operator"><code>[ ]</code> <a href="S.html#suffix operator">suffix operator</a> <dfn>subscript</dfn></h3>
+<p>Blah.</p>
+<h2 id="\"><code>\</code> <dfn>backslash</dfn></h2>
+<h3 id="\ identifier escapement"><code>\</code> <dfn>identifier escapement</dfn></h3>
+<p>Blah.</p>
+<h3 id="\ string escapement"><code>\</code> <dfn>string escapement</dfn></h3>
+<p>Blah.</p>
+<h2><a href="#rightbracket"><code>]</code> <dfn>right bracket</dfn></a></h2>
+<p>See <a href="#leftbracket"><code>[</code> <dfn>left bracket</dfn></a>.</p>
+<h2 id="^"><code>^</code><dfn>caret</dfn></h2>
+<h3 id="^ infix operator"><code>^</code> <a href="I.html#infix operator">infix operator</a> <dfn>bitwise exclusive or</dfn></h3>
+<p>Blah.</p>
+<h3 id="^= assignment infix operator"><code>^=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>bitwise exclusive or</dfn></h3>
+<p>Blah.</p>
+<h2 id="_"><code>_</code>  <dfn>underbar</dfn></h2>
+<p>In a name, the <code>_</code> <dfn>underbar</dfn> character is treated as a letter. The <code>_</code> <dfn>underbar</dfn> is used to improve the readability of names, especially when the name contains several words, which as</p>
+<pre>calculate_the_total</pre>
+<p>since a name cannot contain a space or hyphen. Another convention is to use camelCase:</p>
+<pre>calculateTheTotal</pre>
+<p>Some implementations use leading or trailing <code>_</code> <dfn>underbar</dfn> for internal or dangerous properties, so it is best to avoid such names.</p>
+<h2 id="{"><code>{</code> <dfn>left curly brace</dfn></h2>
+<h3><code>{</code> <code>}</code> block statement</h3>
+<p>See <a href="S.html#statement">block</a>.</p>
+<h3><code>{</code> <code>}</code> function body</h3>
+<p>See <a href="F.html#function">function</a>.</p>
+<h3><code>{</code> <code>}</code> object literal</h3>
+<p>See <a href="O.html#object literal">object literal</a>.</p>
+<h2 id="|"><code>|</code> <dfn>vertical bar</dfn></h2>
+<h3 id="| infix operator"><code>|</code> <a href="I.html#infix operator">infix operator</a> <dfn>bitwise or</dfn></h3>
+<p>The <code>|</code> operator performs the bitwise <var>or</var> operation. The <var>or</var> operation uses 32 bits from each operand. If two corresponding bits are 0, then the corresponding result bit is 0. Otherwise, the corresponding result bit is 1. The operands are converted from a number (64 bit floating point) to a 32-bit <a href="I.html#integer">integer</a>.</p>
+<pre>
+function bitwise_or(left, right) {
+    var result = 0, bit, i, left_int, right_int,
+        two_32 = Math.pow(2, 32),    // 4294967296
+        two_31 = Math.pow(2, 31);    // 2147483648
+
+// Make 32-bit unsigned integers from the operands. The % is a remainder
+// operator, not a modulo operator, so some sign correction may be necessary.
+
+    left_int = Math[left &gt;= 0 ? 'floor' : 'ceil'](left) % two_32;
+    if (left_int < 0) {
+        left_int += two_32;
+    }
+    right_int = Math[right &gt;= 0 ? 'floor' : 'ceil'](right) % two_32;
+    if (right_int < 0) {
+        right_int += two_32;
+    }
+
+// For each of the 32 bits,
+//      Double the current result
+//      Set the new bit to 0
+//      If the most significant bits are set, then subtract out the bits out
+//          and set the new bit
+//      Add the new bit to the result
+//      Double the ints, rotating the next most significant bit into position
+
+    for (i = 0; i < 32; i += 1) {
+        result += result;
+        bit = 0;
+        if (left_int &gt;= two_31) {
+            left_int -= two_31;
+            bit = 1;
+        }
+        if (right_int &gt;= two_31) {
+            right_int -= two_31;
+            bit = 1;
+        }
+        result += bit;
+        left_int += left_int;
+        right_int += right_int;
+    }
+
+// If the most significant bit of the result is set, then produce a negative.
+
+    if (result &gt;= two_31) {
+        result -= two_32;
+    }
+    return result;
+}</pre>
+<h3 id="| assignment infix operator"><code>|=</code> <a href="A.html#assignment infix operator">assignment infix operator</a> <dfn>bitwise or</dfn></h3>
+<p>Blah.</p>
+<h3 id="|| infix operator"><code>||</code> <a href="I.html#infix operator">infix operator</a> <dfn>or</dfn></h3>
+<p>Blah.</p>
+<h2 id="}"><code>}</code> <dfn>right curly brace</dfn></h2>
+<p>See <a href="#leftbrace"><code>{</code> <dfn>left curly brace</dfn></a>.</p>
+<h2 id="~"><code>~</code> <dfn>tilde</dfn></h2>
+<h3 id="~ prefix operator"><code>~</code> <a href="P.html#prefix operator">prefix operator</a> <dfn>bitwise not</dfn></h3>
+<p>&nbsp; </p>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: N</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>N</h1>
+<h2 id="name">name</h2>
+<p>A name is a <a href="T.html#token">token</a> that typically resembles a word or a sequence of words. The first character of a name must be one of these:</p>
+<ul>
+  <li>a letter, including the <a href="U.html#Unicode">Unicode</a> general categories Ll <dfn>letter, lowercase</dfn>, Lm <dfn>letter, modifier</dfn>, Lo <dfn>letter, other</dfn>, Lt <dfn>letter, titlecase</dfn>, Lu <dfn>letter, uppercase</dfn>, and Nl<dfn>&nbsp;number, letter</dfn></li>
+  <li>the character <a href="special.html#underbar"><code>_</code> <dfn>underbar</dfn></a></li>
+  <li>the character <a href="special.html#$"><code>$</code> <dfn>dollar sign</dfn></a></li>
+</ul>
+<p>The first character is followed by zero or more additional characters, each of which  must be one of these:</p>
+<ul>
+  <li>a letter, including the <a href="U.html#Unicode">Unicode</a> general categories Ll <dfn>letter, lowercase</dfn>, Lm <dfn>letter, modifier</dfn>, Lo <dfn>letter, other</dfn>, Lt <dfn>letter, titlecase</dfn>, Lu <dfn>letter, uppercase</dfn>, and Nl<dfn>&nbsp;number, letter</dfn></li>
+  <li>the character <a href="special.html#underbar"><code>_</code> <dfn>underbar</dfn></a></li>
+  <li>the character <a href="special.html#$"><code>$</code> <dfn>dollar sign</dfn></a></li>
+  <li>a digit, including  the <a href="U.html#Unicode">Unicode</a> general category Nd <dfn>number, decimal</dfn></li>
+  <li>a mark, including  the <a href="U.html#Unicode">Unicode</a> general categories  Mc <dfn>mark, spacing combining</dfn> and Mn <dfn>mark, nonspacing</dfn></li>
+  <li>the character <var>zwnj</var> (<code>\u200c</code>) <dfn>zero width non-joiner</dfn></li>
+  <li>the character <var>zwj</var> (<code>\u200d</code>) <dfn>zero width joiner</dfn></li>
+</ul>
+<p>A name token can be used as</p>
+<ul>
+  <li>a <a href="L.html#label">label</a></li>
+  <li>the name of a <a href="V.html#variable">variable</a></li>
+  <li>the name of a <a href="F.html#function">function</a></li>
+  <li>the name of a <a href="P.html#parameter">parameter</a></li>
+  <li>the name of a <a href="P.html#property">property</a> in an <a href="O.html#object literal">object literal</a></li>
+  <li>the name of a <a href="P.html#property">property</a> with the <a href="special.html#period suffix operator"><code>.</code> suffix operator <dfn>select</dfn></a></li>
+  <li>an <a href="O.html#operator">operator</a>, such as <a href="S.html#sizeof prefix operator"><code>sizeof</code> prefix operator</a> or <a href="I.html#in infix operator"><code>in</code> infix operator</a></li>
+  <li>the name of a <a href="S.html#statement">statement</a>, such as <a href="I.html#if"><code>if</code></a> or <a href="S.html#switch"><code>switch</code></a></li>
+  <li>a word within a <a href="S.html#statement">statement</a>, such as <a href="E.html#else"><code>else</code></a> or <a href="C.html#case"><code>case</code></a></li>
+</ul>
+<p>If a  name token is a  reserved word, then it cannot be used as</p>
+<ul>
+  <li>a <a href="L.html#label">label</a></li>
+  <li>the name of a <a href="V.html#variable">variable</a></li>
+  <li>the name of a <a href="F.html#function">function</a></li>
+  <li>the name of a <a href="P.html#parameter">parameter</a></li>
+</ul>
+<div class=es3>
+  <p>ES3 places even more restrictions on reserved words. If a  name token is a  reserved word, then it also cannot be used as</p>
+<ul>
+  <li>the name of a <a href="P.html#property">property</a> in an <a href="O.html#object literal">object literal</a></li>
+  <li>the name of a <a href="P.html#property">property</a> with the <a href="special.html#period suffix operator"><code>.</code> suffix operator <dfn>select</dfn></a></li>
+  </ul>
+</div>
+<p>Any character in a name can be replaced with a <a href="U.html#Unicode escape sequence">Unicode escape sequence</a> without changing the meaning, so <code>cat</code> and <code>\u0063\u0061\u0074</code> are the same name. </p>
+<pre>var \u0063\u0061\u0074 = {\u0063\u0061\u0074: '\u0063\u0061\u0074'};
+alert(cat.cat === 'cat');    // true</pre>
+<p>This was intended to make it easier to work with names representing foreign words, but it has little practical use. It is used mainly by evil doers as a way of evading security filters. It is generally safest to stick with the <a href="A.html#ASCII">ASCII</a> set.</p>
+<p>Names are <a href="C.html#case">case</a> sensitive, so <code>cat</code> and <code>Cat</code> and <code>CAT</code> are three different names. It is recommended that all names start with a lowercase character, with the exception that a <a href="C.html#constructor function">constructor function</a>  should start with an uppercase letter, and a <a href="G.html#global variable">global variable</a> should be all upper case.</p>
+<p>A name cannot contain a whitespace character, but sometimes a name should incorporate two or more words. There are two conventions for doing this. One is to use  <a href="special.html#underbar"><code>_</code> <dfn>underbar</dfn></a> in place of the whitespace.</p>
+<pre>truth_or_consequences</pre>
+<p>The other is to use camelCase, where the first letter of each word is capitalized.</p>
+<pre>truthOrConsequences
+</pre>
+<h2>NaN <dfn>not a number</dfn></h2>
+<p>There is a special <a href="N.html#number">number</a> value called <code>NaN</code>, which stands for <i>Not a Number</i>, despite the fact that</p>
+<pre>
+<a href="T.html#typeof prefix operator">typeof</a> NaN            // 'number'</pre>
+<p><code>NaN</code> is a <a href="F.html#falsy">falsy</a> value. <code>NaN</code> is produced by </p>
+<pre>
+0 / 0                 // NaN
+Infinity - Infinity   // NaN
+Infinity * 0          // NaN
+Infinity / Infinity   // NaN
+Infinity % 1          // NaN
+1 % 0                 // NaN
++"oops"               // NaN
+Number("oops")        // NaN
+parseFloat("oops")    // NaN
+parseInt("oops")      // NaN
+1 + NaN               // NaN
+1 + undefined         // NaN
+0 * NaN               // NaN</pre>
+<p>Generally, any arithmetic operation with <code>NaN</code> or
+  <a href="U.html#undefined"><code>undefined</code></a> as an input
+  will have <code>NaN</code> as an output. If a sequence of computations produces
+  <code>NaN</code>, then there must have been at least one bad input or at least
+  one bad operation. No clues are provided as to what went wrong.
+In bitwise operations, <code>NaN</code> is treated as <code>0</code>.</p>
+<p>There are many techniques for detecting <code>NaN</code>, but none of them are pleasant.
+  The most likely test, </p>
+<pre>
+x === NaN    // false, even when x is NaN!</pre>
+<p>fails because <code>NaN === NaN</code>
+  produces <a href="F.html#false"><code>false</code></a>. It is possible to use
+</p><pre>
+x !== x      // true only if x is NaN
+</pre>
+<p> to test for <code>NaN</code>
+  because only <code>NaN</code> is not equal to itself, but it looks mathematically
+  ridiculous, and one hopes for a better future in which logic and good engineering are
+  highly valued when this must fail. Another approach is to use
+  the <a href="I.html#isNaN global function"><code>isNaN</code> global function</a>.
+  Unfortunately, it can produce false positives if its operand is a type other
+  than <a href="N.html#number">number</a>, so if it is possible that the operand is a <a href="S.html#string">string</a>, then it should be guarded with
+  the <a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a>.
+</p><pre>
+<a href="T.html#typeof prefix operator">typeof</a> x === 'number' &amp;&amp; <a href="I.html#isNaN global function">isNaN</a>(x)
+</pre><p>
+  Finally, <code>String(x) === 'NaN'</code> has only one false positive, the case
+  where <code>x</code> is the string <code>'NaN'</code>. So,</p><pre>
+String(x) === 'NaN' &amp;&amp; x !== 'NaN'</pre>
+<p>There are many of ways to test for <code>NaN</code>, and they are all absurd.
+</p>
+<h3 id="NaN literal"><code>NaN</code> <a href="L.html#literal">literal</a></h3>
+<p>The literal symbol for <code>NaN</code> is <code>NaN</code>. <code>NaN</code> is not actually
+a literal. It is a global variable that holds a <code>NaN</code> value. </p>
+<p>Blah.</p>
+<h3 id="NaN Number member"><code>NaN</code> <a href="#Number global function">Number</a> number</h3>
+<p><code>Number.NaN</code> contains the <a href="NaN">NaN</a> value.</p>
+<h2 id="native object">native object</h2>
+<p>Any object that is created in the  language is called a native object. Also see <a href="H.html#host object">host object</a>.</p>
+<h2>negation</h2>
+<p>See <a href="special.html#minus"><code>-</code> <dfn>minus</dfn></a>.</p>
+
+<h2 id="NEGATIVE_INFINITY">NEGATIVE_INFINITY</h2>
+<h3 id="NEGATIVE_INFINITY Number member">NEGATIVE_INFINITY Number number</h3>
+<p><code>Number.NEGATIVE_INFINITY</code> contains the <a href="special.html#minus minus"><code>-Infinity</code></a> value.</p>
+
+<h2 id="Netscape">Netscape</h2>
+<p>Blah.</p>
+
+<h2>new <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h3 id="new prefix operator"><code>new</code> <a href="P.html#prefix operator">prefix operator</a></h3>
+<p>The <code>new</code> operator is used with a function invocation. It treats the function as a constructor, where the constructor fashions a new object that inherits from the constructor's prototype property. If <code>new</code> were a <a href="F.html#function">function</a> rather than an <a href="O.html#operator">operator</a>, it could be implemented like this: </p>
+<pre>function new(func, arguments) {
+
+// Create a new object that inherits from the constructor's prototype.
+// func is a constructor function.
+// arguments is an array of arguments that
+//     are used to invoke the constructor.
+
+    var that = Object.create(func.prototype),
+
+// Invoke the constructor, binding –this- to the new object.
+
+        other = func.apply(that, arguments);
+
+// If its return value is not an object, substitute the new object.
+
+    return (typeof other === 'object' && other) || that;
+}</pre>
+<h2>now</h2>
+<h3 id="now Date function"><code>now</code> <a href="D.html#Date global function"><code>Date</code> function</a></h3>
+<p>Blah.</p>
+
+<h2>null <strong>reserved word</strong></h2>
+<p>Blah.</p>
+<h3 id="null literal"><code>null</code> <a href="L.html#literal">literal</a></h3>
+<p>Blah.</p>
+
+<h2 id="number">number</h2>
+<p>There is a single type for representing number values. It is based on the <span id="Double-precision_64_bit"> 64 bit format (double-precision) of the </span>IEEE 754 Standard for Binary Floating-Point Arithmetic. </p>
+<p>The language&rsquo;s numbers are only an approximation of real numbers, so the associativity of addition or multiplication should not be assumed, nor should the distributivity of multiplication and addition. For example:</p>
+<pre>
+var a = 0.01,
+    b = 0.02,
+    c = 0.03;
+alert((a + b) + c === a + (b + c));    // false
+
+a = 2;
+b = epsilon;
+c = epsilon;
+alert((a + b) + c === a + (b + c));    // false</pre>
+<p>Arithmetic operations on approximate values can accumulate noise, and the order of operations can have an  impact on the quality of the results. A particular problem is that binary floating point cannot exactly represent decimal fractions, which is a shame because virtually all financial transactions on this planet are conducted using the decimal system. </p>
+<p>Fortunately, integers (whole numbers) can be accurately represented as long as the values do not exceed 9007199254740992 (around 9 quadrillion). Sometimes better results can be obtained by scaling real values into integers before computation. For example, dollar values can be converted to whole cents by multiplying by 100. Whole cents can be handled accurately as integers. See <a href="I.html#integer">integer</a>. </p>
+<p>A number value acts as an immutable object. A number value has methods that it inherits from <code>Number.protoype</code> (see <a href="#Number prototype function"><code>Number</code> prototype function</a>).</p>
+<p>Using the <a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a> with a number value always produces the string <code>'number'</code>, even when the number is one of the non finite values <a href="N.html#NaN"><code>NaN</code></a>, <a href="I.html#Infinity"><code>Infinity</code></a>, and <a href="special.html#minus minus"><code>-</code></a><a href="I.html#Infinity"><code>Infinity</code></a>.</p>
+<h3 id="Number global function"><code>Number</code> global function</h3>
+<p>The global function <code>Number</code> can produce number values.</p>
+<p>Blah.</p>
+<h3 id="number literal">number literal</h3>
+<p>A number <a href="L.html#literal">literal</a> is used to include a number value in a program. There are two forms of number <a href="L.html#literal">literal</a>: <a href="D.html#decimal">decimal</a> and <a href="H.html#hexadecimal">hexadecimal</a>. </p>
+<p>A <a href="D.html#decimal">decimal</a> number literal is a token containing up to three optional parts. </p>
+<ul>
+  <li>the <var>whole</var> part, which is either <code>0</code>, or a digit <code>1</code> thru <code>9</code> followed by zero or more digits <code>0</code> thru <code>9</code></li>
+  <li>the <var>fraction</var> part, which is <a href="special.html#period"><code>.</code> <dfn>decimal point</dfn></a> followed by zero or more digits <code>0</code> thru <code>9</code></li>
+  <li>the <var>exponent</var> part, which is <a href="E.html#e"><code>E</code></a> or <a href="E.html#e"><code>e</code></a>, optional followed by <a href="special.html#plus"><code>+</code> <dfn>plus</dfn></a> or <a href="special.html#minus">- <dfn>minus</dfn></a>, followed by one or digits <code>0</code> thru <code>9</code></li>
+</ul>
+<p>All parts are optional., but it is recommended that the <var>whole</var> part always be included. If the <var>exponent</var> part is included, then at least one of the other parts must preceed it. If the <var>whole</var> part is omitted, then the <var>fraction</var> part must be included and must contain at least one digit. The <var>exponent</var> part multiplies the value of the preceding parts by <code>Math.pow(10,</code> <var>exponent</var><code>)</code>. These all represent the same number:</p>
+<pre>.01024e4  1.024e+3  10.24E2  102.4E+1  1024.e0  1024.00  1024  10240e-1</pre>
+<p>A hexadecimal number literal is a token containing two required parts.</p>
+<ul>
+  <li><code>0x</code> or <code>0X</code></li>
+  <li>one or more hexadecimal digits</li>
+</ul>
+<p>The <a href="H.html#hexadecimal">hexadecimal</a> digits in a <a href="H.html#hexadecimal">hexadecimal</a> number literal are evaluated in base 16, so <code>0x0400</code> is the same number as <code>1024</code>. A <a href="H.html#hexadecimal">hexadecimal</a> number literal produces an <a href="I.html#integer">integer</a> value.</p>
+<p>A number literal does not include a sign, but a number literal can be preceded with the <a href="special.html#minus prefix operator"><code>-</code> prefix operator <dfn>negate</dfn></a> to produce a negative  value. </p>
+<p>A number literal cannot be immediately followed by a <a href="N.html#name">name</a>. At least one <a href="W.html#whitespace">whitespace</a> character must separate them.</p>
+<div class="es3">
+  <p><a href="E.html#ES3">ES3</a> also has an octal <dfn>base 8</dfn> format. If the first digit of a number literal is <code>0</code> and if the <code>0</code> is  immediately followed by digit<a href="special.html#period decimal point"></a>, then the number literal is evaluated in octal <dfn>base 8</dfn> instead of <a href="D.html#decimal">decimal <dfn>base 10</dfn></a>, so that <code>0100 === 100</code> is <code>false</code> and <code>0100 === 64</code> is <code>true</code>. This is rarely desirable and is a popular source of errors, which is why <a href="E.html#ES5">ES5</a> strict forbids it. A reliable way to handle an octal <dfn>base 8</dfn> number literal is to wrap the number literal in quotes, and wrap that in a call to the <a href="P.html#parseInt global function"><code>parseInt</code> global function</a> with a radix of 8.</p>
+<pre>parseInt('100', 8)    // 64</pre>
+</div>
+<h3 id="Number prototype function"> <code>Number</code> prototype function</h3>
+<p>Blah.</p>
+<ul>
+  <li><a href="toExponential Number prototype function"><code>toExponential</code> <code>Number</code> prototype function</a></li>
+  <li><a href="toFixed Number prototype function"><code>toFixed</code> <code>Number</code> prototype function</a></li>
+  <li><a href="toLocaleString Number prototype function"><code>toLocaleString</code> <code>Number</code> prototype function</a></li>
+  <li><a href="toPrecision Number prototype function"><code>toPrecision</code> <code>Number</code> prototype function</a></li>
+  <li><a href="toString Number prototype function"><code>toString</code> <code>Number</code> prototype function</a></li>
+  <li><a href="valueOf Number prototype function"><code>valueOf</code> <code>Number</code> prototype function</a></li>
+</ul>
+<h3><code>Number</code> number</h3>
+<p>The <a href="#Number global function"><code>Number</code> global function</a> is also the container of a set of constants.</p>
+<ul>
+  <li><a href="M.html#MAX_VALUE Number number"><code>MAX_VALUE</code> <code>Number</code> number</a></li>
+  <li><a href="MIN_VALUE Number number"><code>MIN_VALUE</code> <code>Number</code> number</a></li>
+  <li><a href="NaN Number number"><code>NaN</code> <code>Number</code> number</a></li>
+  <li><a href="NEGATIVE_INFINITY Number number"><code>NEGATIVE_INFINITY</code> <code>Number</code> number</a></li>
+  <li><a href="POSITIVE_INFINITY Number number"><code>POSITIVE_INFINITY</code> <code>Number</code> number</a></li>
+</ul>
+Only <code>Number.MAX_VALUE</code> and <code>Number.MIN_VALUE</code> are useful. The other three are redundant.
+</body>
+</html>

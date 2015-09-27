@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: Introduction</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body>
+<h1>Introduction</h1>
+<p>The language described in this book is <i>The ECMAScript Programming Language,
+  Fifth Edition</i>. The standard, which is designated as ECMA-262, may be found at
+  <a href="http://www.ecma-international.org/publications/standards/ECMA-262.HTM"><cite>http://www.ecma-international.org/publications/standards/ECMA-262.HTM</cite></a>. The <em>Fifth Edition</em> is sometimes referred to as <a href="E.html#ES5">ES5</a>. Because of trademark problems, the standard for the <a href="J.html#JavaScript">JavaScript</a> language is called <a href="E.html#ECMAScript">ECMAScript</a>. JavaScript is a  trademark of <a href="http://www.oracle.com/trademarks/">Oracle Corporation.</a></p>
+<p class=es3><em>The Third Edition</em> is sometimes referred to as <a href="E.html#ES3">ES3</a>. Paragraphs marked with the <a href="E.html#ES3">ES3</a> icon in the left margin indicate concerns for users of <i>The Third Edition</i>. The <i>Fifth Edition</i> significantly improved the overall quality of the language,
+  but that may be of little comfort to the users of <em>The </em><i>Fifth Edition</i>.  <i>The Fifth Edition</i> is implemented in
+   all popular web browsers at the time of publication of this book, and the new features or corrections
+  specified in <i>The Fifth Edition</i> may not yet be available. Programmers who must honor compatibility
+  commitments should pay close attention to the <a href="E.html#ES3">ES3</a> warnings. (There is no <i>Fourth Edition</i>.)
+</p>
+<p><i>The Fifth Edition</i> (<a href="E.html#ES5">ES5</a>) describes two dialects, the new <a href="S.html#strict">strict</a> dialect and the traditional default dialect. You should either be using the <a href="E.html#ES5">ES5</a> <a href="S.html#strict">strict</a> dialect for reliability, or the <a href="E.html#ES3">ES3</a> dialect for compatibility. There is no reason to use the <a href="E.html#ES5">ES5</a> default dialect, so the <a href="E.html#ES5">ES5</a> default dialect is not included in this book. If you are using the <a href="E.html#ES5">ES5</a> <a href="S.html#strict">strict</a> dialect, add this line to the top of every script file:</p>
+<pre>&quot;use strict&quot;;</pre>
+<p>The <a href="U.html#use strict">use strict</a> pragma is written as a <a href="S.html#string literal">string literal</a> so that it will not cause a syntax error when processed by an <a href="E.html#ES3">ES3</a> system.</p>
+<p>Most of the material in this encyclopedia is organized into 27 divisions (one for each letter
+  and the <a href="special.html">special characters</a>).
+  Each division lists several specimens, where a
+  specimen is an element of syntax or a concept. The specimens are ordered alphabetically. A specimen marked with
+   <a href="R.html#reserved word"><strong>reserved word</strong></a> indicates that the word is reserved
+   and cannot be used as a parameter or variable name.
+  The <a href="special.html">special characters</a> division is sorted according to the <a href="A.html#ASCII">ASCII</a> sequence. </p>
+  <p>Under each specimen there will be one or more articles that explain, expand, or are related to the specimen.
+  An article may be composed of one or more parts. </p>
+<p>The title of an article may contain one or more classifiers, such as</p>
+<ul>
+  <li><a href="F.html#function">function</a></li>
+  <li><a href="G.html#global">global</a></li>
+  <li><a href="I.html#infix operator">infix operator</a></li>
+  <li><a href="L.html#literal">literal</a></li>
+  <li><a href="P.html#prefix operator">prefix operator</a></li>
+  <li><a href="P.html#prototype function">prototype </a></li>
+  <li><a href="R.html#regexp operator">regexp operator</a></li>
+  <li><a href="S.html#separator">separator</a></li>
+  <li><a href="S.html#statement">statement</a></li>
+  <li><a href="S.html#suffix operator">suffix operator</a></li>
+  <li><a href="T.html#ternary operator">ternary operator</a></li>
+</ul>
+
+<p>There is an article for each classifier.</p>
+<p>The article of a title may contain a <dfn>comment</dfn>. It is used in cases where the subject is an abbrievation or special character.</p>
+<p>Many articles will have examples. <a href="E.html#expression">Expression</a> examples will be written with a <a href="C.html#comment">comment</a> showing the result. </p>
+<pre>3 + 4      // 7
+3 + '4'    // "34"</pre>
+<p>Chapter 16 of the ECMAScript standard gives implementors of ECMAScript processors some license to extend the language with experimental or proprietary features. Such features might be incorporated into a future edition or might be abandoned. It is unwise to rely on such features because of the likelihood of diminished reliability. Such non-standard features will not be included in this encyclopedia.</p>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: L</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>L</h1>
+
+<h2 id="label">label</h2>
+<p>A label is a prefix before a statement. A label is a name followed by a : colon. The label can then be used to with a break statement to break out of a particular loop statement or switch statement, or with a continue statement to begin the next iteration of a particular loop. Labels are rarely necessary, but are useful in situations where there are nested loops and when </p>
+<pre>function string(current, next) {
+
+// Produce a polished JSON string from a text. This function takes two
+// functions, current and next, which return the current character of
+// the text and the next character. Both return empty string if there
+// are no more characters.
+
+    var i, result = '', hex, hhhh;
+
+// The first character must be '"'.
+
+    if (current() == '"') {
+
+// Loop while there are still more characters. This loop has an outer label.
+
+outer:  while (next()) {
+
+// If we find the closing '"', then return the result.
+
+            if (current() == '"') {
+                next();
+                return result;
+            }
+
+// If we find a backslash, then look for an escape sequence.
+
+            if (current() == '\\') {
+                switch (next()) {
+                case 'b':
+                    result += '\b';
+                    break;
+                case 'f':
+                    result += '\f';
+                    break;
+                case 'n':
+                    result += '\n';
+                    break;
+                case 'r':
+                    result += '\r';
+                    break;
+                case 't':
+                    result += '\t';
+                    break;
+
+// If we found \u, then take 4 hexadecimal digits.
+
+                case 'u':
+                    hhhh = 0;
+                    for (i = 0; i &lt; 4; i += 1) {
+                        hhhh = hhhh * 16 + parseInt(next(), 16);
+
+// If the hex value is not finite (most likely NaN), then the text was not a
+// well formed JSON text and must be rejected. Break out of the outer loop.
+
+                        if (!isFinite(hhhh)) {
+                            break outer;
+                        }
+                    }
+                    result += String.fromCharCode(hhhh);
+                    break;
+                default:
+                    result += current();
+                }
+            } else {
+                result += current();
+            }
+        }
+    }
+
+// We can get here if the string is not opened or closed correctly or if
+// a \uhhhh sequence is badly formed.
+
+    throw new SyntaxError("Bad string");
+}
+
+</pre>
+
+<h2 id="lastIndexOf">lastIndexOf</h2>
+<h3 id="lastIndexOf Array prototype function"><code>lastIndexOf</code> <code>Array</code> prototype function</h3>
+<p>Blah.</p>
+<h3 id="lastIndexOf String prototype function"><code>lastIndexOf</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+<pre>String.prototype.lastIndexOf = (function () {
+
+// The lastIndexOf method returns the position at which a search_string last
+// occurs within a search string, or -1 if it cannot be found. An optional
+// position parameter (default this.length) determines a point within the point
+// to not search.
+
+// The following implements a simplified version of the Boyer Moore algorithm.
+
+// These are memoized variables. They will retain their values between
+// invocations, speeding up results when doing multiple searches on the same
+// search_string.
+
+    var delta,                  // The delta table that allows for skipping
+        lengt,                  // The length of the search string - 1
+        length,                 // The length of the search string
+        previous_search_string = '';
+
+// And here is the indexOf function itself.
+
+    return function lastIndexOf(search_string, position) {
+
+// Normalize the inputs. Convert this and the search_string to strings just in
+// case they are not already strings. Force position to an integer between 0
+// and the length of this.
+
+        var j,                  // The loop variable
+            s = String(this);   // this converted to a string
+
+        search_string = String(search_string);
+        position = Math.min(Math.max(position === undefined ?
+            s.length : Math.floor(position), 0), s.length);
+
+// If the search_string is the empty string, then we are done.
+
+        if (search_string === '') {
+            return position;
+        }
+
+// If the search_string is the same as the previous_search_string, then we
+// can skip the step of building the delta table. The delta table tells us
+// how many characters we can skip if there is a mismatch. Typically, the
+// number of characters we can skip is equal to the length of the search_string,
+// so the longer the search_string, the faster the result.
+
+        if (search_string !== previous_search_string) {
+            length = search_string.length;
+            lengt = length - 1;
+            previous_search_string = search_string;
+            delta = {};
+            for (j = lengt; j &gt;= 0; j -= 1) {
+                delta[search_string.charAt(j)] = j;
+            }
+        }
+
+// We start searching at the position, which by default is the end of this.<br>// We continue to search as long as the number of characters remaining is at<br>// least as long as the search_string.
+
+        while (position &gt; length) {
+
+// In the worst case, we will compare the search_string with every position<br>// in this string. First, compare the first character in the search_string.<br>// If that shows a total mismatch, then we don't need to look at any other<br>// characters within the position, so advance by the length of the<br>// search_string.
+
+            j = delta[s.charAt(position - length)];
+            if (j === undefined) {
+                position -= length;
+
+// If we found any character but the last in the search_string, then we can
+// advance a smaller amount.
+
+            } else if (j) {
+                position -= j;
+
+// The last character matched, so try matching the remainder. If that fails,
+// advance a single character. If it succeeds, then we return the position.
+
+            } else {
+                j = 1;
+                for (;;) {
+                    if (s.charAt(position + j - lengt) !== search_string.charAt(j)) {
+                        position -= 1;
+                        break;
+                    }
+                    j += 1;
+                    if (j &gt;= length) {
+                        return position;
+                    }
+                }
+            }
+        }
+
+// If we reach the beginning without success, then return -1.
+
+        return -1;
+    };
+}());</pre>
+
+<h2 id="lastLine">lastLine</h2>
+<h3 id="lastLine Regexp"><code>lastLine</code> <code>Regexp</code> prototype number</h3>
+<p>Blah.</p>
+
+<h2 id="length">length</h2>
+<h3 id="length Array member"><code>length</code> <code>Array</code> prototype number</h3>
+<p>Blah.</p>
+<h3 id="length String member"><code>length</code> <code>String</code> prototype number</h3>
+<p>Blah.</p>
+<h2>let <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h2 id="lf">lf</h2>
+<p>Blah.</p>
+<h2 id="line terminator">line terminator</h2>
+<p>A line terminator is character or character sequence that indicates the end of a line. The most popular line terminators are cr and lf or both. Avoid ls and ps.</p>
+<table border="1">
+  <tr>
+    <th><a href="U.html#Unicode escape sequence">Unicode escape sequence</a></th>
+    <th>alt</th>
+    <th>line terminator name</th>
+  </tr>
+  <tr>
+    <td><code>\u000A</code></td>
+    <td><code>\n</code></td>
+    <td>&lt;lf&gt; <dfn>line feed</dfn></td>
+  </tr>
+  <tr>
+    <td><code>\u000D</code></td>
+    <td><code>\r</code></td>
+    <td>&lt;cr&gt; <dfn>carriage return</dfn></td>
+  </tr>
+  <tr>
+    <td><code>\u000D\u000A</code></td>
+    <td><code>\r\n</code></td>
+    <td>&lt;cr&gt; <dfn>carriage return</dfn> &lt;lf&gt; <dfn>line feed</dfn></td>
+  </tr>
+  <tr>
+    <td><code>\u2028</code></td>
+    <td>&nbsp;</td>
+    <td>&lt;ls&gt; <dfn>line separator</dfn></td>
+  </tr>
+  <tr>
+    <td><code>\u2029</code></td>
+    <td>&nbsp;</td>
+    <td>&lt;ps&gt; <dfn>paragraph separator</dfn></td>
+  </tr>
+</table>
+<h2 id="literal">literal</h2>
+<p>A literal is a sequence of one or more tokens that create a value within a program.</p>
+<ul>
+  <li><a href="A.html#array literal">array literal</a></li>
+  <li><a href="B.html#boolean literal">boolean literal</a></li>
+  <li><a href="F.html#function literal">function literal</a></li>
+  <li><a href="O.html#object literal">object literal</a></li>
+  <li><a href="N.html#null literal">null literal</a></li>
+  <li><a href="N.html#number literal">number literal</a></li>
+  <li><a href="R.html#regexp literal">regexp literal</a></li>
+  <li><a href="S.html#string literal">string literal</a></li>
+</ul>
+<p><a href="I.html#Infinity"><code>Infinity</code></a>, <a href="N.html#NaN"><code>NaN</code></a>, and <a href="U.html#undefined"><code>undefined</code></a> are not formally literals. They are  <a href="G.html#global">global</a> variables.</p>
+<h2 id="LN10">LN10</h2>
+<h3 id="LN10 Math member"><code>LN10</code> <code>Math</code>  number <dfn>natural logarithm of 10</dfn></h3>
+<p><code>Math.LN10</code> contains a number that is approximately  2.302585092994046. It could be implemented as</p>
+<pre><code>Math.LN10</code> = <code>Math.log(10)</code>;</pre>
+<p>LN10 can be used to raise 10 to a power.</p>
+<pre>
+function exp10(x) {
+    return Math.exp(Math.LN10 * x);
+}</pre>
+<p>Of course, <code>exp10</code> is better written as </p>
+<pre>
+function exp10(x) {
+    return Math.pow(10, x);
+}</pre><h2 id="LN2">LN2</h2>
+<h3 id="LN2 Math member"><code>LN2</code> <code>Math</code> number <dfn>natural logarithm of 2</dfn></h3>
+<p><code>Math.LN2</code> contains a number that is approximately  0.6931471805599453. It could be implemented as</p>
+<pre><code>Math.LN2</code> = <code>Math.log(2)</code>;</pre>
+<p><code>LN2</code> can be used to raise 2 to a power.</p>
+<pre>function exp2(x) {
+    return Math.exp(Math.LN2 * x);
+}</pre>
+<p>Of course, <code>exp2</code> is better written as</p>
+<pre>function exp2(x) {
+    return Math.pow(2, x);
+}</pre>
+<h2 id="localeCompare">localeCompare</h2>
+<h3 id="localeCompare String prototype function"><code>localeCompare</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="log">log</h2>
+<h3 id="log Math function"><code>log</code> <code>Math</code> function <dfn>natural logarithm</dfn></h3>
+<p>The <code>Math.log(</code><var>x</var><code>)</code> function returns the natural logarithm of <var>x</var>.</p>
+<h2 id="LOG10E">LOG10E</h2>
+<h3 id="LOG10E Math member"><code>LOG10E</code> <code>Math</code> number <dfn>base 10 logarithm of e</dfn></h3>
+<p><code>Math.LOG10E</code> is the base 10 logarithm of <var>e</var>. It is approximately 0.4342944819032518. </p>
+<p>It can be used to implement a log<sub>10</sub> function.</p>
+<pre>function log10(x) {
+    return Math.LOG10E * Math.log(x);
+}</pre>
+
+<h2 id="LOG2E">LOG2E</h2>
+<h3 id="LOG2E Math member"><code>LOG2E</code> <code>Math</code> number <dfn>base 2 logarithm of e</dfn></h3>
+<p><code>Math.LOG2E</code> is the base 2 logarithm of <var>e</var>. It is approximately  1.4426950408889634.</p>
+<p>It can be used to implement a log<sub>2</sub> function.</p>
+<pre>function log2(x) {
+    return Math.LOG2E * Math.log(x);
+}  </pre>
+<h2 id="loop statement">loop statement</h2>
+<p>There are three loop statements.</p>
+<ul>
+  <li><a href="D.html"><code>do</code> statement</a></li>
+  <li><a href="F.html#for statement"><code>for</code> statement</a></li>
+  <li><a href="W.html#while statement"><code>while</code> statement</a></li>
+</ul>
+<h2 id="lower case">lower case</h2>
+<p>See <a href="C.html#case">case</a>.</p>
+<h2 id="lvalue">lvalue</h2>
+<p>An lvalue (or left value) is an <a href="E.html#expression">expression</a> on the left side of an <a href="A.html#assignment infix operator">assignment infix operator</a>, or on the left side of an <a href="A.html#assignment suffix operator">assignment suffix operator</a>, or on the right side of an <a href="A.html#assignment prefix operator">assignment prefix operator</a>. The lvalue specifies where the value is to be stored. An lvalue is more restricted than a general <a href="E.html#expression">expression</a> because not all expressions describe a place where a value can be stored. For example, a value cannot be stored in a <a href="#literal">literal</a>, and a value cannot be stored in a subtraction. An lvalue must be one of these:</p>
+<ul>
+  <li><a href="special.html#period suffix operator"><code>.</code> suffix operator <dfn>select</dfn></a></li>
+  <li><a href="special.html#leftbracket ] suffix operator"><code>[ ]</code> suffix operator <dfn>select</dfn></a></li>
+  <li><a href="P.html#parameter">parameter</a></li>
+  <li><a href="V.html#variable">variable</a></li>
+</ul>
+</body>
+</html>

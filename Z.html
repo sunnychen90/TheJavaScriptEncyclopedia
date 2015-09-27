@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: Z</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>Z</h1>
+<h2 id="zero">zero</h2>
+<p>There are two representation of the number zero: <code>0</code> and <code>-0</code>.
+  There are almost no observable differences between them.</p>
+<pre>
+0 === -0            // true
+0 > -0              // false
+1 + -0              // 1
+String(-0)          // '0'</pre>
+<p>Unfortunately, there is an observable difference.</p>
+<pre>
+1 / 0               // Infinity
+1 / -0              // -Infinity
+1 / 0 === 1 / -0    // false</pre>
+<p>Also, the <a href="M.html#max Math function"><code>max</code> <code>Math</code> function</a> and <a href="M.html#min Math function"><code>min</code> <code>Math</code> function</a> distinguish between 0 and -0. Because that difference is observable,  we can determine that the <a href="special.html#asterisk infix operator"><code>*</code> infix operator</a> <dfn>multiply</dfn> can produce <code>-0</code>.</p>
+<pre>
+ 1 * -0             // -0
+-1 *  0             // -0</pre>
+</body>
+</html>

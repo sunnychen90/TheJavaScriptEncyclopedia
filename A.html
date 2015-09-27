@@ -1,0 +1,541 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>The JavaScript Encyclopedia: A</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>A</h1>
+<h2 id="abs">abs</h2>
+<h3 id="abs Math function"><code>abs</code> <a href="M.html#Math"><code>Math</code></a> function <dfn>absolute value</dfn></h3>
+<p>The <code>Math.abs(</code><var>number</var><code>)</code> function returns the absolute value of its <var>number</var> parameter. It could be implemented with this function:</p>
+<pre>Math.abs = function (number) {
+    var result = +number;
+    return result === 0 ? 0 :
+           result &gt; 0 ? result : -result;
+};</pre>
+<p>The result is a non-negative number, or <code>NaN</code> if the argument cannot be converted to a valid number.</p>
+<pre>math.abs(-40)          // 40
+Math.abs(-Infinity)    // Infinity
+Math.abs(-0)           // 0
+Math.abs(&quot;8&quot;)          // 8
+Math.abs(&quot;LOL&quot;)        // NaN</pre>
+<p>Also see <a href="Z.html#zero">zero</a>.</p>
+<h2 id="acos">acos</h2>
+<h3 id="acos Math function"><code>acos</code> <a href="M.html#Math"><code>Math</code></a> function <dfn>arc cosine</dfn></h3>
+<p>The <code>Math.acos(</code><var>x</var><code>)</code> function is the inverse cosine function, also known as arc cosine and cos<sup>-1</sup>. Its argument <var>x</var> should be a number in the range -1 to 1. The result will be an angle in <a href="R.html#radians">radians</a> in the range 0...<code>Math.PI</code>.</p>
+<p>Example:</p>
+<pre>function sphere_map(x, y, z, radius) {
+    var v, u;
+    v = Math.acos(z / radius) / Math.PI;
+    if (y &gt;= 0) {
+        u = Math.acos(x / (radius * Math.sin(Math.PI * v))) /
+            (Math.PI * 2);
+    } else {
+        u = (Math.PI + Math.acos(x / (radius * Math.sin(Math.PI * v)))) /
+            (Math.PI * 2);
+    }
+    return {x: v, y: u};
+}</pre>
+<p>This is an approximate   implemention of <code>Math.acos</code>:</p>
+<pre>Math.acos = function acos(x) {
+    return (Math.PI / 2) - Math.asin(x);
+}</pre>
+<h2 id="actor">actor</h2>
+<p>Blah.<br>
+</p>
+<h2 id="alert">add</h2>
+<p>See <a href="special.html#plus infix operator"><code>+</code> infix operator</a> <dfn>add</dfn>.</p>
+<h2>alert</h2>
+<h3 id="alert global function"><code>alert</code> global function</h3>
+<p>The <code>alert</code> function is not formally a part of the
+  language. It is a function provided by the <a href="B.html#browser">browser</a>
+  and other platforms. The <code>alert</code> function  can take zero or more arguments. Each argument  is converted to a string. All of those strings are concatenated together and shown to the user. It suspends execution of the program. Once the message is dismissed by the user, execution
+  can resume.</p>
+<p>The <code>alert</code> function is often used in debugging
+  to display the partial results of a computation. It generally should not
+  be used in applications because it suspends the program thread. This locks up the browser, which could cause problems
+  with communications, timers, and other activities.</p>
+
+<h2 id="apply">and</h2>
+<p>Blah.</p>
+<p>See <a href="special.html#ampersand infix operator"><code>&amp;</code> infix operator</a> <dfn>bitwise and</dfn> and <a href="special.html#ampersand& infix operator"><code>&amp;&amp;</code> infix operator</a> <dfn>and</dfn>.</p>
+<h2>angle</h2>
+<p>See <a href="R.html#radians">radians</a>.</p>
+<h2>apply</h2>
+<h3 id="apply Function prototype function"><code>apply</code> <a href="F.html#Function"><code>Function</code></a> prototype function</h3>
+<p>Functions inherit the <code>apply(</code><var>thisArg</var><code>,</code> <var>arguments</var><code>)</code> function from <code>Function.prototype</code>. The <code>apply</code> function takes two parameters: The <var>thisArg</var> parameter determines what value will be bound to the function's <code>this</code> parameter. The <var>arguments</var> parameter is an array containing the arguments to be passed to the function.</p>
+<p>blah.</p>
+<h2>argument</h2>
+<p>An argument is the value of an <a href="E.html#expression">expression</a> that is passed to a function as part of its invocation. Each argument is bound to a parameter.</p>
+<h2 id="arguments">arguments</h2>
+<h3><code>arguments</code> <dfn>parameter</dfn></h3>
+<p>The <code>arguments</code> <a href="A.html#array">array</a> is an extra <a href="P.html#parameter">parameter</a> that is made available to every <a href="F.html#function">function</a> that not have an <code>arguments</code> <a href="P.html#parameter">parameter</a> or <code>arguments</code> <a href="V.html#variable">variable</a>. It contains all of the actual arguments that were supplied with the invocation of the <a href="F.html#function">function</a>, independent of the mapping of arguments to parameters. This makes it possible to make a <a href="F.html#function">function</a> that can take a variable number of arguments. Such a function is a <em>variadic</em> or <em>vararg</em> function. </p>
+<pre>function sum() {
+
+// Add all of the arguments.
+
+    var i, total = 0;
+    for (i = 0; i &lt; arguments.length; i += 1) {
+        total += arguments[i];
+    }
+    return total;
+}</pre>
+<p>The <code>arguments</code> <a href="A.html#array">array</a> is not a true <a href="A.html#array">array</a>. Its <code>length</code> property is not as magical as a true <a href="A.html#array">array</a>'s <code>length</code> property. The <a href="I.html#isArray Array function"><code>isArray</code> <code>Array</code> function</a> produces <a href="F.html#false"><code>false</code></a> when its <a href="O.html#operand">operand</a> is an <code>arguments</code> <a href="A.html#array">array</a>. Also, there is a weird linkage between the <code>arguments</code> <a href="A.html#array">array</a> and the parameters of the function. Changing one can change the other. The linkage can be broken by freezing the <code>arguments</code> <a href="A.html#array">array</a> with <code>Object.freeze(arguments)</code>.</p>
+<p>Every function has its own  <code>arguments</code> <a href="A.html#array">array</a>, so it is not possible for one function to access the <code>arguments</code> <a href="A.html#array">array</a> of another function unless it is explicitly provided access somehow.</p>
+<div class="es3"><p>In <a href="E.html#ES3">ES3</a>, <code>arguments</code> is even less array-like. It inherits from <code>Object.prototype</code>, not <code>Array.prototype</code>. If you want to use an <a href="A.html#array">array</a> method such as <code>slice</code> on <code>arguments</code>, then instead of writing</p>
+<pre>arguments.slice(2)    // get an array containing all but the first two arguments</pre>
+<p>you must write</p>
+<pre>Array.prototype.slice.call(arguments, 2);    // same thing only more so</pre></div>
+<h2 id="arithmetic operator">arithmetic operator</h2>
+<p>The five arithmetic <a href="I.html#infix operator">infix operators</a> are</p>
+<ul>
+<li><a href="special.html#%25 infix operator"><code>%</code> infix operator</a> <dfn>remainder</dfn></li>
+<li><a href="special.html#%2A infix operator"><code>*</code> infix operator</a> <dfn>multiply</dfn></li>
+<li><a href="special.html#%2B infix operator"><code>+</code> infix operator</a> <dfn>add or concatenate</dfn></li>
+<li><a href="special.html#%2D infix operator"><code>-</code> infix operator</a> <dfn>subtract</dfn></li>
+<li><a href="special.html#%2F infix operator"><code>/</code> infix operator</a> <dfn>divide</dfn></li>
+</ul>
+<p>The two arithmetic <a href="P.html#prefix operator">prefix operators</a> are</p>
+<ul>
+  <li><a href="+ prefix operator"><code>+</code> prefix operator</a> <dfn>to number</dfn></li>
+  <li><a href="- prefix operator"><code>-</code> prefix operator</a> <dfn>negate</dfn></li>
+</ul>
+<p>The other arithmetic operations are implemented as functions. See <a href="N.html#Number prototype function"><code>Number</code> prototype function</a> and <a href="M.html#Math function"><code>Math</code> function</a>.</p>
+<h2>arity</h2>
+<p>The arity of a function is the number of parameters it specifies. </p>
+<h2 id="array">array</h2>
+<p>An array is a sequence of values. Each value is given an ordinal number. </p>
+<p>Blah.</p>
+<pre>function eratosthenes(n) {
+
+// Produce an array of the prime numbers that are less than n.
+
+    var composite = [],
+        factor,
+        result = [],
+        series,
+        sqrt_n = Math.sqrt(n);
+
+    if (n &gt; 2) {
+        result.push(2);
+        for (factor = 3; factor &lt; n; factor += 2) {
+            if (!composite[factor]) {
+                result.push(factor);
+                if (factor &lt;= sqrt_n) {
+                    for (series = factor * 2; series &lt; n; series += factor) {
+                        composite[series] = true;
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+</pre>
+<h3 id="Array global function"><code>Array</code> global function</h3>
+<p>The <code>Array</code> global function is the constructor of arrays. The <a href="special.html#leftbracket] array literal"><code>[]</code>
+  array literal</a> form is perfered. Blah.</p>
+<p>The <code>Array</code> function contains an <a href="I.html#isArray"><code>isArray</code> <code>Array</code>
+  function</a> that determines if a value is an array.</p>
+<p>The <code>Array</code> function contains these methods in <code>Array.prototype</code>:</p>
+<ul>
+  <li><a href="C.html#concat Array prototype function"><code>concat Array</code> prototype function</a></li>
+  <li><a href="E.html#every Array prototype function"><code>every Array</code> prototype function</a></li>
+  <li><a href="F.html#filter Array prototype function"><code>filter Array</code> prototype function</a></li>
+  <li><a href="F.html#forEach Array prototype function"><code>forEach Array</code> prototype function</a></li>
+  <li><a href="I.html#indexOf Array prototype function"><code>indexOf Array</code> prototype function</a></li>
+  <li><a href="J.html#join Array prototype function"><code>join Array</code> prototype function</a></li>
+  <li><a href="L.html#lastIndexOf Array prototype function"><code>lastIndexOf Array</code> prototype function</a></li>
+  <li><a href="M.html#map Array prototype function"><code>map Array</code> prototype function</a></li>
+  <li><a href="P.html#pop Array prototype function"><code>pop Array</code> prototype function</a></li>
+  <li><a href="P.html#push Array prototype function"><code>push Array</code> prototype function</a></li>
+  <li><a href="R.html#reduce Array prototype function"><code>reduce Array</code> prototype function</a></li>
+  <li><a href="R.html#reduceRight Array prototype function"><code>reduceRight Array</code> prototype function</a></li>
+  <li><a href="R.html#reverse Array prototype function"><code>reverse Array</code> prototype function</a></li>
+  <li><a href="S.html#shift Array prototype function"><code>shift Array</code> prototype function</a></li>
+  <li><a href="S.html#slice Array prototype function"><code>slice Array</code> prototype function</a></li>
+  <li><a href="S.html#some Array prototype function"><code>some Array</code> prototype function</a></li>
+  <li><a href="S.html#splice Array prototype function"><code>splice Array</code> prototype function</a></li>
+  <li><a href="T.html#toLocaleString Array prototype function"><code>toLocaleString Array</code> prototype function</a></li>
+  <li><a href="T.html#toString Array prototype function"><code>toString Array</code> prototype function</a></li>
+  <li><a href="U.html#unshift Array prototype function"><code>unshift Array</code> prototype function</a></li>
+</ul>
+<h3 id="arry literal">array <a href="L.html#literal">literal</a></h3>
+<p>An array literal is an expression that produces an array value. An array literal starts with <a href="special.html#leftbracket">[ <dfn>left bracket</dfn></a> and ends with <a href="special.html#rightbracket">] <dfn>right bracket</dfn></a>. Between the brackets are zero or more expressions, separated by  <a href="special.html#comma">, <dfn>comma</dfn></a>. Each expression contributes one element to the array. An empty array is created by <code>[]</code>. Every time an array literal is evaluated, it produces a new array, so</p>
+<pre>function wrap_x(x) {
+    return [x];
+}
+
+wrap_x(x) === wrap_x(x)    // false</pre>
+<p>because even though the two arrays are similar in structure and content and were produced by the same array literal, they are two different arrays.</p>
+<p>Elision is permitted, meaning that if an expression before a <a href="special.html#comma">, <dfn>comma</dfn></a> is omitted, the the value <a href="U.html#undefined"><code>undefined</code></a> is used for the member's value. Elision is visually confusing and error-prone, so it is not recommended.</p>
+<p>Every array literal inherits from <code>Array.prototype</code>.</p>
+<p>Example:</p>
+<pre>var roman = (function () {
+
+// This immediate function returns the roman function, which converts a
+// number to a Roman numeral string. The immediate function provides
+// the roman function with a table that contains the elements of Roman
+// numerals. The result will be compiled from these elements.
+
+    var table = [
+        ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+        ['', 'X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'],
+        ['', 'C', 'CC', 'CCC', 'CD', 'D', 'DC', 'DCC', 'DCCC', 'CM']
+    ];
+
+    return function roman(n) {
+        var element, i, result = '';
+
+        n = String(Math.floor(Math.abs(n)));
+        for (i = 0; i &lt; table.length; i += 1) {
+            element = table[i][n.slice(-1)];
+            if (element) {
+                result = element + result;
+            }
+            n = n.slice(0, -1);
+        }
+        for (i = 0; i &lt; n; i += 1) {
+            result = 'M' + result;
+        }
+        return result;
+    };
+}());</pre>
+<h3 id="ASCII">Array prototype</h3>
+<p>&nbsp;</p>
+<h2>ASCII</h2>
+<p>American Standard Code for Information Interchange is a seven bit character
+  set designed for use with teletype machines. The set of 128 characters
+  includes 26 <a href="U.html#uppercase">uppercase</a> letters, 26 <a href="L.html#lowercase">lowercase</a> letters, 10 <a href="U.html#underfined">decimal</a> digits, 1 space,
+  32 <a href="special.html">special</a> characters, and 33 control codes. Most of the control codes
+  are obsolete, although a few of them, <var>tab</var>, <var>lf</var>
+  <dfn>line feed</dfn>, and <var>cr</var> <dfn>carriage return</dfn>,
+  have significance in JavaScript as <a href="W.html#whitespace">whitespace</a>.
+  All of the <a href="special.html">special characters</a> used by JavaScript are in the ASCII set.
+  The first 128 characters in the <a href="U.html#UNICODE">UNICODE</a> set
+  are the <a href="#ASCII">ASCII</a> set.</p>
+<p>The letter <code>A</code> is 41 in <a href="H.html#hexadecimal">hexadecimal</a>.</p>
+<table><tbody>
+  <tr>
+    <th><dfn>hex</dfn></th>
+    <th>0</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>8</th>
+    <th>9</th>
+    <th>A</th>
+    <th>B</th>
+    <th>C</th>
+    <th>D</th>
+    <th>E</th>
+    <th>F</th>
+  </tr>
+  <tr>
+    <th>0</th>
+    <td><dfn><span title="null">nul</span></dfn></td>
+    <td><dfn><span title="start of heading">soh</span></dfn></td>
+    <td><dfn><span title="start of text">stx</span></dfn></td>
+    <td><dfn><span title='end of text'>etx</span></dfn></td>
+    <td><dfn><span title="end of transmission">eot</span></dfn></td>
+    <td><dfn><span title="enquiry">enq</span></dfn></td>
+    <td><dfn><span title="acknowledge">ack</span></dfn></td>
+    <td><dfn><span title="bell">bel</span></dfn></td>
+    <td><dfn><span title="backspace">bs</span></dfn></td>
+    <td><dfn><span title="tabulation">tab</span></dfn></td>
+    <td><dfn><span title="line feed">lf</span></dfn></td>
+    <td><dfn><span title="vertical tabulation">vt</span></dfn></td>
+    <td><dfn><span title="form feed">ff</span></dfn></td>
+    <td><dfn><span title="carriage return">cr</span></dfn></td>
+    <td><dfn><span title="shift out">so</span></dfn></td>
+    <td><dfn><span title="shift in">si</span></dfn></td>
+  </tr>
+  <tr>
+    <th>1</th>
+    <td><dfn><span title="data link escape">dle</span></dfn></td>
+    <td><dfn><span title="device control one">dc1</span></dfn></td>
+    <td><dfn><span title="device control two">dc2</span></dfn></td>
+    <td><dfn><span title="device control three">dc3</span></dfn></td>
+    <td><dfn><span title="device control four">dc4</span></dfn></td>
+    <td><dfn><span title="negative acknowledge">nak</span></dfn></td>
+    <td><dfn><span title="synchronous idle">syn</span></dfn></td>
+    <td><dfn><span title="end of tranmission block">etb</span></dfn></td>
+    <td><dfn><span title="cancel">can</span></dfn></td>
+    <td><dfn><span title="end of medium">em</span></dfn></td>
+    <td><dfn><span title="substitute">sub</span></dfn></td>
+    <td><dfn><span title="escape">esc</span></dfn></td>
+    <td><dfn><span title="file separator">fs</span></dfn></td>
+    <td><dfn><span title="group separator">gs</span></dfn></td>
+    <td><dfn><span title="record separator">rs</span></dfn></td>
+    <td><dfn><span title="unit separator">us</span></dfn></td>
+  </tr>
+  <tr>
+    <th>2</th>
+    <td style="text-align: center; padding-left: 0; padding-right: 0;"><a href="W.html#whitespace"><dfn>space</dfn></a></td>
+    <td><a href="special.html#!"><code>!</code></a></td>
+    <td><a href="special.html#%22"><code>&quot;</code></a></td>
+    <td><a href="special.html#hash"><code>#</code></td>
+    <td><a href="special.html#$"><code>$</code></a></td>
+    <td><a href="special.html#%"><code>%</code></a></td>
+    <td><a href="special.html#ampersand"><code>&amp;</code></a></td>
+    <td><a href="special.html#singlequote"><code>'</code></a></td>
+    <td><a href="special.html#leftparen"><code>(</code></a></td>
+    <td><a href="special.html#leftparen"><code>)</code></a></td>
+    <td><a href="special.html#asterisk"><code>*</code></a></td>
+    <td><a href="special.html#plus"><code>+</code></a></td>
+    <td><a href="special.html#comma"><code>,</code></a></td>
+    <td><a href="special.html#minus"><code>-</code></a></td>
+    <td><a href="special.html#period"><code>.</code></a></td>
+    <td><a href="special.html#slash"><code>/</code></a></td>
+  </tr>
+  <tr>
+    <th>3</th>
+    <td><code>0</code></td>
+    <td><code>1</code></td>
+    <td><code>2</code></td>
+    <td><code>3</code></td>
+    <td><code>4</code></td>
+    <td><code>5</code></td>
+    <td><code>6</code></td>
+    <td><code>7</code></td>
+    <td><code>8</code></td>
+    <td><code>9</code></td>
+    <td><a href="special.html#colon"><code>:</code></a></td>
+    <td><a href="special.html#;"><code>;</code></a></td>
+    <td><a href="special.html#less"><code>&lt;</code></a></td>
+    <td><a href="special.html#equal"><code>=</code></a></td>
+    <td><a href="special.html#greater"><code>&gt;</code></a></td>
+    <td><a href="special.html#question"><code>?</code></a></td>
+  </tr>
+  <tr>
+    <th>4</th>
+    <td><code>@</code></td>
+    <td><a href="A.html"><code>A</code></a></td>
+    <td><a href="B.html"><code>B</code></a></td>
+    <td><a href="C.html"><code>C</code></a></td>
+    <td><a href="D.html"><code>D</code></a></td>
+    <td><a href="E.html"><code>E</code></a></td>
+    <td><a href="F.html"><code>F</code></a></td>
+    <td><a href="G.html"><code>G</code></a></td>
+    <td><a href="H.html"><code>H</code></a></td>
+    <td><a href="I.html"><code>I</code></a></td>
+    <td><a href="J.html"><code>J</code></a></td>
+    <td><a href="K.html"><code>K</code></a></td>
+    <td><a href="L.html"><code>L</code></a></td>
+    <td><a href="M.html"><code>M</code></a></td>
+    <td><a href="N.html"><code>N</code></a></td>
+    <td><a href="O.html"><code>O</code></a></td>
+  </tr>
+  <tr>
+    <th>5</th>
+    <td><a href="P.html"><code>P</code></a></td>
+    <td><a href="Q.html"><code>Q</code></a></td>
+    <td><a href="R.html"><code>R</code></a></td>
+    <td><a href="S.html"><code>S</code></a></td>
+    <td><a href="T.html"><code>T</code></a></td>
+    <td><a href="U.html"><code>U</code></a></td>
+    <td><a href="V.html"><code>V</code></a></td>
+    <td><a href="W.html"><code>W</code></a></td>
+    <td><a href="X.html"><code>X</code></a></td>
+    <td><a href="Y.html"><code>Y</code></a></td>
+    <td><a href="Z.html"><code>Z</code></a></td>
+    <td><a href="special.html#leftbracket"><code>[</code></a></td>
+    <td><a href="special.html#%5C"><code>\</code></a></td>
+    <td><a href="special.html#leftbracket"><code>]</code></a></td>
+    <td><a href="special.html#caret"><code>^</code></a></td>
+    <td><a href="special.html#underbar"><code>_</code></a></td>
+  </tr>
+  <tr>
+    <th>6</th>
+    <td><code>`</code></td>
+    <td><a href="A.html"><code>a</code></a></td>
+    <td><a href="B.html"><code>b</code></a></td>
+    <td><a href="C.html"><code>c</code></a></td>
+    <td><a href="D.html"><code>d</code></a></td>
+    <td><a href="E.html"><code>e</code></a></td>
+    <td><a href="F.html"><code>f</code></a></td>
+    <td><a href="G.html"><code>g</code></a></td>
+    <td><a href="H.html"><code>h</code></a></td>
+    <td><a href="I.html"><code>i</code></a></td>
+    <td><a href="J.html"><code>j</code></a></td>
+    <td><a href="K.html"><code>k</code></a></td>
+    <td><a href="L.html"><code>l</code></a></td>
+    <td><a href="M.html"><code>m</code></a></td>
+    <td><a href="N.html"><code>n</code></a></td>
+    <td><a href="O.html"><code>o</code></a></td>
+  </tr>
+  <tr>
+    <th>7</th>
+    <td><a href="P.html"><code>p</code></a></td>
+    <td><a href="Q.html"><code>q</code></a></td>
+    <td><a href="R.html"><code>r</code></a></td>
+    <td><a href="S.html"><code>s</code></a></td>
+    <td><a href="T.html"><code>t</code></a></td>
+    <td><a href="U.html"><code>u</code></a></td>
+    <td><a href="V.html"><code>v</code></a></td>
+    <td><a href="W.html"><code>w</code></a></td>
+    <td><a href="X.html"><code>x</code></a></td>
+    <td><a href="Y.html"><code>y</code></a></td>
+    <td><a href="Z.html"><code>z</code></a></td>
+    <td><a href="special.html#leftbrace"><code>{</code></a></td>
+    <td><a href="special.html#bar"><code>|</code></a></td>
+    <td><a href="special.html#leftbrace"><code>}</code></a></td>
+    <td><a href="special.html#tilde"><code>~</code></a></td>
+    <td><dfn><span title="delete">del</span></dfn></td>
+  </tr></tbody>
+</table>
+
+<h2 id="asin">asin</h2>
+<h3 id="asin Math function"><code>asin</code> <a href="M.html#Math"><code>Math</code></a> function <dfn>arc sine</dfn></h3>
+<p>The <code>Math.asin(</code><var>x</var><code>)</code> function is the inverse sine function, also known as arc sine and sin<sup>-1</sup>. Its argument <var>x</var> should be a  number in the range -1...1. The result will be an angle in <a href="R.html#radians">radians</a> in the range (<code>Math.PI / -2)</code>...<code>(Math.PI / 2)</code>.</p>
+<p>This is an approximate   implemention of <code>Math.asin</code>:</p>
+<pre>Math.asin = function asin(x) {
+    x = +x;
+    var even = 0,
+        bottom = 1,
+        top = 1,
+        result = x,
+        x2 = x * x,
+        xxx = x;
+    for (stage = 0; stage &lt; 70; stage += 1) {
+        even += 2;
+        xxx *= x2;
+        top *= even - 1;
+        bottom *= even;
+        result += (top * xxx) / (bottom * (even + 1));
+    }
+    return result;
+};</pre>
+
+<h2 id="assignment infix operator">assignment infix operator</h2>
+<p>An assignment infix operator replaces the contents of a variable or parameter or a member of an object or an element of an array with a new
+  value.
+  The left operand must be an <a href="L.html#lvalue">lvalue</a>. The right operand can be any expression. The simplest assignment infix operator is <a href="special.html#equal assignment infix operator"><code>=</code> assignment infix operator</a>, which stores the value of the right
+  operand to the left operand.</p>
+<pre>pascal = 1;</pre>
+<p>There are other assignment infix operators that first read the current value
+  of the left operand, and then replace it with a computation performed
+  with the current value and the value of the second operand. For example,</p>
+<pre>power *= 2;</pre>
+<p>replaces <code>power</code> with its previous value multiplied by 2. This provides two advantages
+  over </p>
+<pre>power = power * 2;</pre>
+<p>It is slightly more compact, and the left operand is only evaluted once.
+  This is beneficial if evaluation of the left operand is expensive or if
+  it has side effects.</p>
+<pre>my_object[expensive_function(++id)] += 1;</pre>
+<p>An assignment can be used as an expression, its value
+  being the value that is stored into its left operand. It is
+  possible to nest assignments into complicated expressions. This is generally
+  a bad idea because it can result in code that is difficult understand and maintain.
+</p>
+<p>There is a particular problem in using assignment expressions in the
+  control part of an <a href="I.html#if statement"><code>if</code> statement</a> or
+  <a href="W.html#while statement"><code>while</code> statement</a>. The following line
+  could possibly be correct</p>
+<pre>while (count = limit) {</pre>
+<p>but it is more likely that it was intended to be</p>
+<pre>while (count == limit) {</pre>
+<p>You should avoid programming conventions that are difficult to distinguish
+  from common errors.</p>
+<p>We distinguish between the assignment infix operator and the <a href="I.html#infix operator">infix operator</a>  in this book because an assignment infix operator is weaker in precedence than an infix operator, and because assignment infix operators put <a href="L.html#lvalue">lvalue</a> restrictions on their left operands. An <a href="L.html#lvalue">lvalue</a>  is  a variable, a parameter, or an expression whose outermost operator is either <a href="special.html#period suffix operator"><code>.</code> suffix operator</a> <dfn>select</dfn> or <a href="special.html#leftbracket] suffix operator"><code>[]</code> suffix operator</a> <dfn>subscript</dfn>.</p>
+<p>The assignment infix operators are</p>
+<ul>
+  <li><code><a href="special.html#equal assignment infix operator"><code>=</code> assignment
+    operator</a></code></li>
+  <li><code><a href="special.html#%25= assignment infix operator"><code>%=</code> assignment
+    operator</a></code> <dfn>remainder</dfn></li>
+  <li><code><a href="special.html#ampersand= assignment infix operator"><code>&amp;=</code> assignment
+    operator</a></code> <dfn>bitwise and</dfn></li>
+  <li><code><a href="special.html#asterisk= assignment infix operator"><code>*=</code> assignment
+    operator</a></code> <dfn>multiply</dfn></li>
+  <li><code><a href="special.html#plus= assignment infix operator"><code>+=</code>
+    assignment infix operator</a></code> <dfn>add or concatenate</dfn></li>
+  <li><code><a href="special.html#minus= assignment infix operator"><code>-=</code> assignment
+    operator</a></code> <dfn>subtract</dfn></li>
+  <li><code><a href="special.html#slash= assignment infix operator"><code>/=</code> assignment
+    operator</a></code> <dfn>divide</dfn></li>
+  <li><code><a href="special.html#ampersandlt;&lt;= assignment infix operator"><code>&lt;&lt;=</code>
+    assignment infix operator</a></code> <dfn>bitwise shift left</dfn></li>
+  <li><code><a href="special.html#ampersandgt;&gt;= assignment infix operator"><code>&gt;&gt;=</code>
+    assignment infix operator</a></code> <dfn>bitwise signed shift right</dfn></li>
+  <li><code><a href="special.html#ampersandgt;&gt;&gt;= assignment infix operator"><code>&gt;&gt;&gt;=</code>
+    assignment infix operator</a></code> <dfn>bitwise unsigned shift right</dfn></li>
+  <li><code><a href="special.html#caret= assignment infix operator"><code>^=</code> assignment
+    operator</a></code> <dfn>bitwise exclusive or</dfn></li>
+  <li><code><a href="special.html#equal assignment infix operator"><code>|=</code> assignment
+    operator</a></code> <dfn>bitwise or</dfn></li>
+</ul>
+<h2 id="assignment operator">assignment  operator</h2>
+<p>There are three kinds of assignment operator.</p>
+<ul>
+  <li><a href="#assignment infix operator">assignment infix operator</a></li>
+  <li><a href="#assignment prefix operator">assignment prefix operator</a></li>
+  <li><a href="#assignment suffix operator">assignment suffix operator</a></li>
+</ul>
+<p>The thing they all do in common is change the stored value of an <a href="L.html#lvalue">lvalue</a>.</p>
+
+<h2 id="assignment prefix operator">assignment prefix operator</h2>
+<p>There are two assignment prefix operators:</p>
+<ul>
+  <li><a href="special.html#plus+ prefix operator"><code>++</code> prefix operator</a> <dfn>pre-increment</dfn></li>
+  <li><a href="special.html#minus- prefix operator"><code>--</code> prefix operator</a> <dfn>pre-increment</dfn></li>
+</ul>
+<h2 id="assignment suffix operator">assignment suffix operator</h2>
+<p>There are two assignment suffix operators:</p>
+<ul>
+  <li><a href="special.html#plus+ prefix operator"><code>++</code> suffix operator</a> <dfn>post-increment</dfn></li>
+  <li><a href="special.html#minus- prefix operator"><code>--</code> suffix operator</a> <dfn>post-increment</dfn></li>
+</ul>
+<h2>associative array</h2>
+<p>See <a href="O/html#object">object</a>.</p>
+<h2>atan</h2>
+<h3 id="atan Math function"><code>atan</code> <a href="M.html#Math"><code>Math</code></a> function <dfn>arc tangent</dfn></h3>
+<p>The <code>Math.atan(</code><var>x</var><code>)</code> function is the inverse tangent function, also known as arc tangent and tan<sup>-1</sup>. Its argument <var>x</var> should be a number. The result will be an angle in <a href="R.html#radians">radians</a> in the range (<code>Math.PI / -2)</code>...<code>(Math.PI / 2)</code>.</p>
+<p>The <code>Math.atan(</code><var>x</var><code>)</code> function converts the ratio of two sides of a right triangle into the angle of the hypotenuse. This is useful when converting cartesian coordinates to polar coordinates. But there are two problems to watch out for. If one of the cartesian coordinates is zero, then the computation of the ratio could result in a division by zero, which is something to be avoided.</p>
+<p>The other problem is the selection of the quadrant. The two components of the ratio each has its own sign. Those two signs together identify one of the four quadrants. The ratio has only one sign, so the result may be in the wrong quadrant. This must be corrected.</p>
+<pre>function polar(point) {
+    var radians;
+    if (point.x === 0) {
+        radians = point.y === 0 ? 0 :
+                  point.y &gt; 0 ? Math.PI / 2 : Math.PI / -2;
+    } else {
+        radians = Math.atan(point.y / point.x);
+        if (point.x &lt; 0) {
+            if (point.y &gt;= 0) {
+                radians += Math.PI;
+            } else {
+                radians -= Math.PI;
+            }
+        }
+    }
+    return {
+        distance: Math.sqrt(point.x * point.x + point.y * point.y),
+        radians:  radians
+    };
+}</pre>
+<p>In cases like this, it is better to use the <a href="#atan2 math function"><code>atan2</code> <code>Math</code> function</a> because it does the corrections.</p>
+<p>This is an approximate   implemention of <code>Math.atan</code>:</p>
+<pre>Math.atan = function atan(x) {
+    return Math.asin(x / Math.sqrt(x * x + 1));
+};</pre>
+
+<h2 id="atan2">atan2</h2>
+<h3 id="atan2 Math function"><code>atan2</code> <a href="M.html#Math"><code>Math</code></a> function  <dfn>arc tangent y/x</dfn></h3>
+<p>The <code>Math.atan2(</code><var>y</var><code>,</code> <var>x</var><code>)</code> function  is the inverse tangent function, also known as arc tangent and tan<sup>-1</sup>. Its two arguments <var>x</var> and <var>y</var> should be  numbers. The result will be an angle in <a href="R.html#radians">radians</a> in the range (<code>Math.PI / -2)</code>...<code>(Math.PI / 2)</code>. </p>
+<pre>function polar(point) {
+    return {
+        distance: Math.sqrt(point.x * point.x + point.y * point.y),
+        radians:  Math.atan2(point.y, point.x)
+    };
+}</pre>
+<p>See <a href="#atan Math function"><code>atan</code> <code>Math</code> function</a>.</p>
+<h2 id=attribute>attribute</h2>
+<p>An attribute is an internal characteristic of a <a href="P.html#property">property</a> of an <a href="O.html#object">object</a>. See <a href="O.html#object">object</a>.</p>
+</body>
+</html>

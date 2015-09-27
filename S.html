@@ -1,0 +1,396 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: S</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>S</h1>
+<h2 id="scope">scope</h2>
+<p>Blah.</p>
+
+<h2>seal</h2>
+<h3><code>seal</code> <a href="O.html#Object function"><code>Object</code> function</a></h3>
+<p>Blah.</p>
+
+<h2 id="search">search</h2>
+<h3 id="search String prototype function"><code>search</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+<h2 id="semicolon insertion">semicolon insertion</h2>
+<p>The rules for placement of <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a> at the end of a <a href="S.html#statement">statement</a> are a little complicated because some statements require it and some do not. The language provides a mechanism called semicolon insertion that makes it possible to leave out <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a> in many (but not all) situations. The semicolon insertion feature was intended to make the language simpler, but it actually makes it more complicated and fragile. There are three cases when semicolons are inserted.</p>
+<ul>
+  <li>When a <code>break</code>, <code>continue</code>,  <code>return</code> or <code>throw</code> is followed by a <a href="L.html#line terminator">line terminator</a>, a <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a> is inserted.</li>
+  <li>When a syntax error is found at the end of a program, a <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a> is inserted at the end of the program in an attempt to correct the error.</li>
+  <li>When a syntax error is found in the vicinity  of a <a href="special.html#leftbrace">} <dfn>right curly brace</dfn></a> or a <a href="L.html#line terminator">line terminator</a> (but not in the control part of a <a href="F.html#for statement"><code>for</code> statement</a>), a <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a> is inserted in an attempt to correct the error.</li>
+</ul>
+<p>It is necessary that the expression part of a <a href="R.html#return statement"><code>return</code> statement</a> begin on the same line as <a href="R.html#return statement"><code>return</code></a>. For example,</p>
+<pre>function seconds(day, hour, minute, second) {
+
+// This function will fail in a surprising way.
+
+    return
+        day    * 86400 +
+        hour   *  3600 +
+        minute *    60 +
+        second;
+}</pre>
+<p>The value returned by <code>seconds</code> is always <a href="U.html#undefined"><code>undefined</code></a>, because a <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a> is inserted between <code>return</code> and <code>day</code>. In this case, that behavior is clearly undesirable, but there is no way to turn semicolon insertion off.</p>
+<p>In the next example, a <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a> is <b>not</b> inserted after <code>c</code> because there is not a syntax error. </p>
+<pre>a = b + c
+(d + e).print()</pre>
+<p>It is understood to mean</p>
+<pre>a = b + c(d + e).print();</pre>
+<p align="left">which might be quite different than the intention, so it is not wise to rely on semicolon insertion. It can mask errors and it can cause errors.</p>
+<p>These statements should always end in <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a>:</p>
+<ul>
+  <li><a href="B.html#break statement"><code>break</code> statement</a></li>
+  <li><a href="C.html#continue statement"><code>continue</code> statement</a></li>
+  <li><a href="D.html#debugger statement"><code>debugger</code> statement</a></li>
+  <li><a href="D.html#do statement"><code>do</code> statement</a></li>
+  <li><a href="E.html#expression statement">expression statement</a></li>
+  <li><a href="R.html#return statement"><code>return</code> statement</a></li>
+  <li><a href="T.html#throw statement"><code>throw</code> statement</a></li>
+  <li><a href="V.html#var statement"><code>var</code> statement</a></li>
+</ul>
+<p>Fortunately, it is a short list and is not difficult to remember. The situation is made more complicated because some of the other statements, such as <a href="I.html#if statement"><code>if</code> statement</a> and <a href="W.html#while statement"><code>while</code> statement</a>, are compound statements that take  a <a href="B.html#block">block</a> or another <a href="S.html#statement">statement</a>, and that other <a href="S.html#statement">statement</a> might also end in <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a>. That confusion is easily avoided by always using a <a href="B.html#block">block</a>.</p>
+<p> When assigning a <a href="F.html#function literal"><code>function</code> literal</a> using <a href="A.html#equal assignment infix operator"><code>=</code> assignment infix operator</a> in an <a href="E.html#expression statement">expression statement</a> or <a href="V.html#var statement"><code>var</code> statement</a>, the statement should end with a <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a>. So this statement should end with  <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a>:</p>
+<pre>var double = function (number) {
+    return number * 2;
+};</pre>
+<p>It resembles a <a href="F.html#function statement"><code>function</code> statement</a>, which does not end with <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a>, but it is a <a href="V.html#var statement"><code>var</code> statement</a>, and a <a href="V.html#var statement"><code>var</code> statement</a> always ends with <a href="special.html#;"><code>;</code> <dfn>semicolon</dfn></a>.</p>
+<h2 id="separator">separator</h2>
+<p>Blah.</p>
+<h2>set</h2>
+<p>See <a href="O.html#object">object</a>.</p>
+
+<h2 id="setDate">setDate</h2>
+<h3 id="setDate Date prototype function"><code>setDate</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setFullYear">setFullYear</h2>
+<h3 id="setFullYear Date prototype function"><code>setFullYear</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setHours">setHours</h2>
+<h3 id="setHours Date prototype function"><code>setHours</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setMilliseconds">setMilliseconds</h2>
+<h3 id="setMilliseconds Date prototype function"><code>setMilliseconds</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setMinutes">setMinutes</h2>
+<h3 id="setMinutes Date prototype function"><code>setMinutes</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setMonth">setMonth</h2>
+<h3 id="setMonth Date prototype function"><code>setMonth</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setSeconds">setSeconds</h2>
+<h3 id="setSeconds Date prototype function"><code>setSeconds</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setTime">setTime</h2>
+<h3 id="setTime Date prototype function"><code>setTime</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setUTCDate">setUTCDate</h2>
+<h3 id="setUTCDate Date prototype function"><code>setUTCDate</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setUTCFullYear">setUTCFullYear</h2>
+<h3 id="setUTCFullYear Date prototype function"><code>setUTCFullYear</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setUTCHours">setUTCHours</h2>
+<h3 id="setUTCHours Date prototype function"><code>setUTCHours</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setUTCMilliseconds">setUTCMilliseconds</h2>
+<h3 id="setUTCMilliseconds Date prototype function"><code>setUTCMilliseconds</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setUTCMinutes">setUTCMinutes</h2>
+<h3 id="setUTCMinutes Date prototype function"><code>setUTCMinutes</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setUTCMonth">setUTCMonth</h2>
+<h3 id="setUTCMonth Date prototype function"><code>setUTCMonth</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="setYear">setYear</h2>
+<h3 id="setYear Date prototype function"><code>setYear</code> <code>Date</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="shift">shift</h2>
+<h3 id="shift Array prototype function"><code>shift</code> <code>Array</code> prototype function</h3>
+<p>Blah.</p>
+<h2 id="sin">sin</h2>
+<h3 id="sin Math function"><code>sin</code> <code>Math</code> function <dfn>sine</dfn></h3>
+<p><code>The Math.sin(</code><var>radians</var><code>)</code> function, also known as  sine, takes an angle in <a href="R.html#radians">radians</a> and returns a number in the range -1...1. </p>
+<pre>function cartesian(distance, radians) {
+
+// Given a distance and direction from the origin in radians,
+// produce a cartesian point.
+
+    return {
+        x: distance * Math.cos(radians),
+        y: distance * Math.sin(radians)
+    };
+}</pre>
+<p>This is an approximate   implemention of <code>Math.sin</code>:</p>
+<pre>Math.sin = (function () {
+    var factorial = 1,
+        last_stage = 40,
+        sign = -1,
+        signed_factorial_recipricals = [],
+        stage,
+        two_pi = Math.PI * 2;
+
+    for (stage = 3; stage &lt; last_stage; stage += 2) {
+        factorial *= (stage - 1) * stage;
+        signed_factorial_recipricals[stage] = sign / factorial;
+        sign = -sign;
+    }
+    return function sin(radians) {
+        while (radians &gt;= two_pi) {
+            radians -= two_pi;
+        }
+        while (radians &lt; 0) {
+            radians += two_pi;
+        }
+        var result = radians,
+            rr = radians * radians,
+            stage;
+        for (stage = 3; stage &lt; last_stage; stage += 2) {
+            radians *= rr;
+            result += radians * signed_factorial_recipricals[stage];
+        }
+        return result;
+    };
+}());</pre>
+<p>See <a href="M.html#Math function"><code>Math</code> function</a>. </p>
+<h2 id="slice">slice</h2>
+<h3 id="slice Array prototype function"><code>slice</code> <code>Array</code> prototype function</h3>
+<p>Blah.</p>
+<h3 id="slice String prototype function"><code>slice</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="some">some</h2>
+<h3 id="some Array prototype function"><code>some</code> <code>Array</code> prototype function</h3>
+<p>Blah.</p>
+<h2 id="special">special</h2>
+<p>See the <a href="#bang">!</a> <a href="#double_quote">&quot;</a> <a href="#$">$</a> <a href="#%">%</a> <a href="#ampersand">&amp;</a> <a href="#singlequote">'</a> <a href="#leftparen">(</a> <a href="#leftparen">)</a> <a href="#asterisk">*</a> <a href="#plus">+</a> <a href="#comma">,</a> <a href="#minus">-</a> <a href="#period">.</a> <a href="#slash">/</a> <a href="#colon">:</a> <a href="#;">;</a> <a href="#less">&lt;</a> <a href="#equal">=</a> <a href="#greater">&gt;</a> <a href="#question">?</a> <a href="#leftbracket">[</a> <a href="#%5C">\</a> <a href="#leftbracket">]</a> <a href="#caret">^</a> <a href="#underbar">_</a> <a href="#leftbrace">{</a> <a href="#bar">|</a> <a href="#leftbrace">}</a> <a href="#tilde">~</a><a href="special.html"> Division</a>.</p>
+
+<h2 id="splice">splice</h2>
+<h3 id="splice Array prototype function"><code>splice</code> <code>Array</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="split">split</h2>
+<h3 id="split String prototype function"><code>split</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+<h2 id="sqrt">sqrt</h2>
+<h3 id="sqrt Math function"><code>sqrt</code> <code>Math</code> function <dfn>square root</dfn></h3>
+<p><code>Math.sqrt(</code><var>number</var><code>)</code> is the square root function. It returns a value which, when multiplied by itself, is approximately equal to the original <var>number</var>. It could be implemented as</p>
+<pre>Math.sqrt = function (number) {
+    return Math.pow(number, 0.5);
+};</pre>
+Example:
+<pre>function distance(a, b) {
+
+// Compute the distance between two points.
+
+    return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+}</pre>
+
+<h2 id="SQRT1_2">SQRT1_2</h2>
+<h3 id="SQRT1_2 Math member"><code>SQRT1_2</code> <code>Math</code> number <dfn>square root of 0.5</dfn></h3>
+<p><code>Math.SQRT1_2</code> holds the result of <code>Math.sqrt(1 / 2)</code>, which is approximately  0.7071067811865476.</p>
+
+<h2 id="SQRT2">SQRT2</h2>
+<h3 id="SQRT2 Math member"><code>SQRT2</code> <code>Math</code> number <dfn>square root of 2</dfn></h3>
+<p><code>Math.SQRT2</code> holds the result of <code>Math.sqrt(2)</code>, which is approximately 1.4142135623730951.</p>
+<h2 id="square root">square root</h2>
+<p>See <a href="#sqrt Math function"><code>sqrt</code> <code>Math</code> function <dfn>square root</dfn></a></p>
+<h2 id="stack">stack</h2>
+<p>Blah.</p>
+
+<h2 id="statement">statement</h2>
+<p>A statement is a syntactic unit of execution. A <a href="C.html#compilation unit">compilation unit</a> or a <a href="F.html#function body">function body</a> contains a list of zero or more statements which will be executed in order from first to last. Each statement runs to completion before the next statement is executed. Some statements can contain other statements. These are the kinds of statements:</p>
+<ul>
+  <li><a href="B.html#block">block</a></li>
+  <li><a href="B.html#break statement"><code>break</code> statement</a></li>
+  <li><a href="C.html#continue statement"><code>continue</code> statement</a></li>
+  <li><a href="D.html#debugger statement"><code>debugger</code> statement</a></li>
+  <li><a href="D.html#do statement"><code>do</code> statement</a></li>
+  <li><a href="E.html#empty statement">empty statement</a></li>
+  <li><a href="E.html#expression statement">expression statement</a></li>
+  <li><a href="F.html#for in statement"><code>for</code> <code>in</code> statement</a></li>
+  <li><a href="F.html#for statement"><code>for</code> statement</a></li>
+  <li><a href="F.html#function statement"><code>function</code> statement</a></li>
+  <li><a href="I.html#if statement"><code>if</code> statement</a></li>
+  <li><a href="R.html#return statement"><code>return</code> statement</a></li>
+  <li><a href="S.html#switch statement"><code>switch</code> statement</a></li>
+  <li><a href="T.html#throw statement"><code>throw</code> statement</a></li>
+  <li><a href="T.html#try statement"><code>try</code> statement</a></li>
+  <li><a href="V.html#var statement"><code>var</code> statement</a></li>
+  <li><a href="W.html#while statement"><code>while</code> statement</a></li>
+</ul>
+<p>Also see<a href="special.html#;"> <code>;</code> <dfn>semicolon</dfn></a>, <a href="C.html#conditional statement">conditional statement</a>, <a href="D.html#disruptive statement">disruptive statement</a>, and <a href="L.html#loop statement">loop statement</a>. </p>
+<h2>static <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+
+<h2 id=strict>strict</h2>
+<p>The <a href="E.html#ES5">ES5</a>/strict dialect removes or modifies a few of the language&#8217;s most problematic
+features. It requires source-level opt-in in order to not break compatibility. It is recommended that strict mode always be requested. </p>
+<p>Because strict mode can break compatibility with <a href="E.html#ES3">ES3</a>, it must be explicitly requested with the  strict mode pragma. The pragma takes the form of a <a href="#string literal">string literal</a> <a href="E.html#expression statement">expression statement</a>:</p>
+<pre>"use strict";</pre>
+<p>It will be ignored by <a href="E.html#ES3">ES3</a> processors, so it is possible to create <a href="E.html#ES5">ES5</a>/strict programs that will work correctly in <a href="E.html#ES3">ES3</a> processors. The strict mode pragma can be placed at the top of a <a href="C.html#compilation unit">compilation unit</a>, or as the first statement of a <a href="F.html#function body">function body</a>. When placed at the top of a <a href="C.html#compilation unit">compilation unit</a>, it indicates that the entire <a href="C.html#compilation unit">compilation unit</a> is to be treated strictly. This is the preferred usage. When placed at the top of a <a href="F.html#function body">function body</a>, it indicates that the function is to be treated strictly. It is possible to mix strict mode code and non-strict mode code. Functions compiled in either mode can call functions compiled in the other mode.</p>
+<p>* whether a failed property assignment or deletion fails silently or
+  noisily (with a thrown error).  </p>
+<p>* Although strict code may say "delete global.Object", it may not say
+  "delete Object". Nonstrict code may say either.  </p>
+<p>* If the global "Object" property is already deleted and the global
+  object is extensible, then, although strict code can say
+  "global.Object = 8;" or (at top level) "var Object = 8;" or "function
+  Object...", simply saying "Object = 8" will fail. All four will
+  succeed in nonstrict code.</p>
+<p>Blah.</p>
+
+<h2 id="string">string</h2>
+<p>A string is a finite ordered sequence of zero or more characters. A <a href="C.html#character">character</a> is a 16 bit <a href="U.html#Unicode">Unicode</a> code unit. A string is immutable, so once a string is made, it cannot be changed. Two strings containing the same code points in the same order will be found to be equal by the <a href="special#equal== infix operator">=== infix operator</a>. The <a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a> produces <code>'string'</code> when its <a href="O.html#operand">operand</a> is a string. Two strings can be combined to produce a new sting with the <a href="special.html#plus infix operator"><code>+</code> infix operator add or concatenate</a>.</p>
+<pre>'cat' === 'c' + 'a' + 't'    // true</pre>
+<p>A string contains a <code>length</code> property that produces a number which is the number of code units in the string. There is no fixed limit on the size of a string.</p>
+<pre>&quot;&quot;.length                   // 0
+('c' + 'a' + 't').length    // 3</pre>
+<p>A string value inherits from <a href="#String prototype function"><code>String.prototype</code></a>. This provides methods such as <a href="C.html#charAt String prototype function"><code>charAt</code> <code>String</code> prototype function</a> that can fetch a single character from a string, or <a href="#slice String prototype function"><code>slice</code> <code>String</code> prototype function</a> that can fetch a substring from a string. See <a href="#String prototype function"><code>String</code> prototype function</a>.</p>
+<p>A string can contain any kind of textual material, including programs.</p>
+<p>There is no separate <a href="C.html#character">character</a> type. A single <a href="C.html#character">character</a> is represented as a string with a <code>length</code> of 1.</p>
+<h3 id="String global function"><code>String</code> global function</h3>
+<p><code>String</code> is a <a href="G.html#global function">global function</a> that serves three purposes.</p>
+<p>First, when invoked as a function, it takes any operand and produces a string value. </p>
+<p>Second, when invoked as a <a href="C.html#constructor">constructor</a> with the <a href="N.html#new prefix operator"><code>new</code> prefix operator</a>, takes an <a href="O.html#operand">operand</a> and  produces an <a href="O.html#object">object</a> whose <code>valueOf</code> method produces a string value.</p>
+<p>Third, it has a <code>prototype</code> property that holds the methods that are inherited by all strings. </p>
+<h3 id="string literal">string literal</h3>
+<p>A string literal is used to include a string value in a program. There are two forms of string literal: single quote string literal and double quote string literal. They differ only in the character used to wrap the characters.</p>
+<p>A string literal is a token made up of a quoting character, zero or more  character literals, and a matching quoting character.</p>
+<p>The quoting characters are</p>
+<ul>
+  <li><a href="special.html#singlequote"><code>'</code> <dfn>single quotation mark</dfn></a></li>
+  <li><a href='special.html#"'><code>&quot;</code> <dfn>double quotation mark</dfn></a></li>
+</ul>
+<p>A character literal can be</p>
+<ul>
+  <li>any <a href="U.html#Unicode">Unicode</a> character that is <b>not</b> a <a href="L.html#line terminator">line terminator</a>, nor a <a href="special.html#%5C"><code>\</code> <dfn>backslash</dfn></a> nor the quoting character (although it can be the other quoting character)</li>
+  <li>a <a href="U.html#Unicode escape sequence">Unicode escape sequence</a></li>
+  <li>a compact escape sequence</li>
+</ul>
+<p>A <a href="U.html#Unicode escape sequence">Unicode escape sequence</a> is a <code>\u</code> followed by 4 hexadecimal digits. The digits are evaluated in base 16 to produce a single  16 bit <a href="C.html#code unit">code unit</a>. </p>
+<p>A compact escape sequence is a <a href="special.html#%5C"><code>\</code> <dfn>backslash</dfn></a> followed by one of the following:</p>
+<table border="1"><tbody>
+  <tr>
+    <th scope="col">Character after <code>\</code></th>
+    <th scope="col">The resulting character</th>
+  </tr>
+<tr><td><a href="special.html#singlequote"><code>'</code> <dfn>single quotation mark</dfn></a></td>
+  <td><a href="special.html#singlequote"><code>'</code> <dfn>single quotation mark</dfn></a></td>
+</tr>
+<tr><td><a href='special.html#"'><code>&quot;</code> <dfn>double quotation mark</dfn></a></td>
+  <td><a href='special.html#"'><code>&quot;</code> <dfn>double quotation mark</dfn></a></td>
+</tr>
+<tr><td><a href="special.html#%5C"><code>\</code> <dfn>backslash</dfn></a></td>
+  <td><a href="special.html#%5C"><code>\</code> <dfn>backslash</dfn></a></td>
+</tr>
+<tr><td><code>b</code></td>
+  <td><var>bs</var> (<code>\u0008</code>) <dfn>backspace</dfn></td></tr>
+<tr><td><code>f</code></td>
+  <td><var>ff</var> (<code>\u000c</code>) <dfn>formfeed</dfn></td></tr>
+<tr><td><code>n</code></td>
+  <td><var>lf</var> (<code>\u000a</code>) <dfn>line feed</dfn></td></tr>
+<tr><td><code>r</code></td>
+  <td><var>cr</var> (<code>\u000d</code>) <dfn>carriage return</dfn></td></tr>
+<tr><td><code>t</code></td>
+  <td><var>ht</var> (<code>\u0009</code>) <dfn>horizontal tabulation</dfn></td></tr>
+<tr><td><code>v</code></td>
+  <td><var>vt</var> (<code>\u000b</code>) <dfn>vertical tabulation</dfn></td></tr>
+<tr>
+  <td><code>x</code> <em>2 hexadecimal digits</em></td>
+  <td>A character between <code>\u0000</code> and <code>\u00ff</code></td></tr>
+<tr>
+  <td><a href="L.html#line terminator">line terminator</a></td>
+  <td><var>line continuation</var></td></tr>
+  </tbody>
+</table>
+<p>These all represent the same string:</p>
+<pre>'&quot;'  &quot;\&quot;&quot;  '\x22'  &quot;\u0022&quot;</pre>
+<p>If the character after the  <a href="special.html#%5C"><code>\</code> <dfn>backslash</dfn></a> is a <a href="L.html#line terminator">line terminator</a> or the <a href="L.html#line terminator">line terminator</a> pair <var>cr</var> <var>lf</var>, then the <a href="L.html#line terminator">line terminator</a> (or <a href="L.html#line terminator">line terminator</a> pair) will be ignored. This produces line continuation, permitting a string literal to be continued over more than one line. Be careful, it can be tricky: If the character following the   <a href="special.html#%5C"><code>\</code> <dfn>backslash</dfn></a> is ordinary <a href="W.html#whitespace">whitespace</a> and not a <a href="L.html#line terminator">line terminator</a>, then a syntax error will result. All <a href="W.html#whitespace">whitespace</a> looks alike.</p>
+<pre>    var long_line_1 = &quot;This is a \
+long line&quot;;                         // ok
+    var long_line_2 = &quot;This is a \
+long line&quot;;                         // syntax error</pre>
+<div class="es3">
+  <p><a href="E.html#ES3">ES3</a> does not allow line continuation.</p>
+</div>
+<p>There is no limit on the length of a string literal. The empty string can be represented as <code>''</code> or <code>&quot;&quot;</code>.</p>
+<p>Because there are two forms of string literal, there is confusion about which to use. The language itself is completely neutral on this question, but there are some principle of good practice to consider:</p>
+<ul>
+    <li>Be consistent. It can be visually confusing to randomly change forms. Visual confusion can lead to bugs.</li>
+    <li>Use the <code>'</code> form for symbols, character constants, and internal strings such as property names.</li>
+    <li>Use the <code>&quot;</code> form for strings that will be exported from the program, such as HTML fragments, URLs, or messages to the user.</li>
+</ul>
+<h3 id="String prototype function"><code>String</code> prototype function</h3>
+<ul>
+  <li>charAt</li>
+  <li>charCodeAt</li>
+  <li><a href="C.html#compareLocale String prototype function"><code>compareLocale</code> <code>String</code> prototype function</a></li>
+  <li>concat</li>
+  <li>indexOf</li>
+  <li>lastIndexOf</li>
+  <li>localeCompare</li>
+  <li>match</li>
+  <li>replace</li>
+  <li>search</li>
+  <li>slice</li>
+  <li>split</li>
+  <li>substring</li>
+  <li><a href="T.html#toLocaleLowerCase String prototype function"><code>toLocaleLowerCase</code> <code>String</code> prototype function</a></li>
+  <li><a href="T.html#toLocaleUpperCase String prototype function"><code>toLocaleUpperCase</code> <code>String</code> prototype function</a></li>
+  <li><a href="T.html#toLowerCase String prototype function"><code>toLowerCase</code> <code>String</code> prototype function</a></li>
+  <li>toString</li>
+  <li><a href="T.html#toUpperCase String prototype function"><code>toUpperCase</code> <code>String</code> prototype function</a></li>
+  <li>trim</li>
+  <li>valueOf</li>
+</ul>
+<p>&nbsp;</p>
+<h2 id="stringify">stringify</h2>
+<h3 id="stringify JSON function"><code>stringify</code> <code>JSON</code> function</h3>
+<p>Blah.</p>
+
+<h2 id="substr">substr</h2>
+<h3 id="substr String prototype function"><code>substr</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="substring">substring</h2>
+<h3 id="substring String prototype function"><code>substring</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="suffix operator">subtract</h2>
+<p>See <a href="special.html#minus infix operator"><code>-</code> infix operator</a> <dfn>subtract</dfn>.</p>
+<h2>suffix operator</h2>
+<p>Blah.</p>
+<ul>
+  <li><a href="special.html#leftparen"><code>()</code> suffix operator</a> <dfn>invoke</dfn></li>
+  <li><a href="special.html#period"><code>.</code> suffix operator</a> <dfn>select</dfn></li>
+  <li><a href="special.html#leftbracket"><code>[]</code> suffix operator</a> <dfn>subscript</dfn></li>
+</ul>
+<p>Also see <a href="A.html#assignment suffix operator">assignment suffix operator</a>.</p>
+<h2>super <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+
+<h2>switch <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h3 id="switch statement"><code>switch</code> <a href="#statement">statement</a></h3>
+<p>Blah.</p>
+<h2 id="SyntaxError">SyntaxError</h2>
+<h3 id="SyntaxError global function"><code>SyntaxError</code> global function</h3>
+<p>Blah.</p>
+
+</body>
+</html>

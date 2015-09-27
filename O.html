@@ -1,0 +1,480 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: O</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>O</h1>
+<h2 id="object">object</h2>
+An object (or <a href="N.html#native object">native object</a>) is an unordered container of properties. Each property has a key, which is a string. Keys are unique within an object. A property can have any value of any <a href="T.html#type">type</a>. Properties are normally accessed with the <a href="special.html#period suffix operator"><code>.</code> suffix operator <dfn>select</dfn></a> and <a href="special.html#leftbracket ] suffix operator"><code>[ ]</code> suffix operator <dfn>subscript</dfn></a>.
+<p>The object is the fundamental data structure. The object is the base type for <a href="A.html#array">array</a>, <a href="D.html#date">date</a>, <a href="F.html#function">function</a>, and <a href="N.html#null">regexp</a>. Objects are used as containers for clustering collections of data and functions into convenient units. When a function is stored in an object, it is called a method. Methods can provide functionality and protect the integrity of their objects. Objects are used as records or collections of data, and can be nested to form more complicated data structures.</p>
+<p>A reference to an object may be stored in a variable, stored in an object as a property, passed as as an argument to a <a href="F.html#function">function</a>, and returned as a return value from a <a href="F.html#function">function</a>. None of these operations make a copy of an object. Objects are always passed by reference. The <a href="special.html#equal==">=== infix operator</a> will produce <a href="D.html#defineProperty Object function">true</a> when both of its operands are references to the same object.</p>
+<pre>var a = {booga: true};
+var b = {booga: true};
+alert(a === b);    // false
+b = a;
+alert(a === b);    // true
+a.booga = false;
+alert(b.booga);    // false</pre>
+<p>A copy of an object can be made with the <a href="C.html#create Object function"><code>create</code> <code>Object</code> function</a>. </p>
+<p>The <a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a> returns <code>'object'</code> when its <a href="#operand">operand</a> is an object, but the <a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a> also returns <code>'object'</code> when its operand is an <a href="A.html#array">array</a> or <a href="N.html#null"><code>null</code></a>. </p>
+<p>Objects are extensible by default, meaning that new properties can be added at any time. New properties can be added with an <a href="C.html#create Object function">assignment operator</a>.</p>
+<pre>a.wooga = true;    // a now has a wooga property</pre>
+<p>Extensibility can be turned off for an object by the <a href="P.html#preventExtensions Object function"><code>preventExtensions</code> <code>Object</code> function</a>.</p>
+<p>Objects can be used as associative arrays or hash collections, with two limitations. First, the keys of an object must be strings. If any other value is used as a key, it is converted into a string first. The second limitation is more serious. In addition to an object's <a href="#own">own</a> properties, an object may have inherited properties. This can cause confusion for some applications. </p>
+<pre>function has_a(object, key) {
+    return key in object;
+}
+
+var word = {};
+word[1.0] = true;
+alert(has_a(word, '1.0'));            // false
+alert(has_a(word, '1'));              // true
+
+word.cat = true;
+alert(has_a(word, 'cat'));            // true
+alert(has_a(word, 'dog'));            // false
+alert(has_a(word, 'constructor'));    // true (inherted)</pre>
+<p>It is regrettably necessary to program defensively in the face of this by looking for specific values or types, or by using the <a href="H.html#hasOwnProperty Object prototype function"><code>hasOwnProperty</code> <code>Object</code> prototype function</a>. For example, </p>
+<pre>function has_a(object, key) {
+
+// Look for a particular value instead of simply having the property.
+
+    return object[key] === true;
+}</pre>
+<p>Another option is to use <a href="C.html#create Object function"><code>create</code> <code>Object</code> function</a> instead of an <a href="#object literal">object literal</a> to create an object that does not inherit.</p>
+<pre>var word = Object.create();</pre>
+<h4>Creation</h4>
+<p>An object can be created by</p>
+<ul>
+  <li><a href="C.html#create Object function"><code>create</code> <code>Object</code> function</a></li>
+  <li><a href="N.html#new prefix operator"><code>new</code> prefix operator</a></li>
+  <li><a href="#object literal">object literal</a></li>
+</ul>
+<p>There is no explicit object reclamation. All objects are subject to automatic garbage collection. The memory that an object occupies may be reused when the object has been forgotten by the program (when there are no live references to the object).</p>
+<h4>Property</h4>
+<p>An object is a container of zero or more properties. A <em>property</em> associates a key string with a value. Having a reference to an object and a key string, it is possible to  get the value of a property, or to set the value of a property. A property has attributes, which can be manipulated with a <em>property descriptor</em>. The attributes determine whether the key is enumerable, or if the property's value can be changed, or if the property can be reconfigured.</p>
+<p>A property can be a <em>data property</em>, associating a key with a value, or an <em>accessor property</em>,  associating a key value with a get function and a set function. </p>
+<p>An object can inherit some or all of its properties from another object. A property that is directly a part of an object is called an <em>own property</em>. A property that is inherited is called an <em>inherited property</em>.</p>
+<pre>// Make an elder variable, and initialize it with an object literal,
+// creating an object with an mm data property.
+
+var elder = {
+    mm: 0
+};
+
+// Add to elder an inch accessor property.
+
+Object.defineProperty(elder, 'inch', {
+    get: function () {
+        return this.mm / 25.4;
+    },
+    set: function (value) {
+        this.mm = value * 25.4;
+    }
+});
+
+// Make a younger variable, and assign to it a new object that
+// inherits from the elder object.
+
+var younger = Object.create(elder);
+
+// Add to younger a unit data property.
+
+younger.unit = 'mm';
+
+// Add to younger a meter accessor property.
+
+Object.defineProperty(elder, 'meter', {
+    get: function () {
+        return this.mm / 1000;
+    },
+    set: function (value) {
+        this.mm = value * 1000;
+    }
+});
+
+// younger.mm       inherited, data
+// younger.inch     inherited, accessor
+// younger.unit     own, data
+// younger.meter    own, accessor
+
+// elder.mm         own, data
+// elder.inch       own, accessor
+// elder.unit       undefined
+// elder.meter      undefined</pre>
+<p>An <a href="A.html#array">array</a> containing the keys of all of an object's own enumerable properties can be obtained with the <a href="K.html#keys Object function"><code>keys</code> <code>Object</code> function</a>. All of an object's enumerable properties can be obtained with the <a href="F.html#for in statement"><code>for</code> <code>in</code> statement</a>.</p>
+<h4>Property descriptor</h4>
+<p>A property descriptor is an object that describes a property and its attributes. A property descriptor object can be passed to the <a href="D.html#defineProperty Object function"><code>defineProperty</code> <code>Object</code> function</a> and the <a href="D.html#defineProperties Object function"><code>defineProperties</code> <code>Object</code> function</a>. A property descriptor object can be obtained from the <a href="G.html#getOwnPropertyDescriptor Object function"><code>getOwnPropertyDescriptor</code> <code>Object</code> function</a>.</p>
+<p>These are all of the properties that may be present in a property descriptor:</p>
+<dl>
+  <dt><code>value</code></dt>
+  <dd>The value of the property. This attribute is only used in data properties.</dd>
+  <dt><code>writeable</code></dt>
+  <dd>If <a href="T.html#true"><code>true</code></a>, the value may be changed. If <a href="F.html#false"><code>false</code></a>, attempting to change the value throws an exception (<a href="E.html#ES5">ES5 strict</a>) or fails silently (<a href="E.html#ES3">ES3</a>). This attribute is only used in data properties. Once it is set to <a href="F.html#false"><code>false</code></a>, it can no longer be set to <a href="T.html#true"><code>true</code></a>.</dd>
+  <dt><code>enumerable</code></dt>
+  <dd>If <a href="T.html#true"><code>true</code></a>, the key string will appear in the sequence produced by the <a href="F.html#for in statement"><code>for</code> <code>in</code> statement</a>. Once it is set to <a href="F.html#false"><code>false</code></a>, it can no longer be set to <a href="T.html#true"><code>true</code></a>.</dd>
+  <dt><code>configurable</code></dt>
+  <dd>If <a href="T.html#true"><code>true</code></a>, the data property may be changed into an accessor property or the accessor property may be changed into a data property or the accessor property may have its get and set methods replaced or the property may be deleted with the <a href="D.html#delete prefix operator"><code>delete</code> prefix operator</a>.   Once it is set to <a href="F.html#false"><code>false</code></a>, it can no longer be set to <a href="T.html#true"><code>true</code></a>.</dd>
+  <dt><code>get</code></dt>
+  <dd>If the get attribute is a function, the function is called when an attempt is made to get the value. The return value from the function is used instead. The function will receive no parameters, but <a href="T.html#this"><code>this</code></a> will be bound to the object. This attribute is only used in assessor properties.</dd>
+  <dt><code>set</code></dt>
+  <dd>If the set attribute is a function, the function is called when an attempt is made to set the value of the property. The function will receive one parameter, the value that is intended to be stored in the property, and  <a href="T.html#this"><code>this</code></a> will be bound to the object. The return value is ignored. This attribute is only used in assessor properties.</dd>
+</dl>
+<p>A <em>data property</em> is a property that has neither a set attribute nor a get attribute. An <em>accessor property</em> is a property having either a get attribute, a set attribute, or both. An accessor property can be used to attach behavior to the retrieving or changing of a value. </p>
+<p>Example:</p>
+<pre>function make_temperature(temp) {
+    return Object.defineProperties({kelvin: temp || 0}, {
+        celsius: {
+            get: function () {
+                return this.kelvin - 273.15;
+            },
+            set: function (temp) {
+                this.kelvin = temp + 273.15;
+            }
+        },
+        fahrenheit: {
+            get: function () {
+                return this.kelvin * 9/5 - 459.67;
+            },
+            set: function (temp) {
+                this.kelvin = (temp + 459.67) * 5/9;
+            }
+        }
+    });
+}</pre>
+<p>So <code>make_temperature</code> creates an object that has three properties, <code>kelvin</code>, <code>celsius</code>, and <code>fahrenheit</code>, but keeps only one value. Changing any property will cause apparent change to the others. </p>
+<pre>var temp = make_temperature();
+alert(temp.kelvin);        // 0
+alert(temp.fahrenheit);    // -459.67
+temp.fahrenheit = 32;
+alert(temp.celsius);       // 0
+alert(temp.kelvin);        // 273.15</pre>
+<p>Accessor properties should be used cautiously. Confusing side-effects should be avoided.</p>
+<p class="es3"><a href="E.html#ES3">ES3</a> does not expose property descriptor objects, and it does not support accessor properties. </p>
+<h4>Get</h4>
+<p>The <em>get operation</em> is done by the <a href="special.html#period suffix operator"><code>.</code> suffix operator <dfn>select</dfn></a> or <a href="special.html#leftbracket ] suffix operator"><code>[ ]</code> suffix operator <dfn>subscript</dfn></a> when the <a href="T.html#type">operand</a> is an object and when the <a href="T.html#this">expression</a> is not an <a href="L.html#lvalue">lvalue</a> (the target of an assignment). This is how the get operation could be implemented:</p>
+<pre>function get(object, key) {    // object[key]
+
+// Get the property descriptor associated with the key string. Use it to
+// determine the property's value. If the property is an accessor property
+// with a get function, call it and return the result, but return undefined
+// if there is no get function. If the property is a data property, return
+// its value.
+
+    var property_descriptor,
+        prototype = object;
+
+    do {
+        property_descriptor = Object.getOwnPropertyDescriptor(prototype, key);
+        if (property_descriptor) {
+            return property_descriptor.get ?
+                property_descriptor.get.call(object) :
+                property_descriptor.set ?
+                    undefined :
+                    property_descriptor.value;
+        }
+        prototype = Object.getPrototypeOf(prototype);
+    } while (prototype);
+
+// If the object did not contain an own property, and if the object does not
+// inherit the property, then return undefined.
+
+    return undefined;
+}</pre>
+<p>If the property is a data property, then the value is the value attribute. If the property is an accessor property and the get attribute is <a href="U.html#undefined"><code>undefined</code></a>, then the value is <a href="U.html#undefined"><code>undefined</code></a>. If the property is an accessor property and the get attribute is a function, then the function is called, binding this  to the object, using the return value as the value. If there is no property associated with the key string, then <a href="U.html#undefined"><code>undefined</code></a> is the value.</p>
+<p>If the object does not have and own property with that key, and if the object delegates, then we go to the delegate object and go again. </p>
+<p>It is possible to set a property's value to <a href="U.html#undefined"><code>undefined</code></a>. This has been known to cause confusion because <a href="U.html#undefined"><code>undefined</code></a> is also the value of a missing property. </p>
+<p>If neither the object nor its delegate(s) can produce a value for the key, then the result is <a href="U.html#undefined"><code>undefined</code></a>. </p>
+<h4>Set</h4>
+<p>The set operation is done by the <a href="special.html#period suffix operator"><code>.</code> suffix operator <dfn>select</dfn></a> or <a href="special.html#leftbracket ] suffix operator"><code>[ ]</code> suffix operator <dfn>subscript</dfn></a> when the operand is an object and when the expression is  an <a href="L.html#lvalue">lvalue</a> (the target of an assignment). This is how the set operation could be implemented:</p>
+<pre>function set(object, key, value) {    // object[key] = value;
+
+// Get the property descriptor associated with the key string.
+
+    var property_descriptor = Object.getOwnPropertyDescriptor(object, key),
+        prototype;
+    if (property_descriptor) {
+
+// If this is an accessor property, call its set function. If it doesn't
+// have a set function, throw an exception.
+
+        if (property_descriptor.set) {
+            property_descriptor.set.call(object, value);
+            return;
+        }
+        if (property_descriptor.get) {{
+            throw new TypeError();
+        }
+
+// If this is a data property, update its value. But if the property is not
+// writeable, throw an exception instead.
+
+        if (property_descriptor.writeable) {
+            property_descriptor.value = value;
+            Object.definePropertyDescriptor(object, key, property_descriptor);
+            return;
+        }
+        throw new TypeError();
+    }
+
+// The object does not currently have an own property with this key. Before we
+// can add a new own property, we must verify that the object does not inherit
+// an accessor property or a non-writeable data property.
+
+    for (prototype = Object.getPrototypeOf(object); prototype;
+            prototype = Object.getPrototypeOf(prototype)) {
+        property_descriptor = Object.getOwnPropertyDescriptor(prototype, key);
+        if (property_descriptor) {
+            if (property_descriptor.set) {
+                property_descriptor.set.call(object, value);
+                return;
+            }
+            if (property_descriptor.get || !property_descriptor.writeable) {
+                throw new TypeError();
+            }
+        }
+    }
+
+// Create a new own property with the value. Object.definePropertyDescriptor
+// will fail if the object is not extensible.
+
+    Object.definePropertyDescriptor({
+        value:        value,
+        writeable:    true,
+        enumerable:   true,
+        configurable: true
+    });
+}</pre>
+<p>The set operation creates or modifies the object's own properties. New properties can be added only if the object is still extensible. </p>
+<h4>Delete</h4>
+<p>A property can be removed from an object by the <a href="D.html#delete prefix operator"><code>delete</code> prefix operator</a> but only if the property's configurable attribute is  <code>true</code>.</p>
+<h3 id="Object global function"><code>Object</code> global function</h3>
+<p>Blah.</p>
+<ul>
+<li><a href="C.html#create Object function"><code>create</code> <code>Object</code> function</a></li>
+<li><a href="D.html#defineProperty Object function"><code>defineProperty</code> <code>Object</code> function</a></li>
+<li><a href="D.html#defineProperties Object function"><code>defineProperties</code> <code>Object</code> function</a></li>
+<li><a href="F.html#freeze Object function"><code>freeze</code> <code>Object</code> function</a></li>
+<li><a href="G.html#getOwnProperties Object function"><code>getOwnProperties</code> <code>Object</code> function</a></li>
+<li><a href="G.html#getOwnPropertyDescriptor Object function"><code>getOwnPropertyDescriptor</code> <code>Object</code> function</a></li>
+<li><a href="G.html#getPrototypeOf Object function"><code>getPrototypeOf</code> <code>Object</code> function</a></li>
+<li><a href="I.html#isExtensible Object function"><code>isExtensible</code> <code>Object</code> function</a></li>
+<li><a href="I.html#isFrozen Object function"><code>isFrozen</code> <code>Object</code> function</a></li>
+<li><a href="I.html#isSealed Object function"><code>isSealed</code> <code>Object</code> function</a></li>
+<li><a href="K.html#keys Object function"><code>keys</code> <code>Object</code> function</a></li>
+<li><a href="P.html#preventExtensions Object function"><code>preventExtensions</code> <code>Object</code> function</a></li>
+<li><a href="S.html#seal Object function"><code>seal</code> <code>Object</code> function</a></li>
+</ul>
+<p class="es3">Those functions are not available in <a href="E.html#ES3">ES3</a>.</p>
+<p>The object function has <code>prototype</code> object, <code>Object.prototype</code>, which is delegated to by most objects, including every <a href="#object literal">object literal</a>. <code>Object.prototype</code> contains these methods:</p>
+<ul>
+<li><a href="H.html#hasOwnProperty Object prototype function"><code>hasOwnProperty</code> <code>Object</code> prototype function</a></li>
+<li><a href="I.html#isPrototypeOf Object prototype function"><code>isPrototypeOf</code> <code>Object</code> prototype function</a></li>
+<li><a href="P.html#propertyIsEnumerable Object prototype function"><code>propertyIsEnumerable</code> <code>Object</code> prototype function</a></li>
+<li><a href="T.html#toLocaleString Object prototype function"><code>toLocaleString</code> <code>Object</code> prototype function</a></li>
+<li><a href="T.html#toString Object prototype function"><code>toString</code> <code>Object</code> prototype function</a></li>
+<li><a href="V.html#valueOf Object prototype function"><code>valueOf</code> <code>Object</code> prototype function</a></li>
+</ul>
+<p>It is possible to add additional methods to <code>Object.prototype</code>, subject to these recommendations: The enumerable attribute should be false. Otherwise, the additional method will appear in the keys produced by the <a href="F.html#for in statement"><code>for</code> <code>in</code> statement</a>, which could cause poorly written programs to fail. Also, <code>Object.prototype</code> is  shared by all compilation units. Failure could occur if competing compilation units make incompatible changes to <code>Object.prototype</code>. Also, future editions of the language might have new methods in <code>Object.prototype</code>. Also, implementations are allowed to add properties to <code>Object.prototype</code>. Such additions should not cause failures now or in the future.</p>
+<h3 id="object literal">Object literal</h3>
+<p>An object literal is an expression that produces an object value. An object literal starts with <a href="special.html#leftbrace">{ <dfn>left curly brace</dfn></a> and ends with <a href="special.html#}">} <dfn>right curly brace</dfn></a>. Between the braces are zero or more pairs, separated by <a href="special.html#comma">, <dfn>comma</dfn></a>. Each expression contributes one property to the object. An empty object is created by <code>{}</code>. There are two kinds of pairs. </p>
+<p>A data property pair is a name or string literal followed by a <a href="special.html#colon"><code>:</code> <dfn>colon</dfn></a> followed by an expression. </p>
+<p>An accessor property pair is composed of two parts. Either part can be omitted. If both parts are included, then they must be separated by a comma. The first part is the <a href="N.html#name">name</a> <code>get</code> followed by a <a href="N.html#name">name</a> or <a href="S.html#string literal">string literal</a> or <a href="N.html#number literal">number literal</a> followed by <a href="special.html#leftparen"><code>(</code> <dfn>left parenthesis</dfn></a>, then <a href="special.html#rightparen"><code>)</code> <dfn>right parenthesis</dfn></a>, followed by a <a href="F.html#function body">function body</a>. The second part is the <a href="N.html#name">name</a> <code>set</code> followed by a <a href="N.html#name">name</a> or <a href="S.html#string literal">string literal</a> or <a href="N.html#number literal">number literal</a> followed by<a href="special.html#leftparen"><code>(</code> <dfn>left parenthesis</dfn></a>, then a <a href="P.html#parameter">parameter</a> <a href="N.html#name">name</a>, then <a href="special.html#rightparen"><code>)</code> <dfn>right parenthesis</dfn></a>, followed by a <a href="F.html#function body">function body</a>.</p>
+<pre>function make_temperature(temp) {
+    return {
+        kelvin: temp || 0,
+        get celsius() {
+            return this.kelvin - 273.15;
+        },
+        set celsius(temp) {
+            this.kelvin = temp + 273.15;
+        },
+        get fahrenheit() {
+            return this.kelvin * 9/5 - 459.67;
+        },
+        set fahrenheit(temp) {
+            this.kelvin = (temp + 459.67) * 5/9;
+        }
+    };
+}</pre>
+<p class="es3">ES3 does not have the accessor property pair. Use of <code>get</code> and <code>set</code> on some implementations will cause a syntax error that will prevent any part of the <a href="C.html#compilation unit">compilation unit</a> from executing.</p>
+<p>Every time an object literal is evaluated, it produces a new object, so</p>
+<pre>{property: x} === {property: x}    // false</pre>
+<p>because even though the two objects are similar in structure and content, they are two different objects.</p>
+<p>Every object literal inherits from <code>Object.prototype</code>. Every property created by an object literal has its configurable, enumerable, and writeable attributes set to <code>true</code>.</p>
+<pre>var deroman = (function () {
+
+// Use an object literal to create an object containing the values of the
+// Roman numerals.
+
+// We make the deroman function inside of an immediate function so that
+// the value object is constructed only once. It contains the mapping of
+// the Roman letters to numbers.
+
+    var value = {
+        I: 1,
+        V: 5,
+        X: 10,
+        L: 50,
+        C: 100,
+        D: 500,
+        M: 1000
+    };
+
+// The deroman function converts a string of Roman numerals to a number.
+
+    return function deroman(string) {
+        var i = 1, letter, next, result = 0;
+
+// For each numeral, get its numeric value. If a letter's value is greater
+// than or equal to the next letter's value, then add the letter's value to
+// the result. Otherwise, subtract the value from the result. That causes
+// I to be added in 'VI' but subtracted in 'IV'.
+
+        string = string.toUpperCase();
+        for (letter = value[string.charAt(0)]; typeof letter === 'number';
+                letter = next) {
+            next = value[string.charAt(i)];
+            if (typeof next !== 'number' || letter &gt;= next) {
+                result += letter;
+            } else {
+                result -= letter;
+            }
+            i += 1;
+        }
+        return result;
+    };
+
+}());
+</pre>
+<h2>octal <dfn>base 8</dfn></h2>
+<p>See <a href="N.html#number literal">number literal</a>, <a href="P.html#parseInt global function"><code>parseInt</code> global function</a>, and <a href="T.html#toString Number prototype function"><code>toString</code> <code>Number</code> prototype function</a>.</p>
+
+<h2 id="operand">operand</h2>
+<p>An operand is an <a href="E.html#expression">expression</a> that provides a value to an <a href="O.html#operator">operator</a>. Also see <a href="A.html#argument">argument</a>.</p>
+<h2 id="operator">operator</h2>
+<p>There are five kinds of operators. </p>
+
+
+<ul>
+  <li><a href="I.html#infix operator">infix operator</a></li>
+  <li><a href="P.html#prefix operator">prefix operator</a></li>
+  <li><a href="S.html#suffix operator">suffix operator</a></li>
+  <li><a href="T.html#ternary operator">ternary operator</a></li>
+  <li><a href="A.html#assignment operator">assignment operator</a></li>
+</ul>
+<p>An operator takes one, two, or three operands, where each <a href="O.html#operand">operand</a> is the value of an <a href="U.html#undefined">expression</a>. Most operators are formed from special characters, but some such as <a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a> and <a href="I.htnl#in infix operator"><code>in</code> infix operator</a> use a <a href="N.html#name">name</a>.</p>
+<h3>operator precedence</h3>
+<table border="1" align="right"><tbody>
+  <tr>
+    <th>Tightness</th>
+    <th>Operator</th>
+    <th>Kind</th>
+  </tr>
+  <tr>
+    <td style="color: white; background-color: black;"><b>strong</b></td>
+    <td><code>++ -- () . []</code></td>
+    <td><a href="S.html#suffix operator">suffix operator</a></td>
+  </tr>
+  <tr>
+    <td style="background-color: #222222;">&nbsp;</td>
+    <td><code>! + ++ - -- ~ <br>delete new typeof void</code></td>
+    <td><a href="P.html#prefix operator">prefix operator</a></td>
+  </tr>
+  <tr>
+    <td style="background-color: #333333;">&nbsp;</td>
+    <td><code>% * /</code></td>
+    <td rowspan="10" valign="top"><a href="I.html#infix operator">infix operator</a></td>
+  </tr>
+  <tr>
+    <td style="background-color: #444444;">&nbsp;</td>
+    <td><code>+ -</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #555555;">&nbsp;</td>
+    <td><code>&lt;&lt; &gt;&gt; &gt;&gt;&gt;</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #666666;">&nbsp;</td>
+    <td><code>&lt; &lt;= &gt; &gt;= instanceof in</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #777777;">&nbsp;</td>
+    <td><code>!= !== == ===</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #888888;">&nbsp;</td>
+    <td><code>&amp;</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #999999;">&nbsp;</td>
+    <td><code>^</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #aaaaaa;">&nbsp;</td>
+    <td><code>|</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #bbbbbb;">&nbsp;</td>
+    <td><code>&amp;&amp;</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #cccccc;">&nbsp;</td>
+    <td><code>||</code></td>
+    </tr>
+  <tr>
+    <td style="background-color: #dddddd;">&nbsp;</td>
+    <td><code>? :</code></td>
+    <td><a href="T.html#ternary operator">ternary operator</a></td>
+  </tr>
+  <tr>
+    <td style="background-color: #f0f0f0;">&nbsp;</td>
+    <td><code>%= &amp;= *= += -= /= &lt;&lt;= <br>= &gt;&gt;= &gt;&gt;&gt;= ^= |=</code></td>
+    <td><a href="A.html#assignment infix operator">assignment infix operator</a></td>
+  </tr>
+  <tr>
+    <td>weak</td>
+    <td><code>, </code></td>
+    <td><a href="I.html#infix operator">infix operator</a></td>
+  </tr>
+</tbody><caption>Operator Precedence</caption>
+</table>
+<p>Operator precedence makes it possible to omit the grouping parentheses from complex expressions. The suffix operators are the strongest. The <a href="special.html#comma infix operator"><code>,</code> infix operator</a> is the weakest. Given competition between two operators with difference precedence, the  stronger operator wins.</p>
+<p>Given competition between two operators with equal precedence, The leftmost operator is stronger, except for prefix operators and assignment operators where the right operator is stronger.</p>
+<p>The following examples show pairs of statements that produce identical results. The first statement in each pair has no parentheses. The second statement shows how the first statement is interpreted using operator precedence.</p>
+<pre>r = a * b + c * d;
+r = ((a * b) + (c * d));
+
+s = a * b / c * d;
+s = (((a * b) / c) * d);
+
+t = a / b / c;
+t = ((a / b) / c);
+
+u = ~ -a;
+u = (~ (-a));
+
+v = a.b[c](d);
+v = (((a.b)[c])(d));
+
+w = -a.b;
+w = (-(a.b));
+
+x = -a * b;
+x = ((-a) * b);
+
+y = a = b = c = d;
+y = (a = (b = (c = d)));
+
+z = a(b), c(d);
+(z = (a(b))), (c(d));</pre>
+
+<h2 id="or">or</h2>
+<p>Blah.</p>
+<p>See <a href="special.html#bar| infix operator"><code>||</code> infix operator</a> <dfn>or</dfn>.</p>
+<h2 id="own property">own property</h2>
+<p>An own property is a property of an <a href="O.html#object">object</a> that is not inherited from another object. Properties that are directly assigned to an object are always own properties. The <a href="H.html#hasOwnProperty Object prototype function"><code>hasOwnProperty</code> <code>Object</code> prototype function</a> can be used to determine if an object has an own property with a given key.</p>
+<p>The <a href="keys Object function"><code>keys</code> <code>Object</code> function</a> produces all of the enumerable keys of all of the own properties of the object.</p>
+</body>
+</html>

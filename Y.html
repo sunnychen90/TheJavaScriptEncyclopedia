@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: Y</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>Y</h1>
+<h2>y combinator</h2>
+<p>Blah.</p>
+<pre>function y(e) {
+    return (function (f) {
+        return f(f);
+    }(function (f) {
+        return e(function (x) {
+            return f(f)(x);
+        });
+    }));
+}
+
+var factorial = y(function (recur) {
+    return function (n) {
+        return n <= 2 ? n : n * recur(n - 1);
+    };
+});
+
+var number120 = factorial(5);</pre>
+<h2>Yahoo</h2>
+<p>For more information about everything, go to <cite>http://search.yahoo.com/</cite>.</p>
+<h2>yield  <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+</body>
+</html>

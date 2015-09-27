@@ -1,0 +1,109 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: Appendix A. Regular Expressions.</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body>
+<h1>Appendix A. Regular Expressions.</h1>
+<h2 id="$"><code>$</code> <dfn>dollar sign</dfn></h2>
+<h3 id="$ identifier character"><code>$</code> anchor <dfn>end</dfn> </h3>
+<p>In a <a href="R.html#regexp">regexp</a>, <code>$</code> matches the end of the input. In <a href="M.html#multiline">multiline</a> mode, it can also match a <a href="L.html#line terminator character">line
+  terminator character</a>.</p>
+<h2 id="("><code>(</code> <code>)</code> <dfn>parentheses</dfn></h2>
+<h3 id="() capturing group"><code>(</code> <code>)</code> capturing group</h3>
+<p>Blah.</p>
+<h3 id="("><code>(?:</code> <code>)</code> non-capturing
+group</h3>
+<p>Blah.</p>
+<h3 id="("><code>(?=</code> <code>)</code> ? group</h3>
+<p>Blah.</p>
+<h3 id="("><code>(?!</code> <code>)</code> ? group</h3>
+<p>Blah.</p>
+<h2 id="*"><code>*</code> <dfn>asterisk</dfn></h2>
+<h3><code>*</code> quantifier</h3>
+<p>Blah.</p>
+<h2 id="+"><code>+</code> <dfn>plus sign</dfn></h2>
+<h3><code>+</code> quantifier</h3>
+<p>Blah.</p>
+<h2 id=","><code>,</code> <dfn>comma</dfn></h2>
+<h3><code>,</code> <a href="I.html#infix operator">separator</a></h3>
+<p>The <code>,</code> <a href="I.html#infix operator">infix operator</a> takes two operands, evalutes them both, and returns the value of the second operand. This operator may not be used in places where a comma can appear, such as in an <a href="A.html#argument list">argument list</a>, in a <a href="V.html#var statement"><code>var</code> statement</a>, or in an <a href="O.html#object literal">object literal</a> or <a href="A.html#array literal">array literal</a> unless the  operand it forms is wrapped in <a href="G.html#grouping parentheses">grouping parentheses</a>. This operator is marginally useful in the <a href="F.html#for statement"><code>for</code> statement</a> when initializing or incrementing multiple  variables. </p>
+<h2 id="-"><code>-</code> <dfn>minus</dfn></h2>
+<h3 id="- character class range"><code>-</code> character class range</h3>
+<p>Blah.</p>
+<h2 id="."><code>.</code> <dfn>period</dfn></h2>
+<h3><code>.</code> pattern</h3>
+<p>The <code>.</code> <dfn>period</dfn> matches one character that is not a line terminator. In a <a href="#character class">character class</a> it matches one  <code>.</code> <dfn>period</dfn>.</p>
+<h2 id="/"><code>/</code> <dfn>slash</dfn></h2>
+<p>The slash character is also known as the solidus and as the virgule.
+  Be careful to not confuse it with <a href="#%5C"><code>\</code></a> <dfn>backslash</dfn>. It is used as the division operator, and it is used to form comment and literals. </p>
+<h3 id="/ delimiter"><code>/</code> delimiter</h3>
+<p>Blah.</p>
+<h2 id="?"><code>?</code> <dfn>question mark</dfn></h2>
+<h3 id="?"><code>?</code> quantifier <dfn>option</dfn></h3>
+<p>Blah.</p>
+<h3 id="?"><code>?</code> lazy quantifier</h3>
+<p>Blah.</p>
+<h2 id="["><code>[</code> <code>]</code> <dfn>brackets</dfn></h2>
+<h3 id="["><code>[ ]</code> <dfn>character class</dfn></h3>
+<p>Blah.</p>
+<h2 id="\"><code>\</code> <dfn>backslash</dfn></h2>
+<h3 id="\ identifier escapement"><code>\</code> <dfn>escapement</dfn></h3>
+<p>Blah.</p>
+<h3 id="\ character class escapement"><code>\</code> character class <dfn>escapement</dfn></h3>
+<p>Blah.</p>
+<h2 id="^"><code>^</code><dfn>caret</dfn></h2>
+<h3 id="^ infix operator"><code>^</code> operator <dfn>anchor</dfn></h3>
+<p>Blah.</p>
+<h3 id="^ character class"><code>^</code> character class <dfn>inversion</dfn></h3>
+<p>Blah.</p>
+<h2 id="{"><code>{</code> <code>}</code> <dfn>curly braces</dfn></h2>
+<h3><code>{</code> <code>}</code> operator <dfn>quanifier</dfn></h3>
+<p>Blah.</p>
+<h2 id="|"><code>|</code> <dfn>vertical bar</dfn></h2>
+<h3 id="| operator"><code>|</code> <a href="I.html#infix operator">operator</a></h3>
+<p>Blah.</p>
+<h2>alternative</h2>
+<h2>character</h2>
+<p>Blah.</p>
+<h2 id="character class">character class</h2>
+<p>Blah.</p>
+<h2>g <dfn>global</dfn></h2>
+<p>Blah.</p>
+<h2>group</h2>
+<h2>i <dfn>case insensitive</dfn></h2>
+<p>Blah.</p>
+<h2>item</h2>
+<ul>
+  <li>$</li>
+  <li>.</li>
+  <li>^</li>
+  <li>character</li>
+  <li>character class</li>
+</ul>
+<p>It may be followed by a quantifier, or it may be followed by ? followed by a quantifier.</p>
+<h2>modifier</h2>
+<p>Blah.</p>
+<ul>
+  <li><a href="#g"><code>g</code> <dfn>global</dfn></a></li>
+  <li><a href="#i"><code>i</code> <dfn>case insensitive</dfn></a></li>
+  <li><a href="#m"><code>m</code> <dfn>multiline</dfn></a></li>
+</ul>
+<h2>literal </h2>
+<p>Blah.</p>
+<h2>m <dfn>multiline</dfn></h2>
+<p>Blah.</p>
+<h2 id="quanitifier">quanitifier</h2>
+<p>Blah.</p>
+<ul>
+  <li><a href="#asterisk"><code>*</code> <dfn>asterisk</dfn></a></li>
+  <li><a href="#plus"><code>+</code> <dfn>plus sign</dfn></a></li>
+  <li><a href="#question"><code>?</code> <dfn>question mark</dfn></a></li>
+  <li><a href="#leftbrace }"><code>{</code> <code>}</code> <dfn>curly braces</dfn></a></li>
+</ul>
+<h2>sequence</h2>
+<p>Blah. One or more items separated by | vertical bar.</p>
+<h3 id="| assignment operator">&nbsp;</h3>
+</body>
+</html>

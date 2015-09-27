@@ -1,0 +1,558 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: I</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>I</h1>
+<h2>identifier</h2>
+<p>See <a href="N.html#name">name</a>.</p>
+
+<h2>if <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h3><code>if</code> statement</h3>
+<p>Blah.</p>
+
+<h2 id="ignoreCase">ignoreCase</h2>
+<h3 id="ignoreCase RexExp member"><code>ignoreCase</code> <code>RexExp</code>
+boolean</h3>
+<p>Blah.</p>
+<h2 id="immediate function">immediate function</h2>
+<p>An immediate function is a <a href="F.html#function">function</a> that will
+be invoked immediately. This is done to allow inner functions to have continuing
+access to variables created by the immediate function. The entire immediate
+function and its invocation should be wrapped in parentheses to show reader that
+the function is immediate. The wrapping in parens is syntactically required in
+the case where <code>function</code> would be the first
+<a href="T.html#token">token</a> in the
+<a href="S.html#statement">statement</a>.</p>
+<p>Example:</p>
+<pre>var wordify = (function () {
+
+// The wordify function converts an integer into English.
+// It makes use of three array literals to provide most of the vocabulary.
+
+// It is returned from an immediate function in order to hide the arrays
+// units, tens, and illions.
+
+    var units = [
+            '', 'one', 'two', 'three', 'four', 'five', 'six', 'seven',
+            'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen',
+            'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
+            'nineteen'
+        ],
+        tens = [
+            '', 'ten', 'twenty', 'thirty', 'forty', 'fifty', 'sixty',
+            'seventy', 'eighty', 'ninety'
+        ],
+        illions = [
+            '', 'thousand', 'million', 'billion', 'trillion', 'quadrillion'
+        ];
+
+// The result of the execution of the immediate function is the wordify
+// function.
+
+    return function wordify(n) {
+        var result = '', i, clump, hundred, ten, unit, word, illion;
+
+// Force the input to be a non-negative integer.
+
+        n = Math.floor(Math.abs(n));
+
+// If it is zero, we are done.
+
+        if (!n) {
+            return 'zero';
+        }
+
+// For each illion, extract the bottom clump of 3 digits.
+
+        for (i = 0; i &lt; illions.length; i += 1) {
+            clump = n % 1000;
+            if (clump) {
+
+// If the clump isn't all zeros, then work out the hundred and the unit parts.
+
+                hundred = Math.floor(clump / 100);
+                unit = clump - (hundred * 100);
+                illion = illions[i];
+
+// The units array contains 20 rather than 100 entries. If an entry is
+// undefined, then split the unit into two parts. For example, unit[21] is
+// undefined, so we will combine tens[2] and unit[1] to make 'twenty one'.
+
+                word = units[unit];
+                if (typeof word !== 'string') {
+                    ten = Math.floor(unit / 10);
+                    unit = unit % 10;
+                    word = units[unit];
+                    if (word) {
+                        word = ' ' + word;
+                    }
+                    word = tens[ten] + word;
+                }
+
+// If there is a hundred part, then add that to the word.
+
+                if (hundred) {
+                    if (word) {
+                        word = ' ' + word;
+                    }
+                    word = units[hundred] + ' hundred' + word;
+                }
+
+// Add the current illion's contributions to the result.
+
+                if (result) {
+                    result = ' ' + result;
+                }
+                if (illion) {
+                    word += ' ' + illion;
+                }
+                result = word + result;
+            }
+
+// Discard the bottom three digits and go again if there are any left.
+
+            n = Math.floor(n / 1000);
+            if (n === 0) {
+                break;
+            }
+        }
+        return result;
+    };
+
+// The immediate function and its invocation were wrapped in parens to
+// help the reader understand that the immediate function's result is
+// being stored.
+
+}());
+</pre>
+<h2>implements <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h2>implied global</h2>
+<p>A <a href="V.html#variable">variable</a> that is not explicitly declared is assumed to be <a href="G.html#global">global</a>. This is a hazard. The use of global variables can compromise the reliability of a program. The implied declaration of global variables masks likely errors. It is wise to avoid global variables, and to defend against implied global variables. Always use the <a href="V.html#var statement"><code>var</code> statement</a> to explicitly declare a variable.</p>
+<pre>function tragic(array) {
+
+// Calling this function may cause the caller to fail if the
+// caller uses a variable named i.
+
+    sum = 0;                                   // sum is global
+    for (i = 0; i < array.length; i += 1) {    // i is  global
+        sum += array[i];
+    }
+    return sum;
+}</pre>
+
+<h2>import <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+
+<h2>in <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<p>Also see <a href="F.html#for in statement"><code>for</code> <code>in</code> statement</a>.</p>
+<h3><code>in</code> infix operator</h3>
+<p>Blah.</p>
+
+<h2 id="indexOf">indexOf</h2>
+<h3 id="indexOf Array prototype function"><code>indexOf</code> Array prototype function</h3>
+<p>Blah.</p>
+<p>Example:</p>
+<pre>function make_sealer() {
+
+// make_sealer is a function that returns a pair of functions. One, the sealer,
+// takes a value and returns a locked box. The other, the unsealer, takes a
+// locked box and returns the original value. A sealer and unsealer work like
+// a public key/private key pair, making it possible for two parties to pass
+// a value through an untrusted third party. The third party cannot see the
+// contents of the locked box, nor can it tamper with the contents. To unlock a
+// locked box, you must hold the locked box and the unsealer that is the mate
+// of the sealer that created the locked box.
+
+// The boxes and values are kept in a pair of arrays. We use objects as keys
+// because that makes a brute force key guessing attack impossible. Using strings
+// as keys, the best we could hope to do is make a guessing attack extremely
+// unlikely. It would be tempting to use an object to hold the pairs, where the
+// boxes are the keys, but objects can only use strings as keys, and boxes must
+// be objects. So instead we have two parallel arrays, and use the indexOf method
+// to locate the keys and values.
+
+    var boxes = [],
+        values = [];
+
+    return {
+        sealer: function (value) {
+
+// Seal the value, returning a locked box object. The box object will be empty.
+// It can be given to the matching unsealer to redeem the value.
+
+// If the value has already been boxed, return the old box.
+
+            var i = values.indexOf(value), box;
+            if (i &gt;= 0) {
+                return boxes[i];
+            }
+
+// Make a new box. Append it to the boxes array, and append the value to
+// the values array.
+
+            i = boxes.length;
+            box = {};
+            boxes[i] = box;
+            values[i] = value;
+            return box;
+        },
+        unsealer: function (box) {
+
+// Search for the box. If it is found, return the corresponding value.
+// If it is not found, return undefined.
+
+            return values[boxes.indexOf(box)];
+        }
+    };
+}</pre>
+<h3 id="indexOf String prototype function"><code>indexOf</code> string prototype
+function</h3>
+<p>Blah.</p>
+<p>The <code>indexOf</code> method  could be implemented like this:</p>
+<pre>String.prototype.indexOf = (function () {
+
+// The indexOf method returns the position at which a search_string first
+// occurs within a search string, or -1 if it cannot be found. An optional
+// position parameter (default 0) determines where to start the search.
+// The following implements a simplified version of the Boyer Moore algorithm.
+
+// These are memoized variables. They will retain their values between
+// invocations, speeding up results when doing multiple searches on the same
+// search_string.
+
+    var delta,                  // The delta table that allows for skipping
+        lengt,                  // The length of the search string - 1
+        length,                 // The length of the search string
+        previous_search_string = '';
+
+// And here is the indexOf function itself.
+
+    return function indexOf(search_string, position) {
+
+// Normalize the inputs. Convert this and the search_string to strings just in
+// case they are not already strings. Force position to an integer between 0
+// and the length of this.
+
+        var h,                  // Past the last possible position
+            j,                  // The loop variable
+            s = String(this);   // this converted to a string
+
+        search_string = String(search_string);
+        position = Math.min(Math.max(
+            position === undefined ? 0 : Math.floor(position), 0), s.length);
+
+// If the search_string is the empty string, then we are done.
+
+        if (search_string === '') {
+            return position;
+        }
+
+// If the search_string is the same as the previous_search_string, then we
+// can skip the step of building the delta table. The delta table tells us
+// how many characters we can skip if there is a mismatch. Typically, the
+// number of characters we can skip is equal to the length of the search_string,
+// so the longer the search_string, the faster the search.
+
+        if (search_string !== previous_search_string) {
+            length = search_string.length;
+            lengt = length - 1;
+            previous_search_string = search_string;
+            delta = {};
+            for (j = 0; j &lt;= lengt; j += 1) {
+                delta[search_string.charAt(j)] = lengt - j;
+            }
+        }
+
+// h is the position after the last possible match.
+// The search continues while position is less than h.
+
+        h = s.length - lengt;
+        while (position &lt; h) {
+
+// In the worst case, we will compare the search_string with every position
+// in this string. But first, compare the last character in the search_string.
+// If that shows a total mismatch, then we don't need to look at any other
+// characters within the position, so advance by the length of the
+// search_string.
+
+            j = delta[s.charAt(position + lengt)];
+            if (j === undefined) {
+                position += length;
+
+// If we found any character but the last in the search_string, then we can
+// advance a smaller amount.
+
+            } else if (j) {
+                position += j;
+
+// The last character matched, so try matching the remainder. If that fails,
+// advance a single character. If it succeeds, then we return the position.
+
+            } else {
+                for (;;) {
+                    if (s.charAt(position + j) !== search_string.charAt(j)) {
+                        position += 1;
+                        break;
+                    }
+                    j += 1;
+                    if (j &gt;= lengt) {
+                        return position;
+                    }
+                }
+            }
+        }
+
+// If we reach the end without success, then return -1.
+
+        return -1;
+    };
+}());</pre>
+<h2><a href="I.html#infinite loop">infinite loop</a></h2>
+<p>An infinite loop is a loop  that never terminates. This is a bad thing
+because the <a href="T.html#turn">turn</a> never ends, freezing the program. The
+simplest infinite loop is</p>
+<pre>for (;;) {}    // This is not a bug. It is much worse.</pre>
+<h2 id="infinity">infinity</h2>
+<h3 id="Infinity literal"><code>Infinity</code> literal</h3>
+<p>The infinity value is a number that represents all numbers that are larger
+than <code>Number.MAX_VALUE</code>. It is available as a global variable, and as
+<code>Number.POSITIVE_INFINITY</code>. Negative infinity is available as
+<code>-Infinity</code> and as <code>Number.NEGATIVE_INFINITY</code>.</p>
+<pre>Infinity + Infinity    // Infinity
+Infinity - Infinity    // NaN
+Infinity * Infinity    // Infinity
+Infinity / Infinity    // NaN
+<a href="#isFinite global function">isFinite</a>(Infinity)     // false</pre>
+
+<h2 id="infix operator">infix operator</h2>
+<p>An infix operator is an operator that takes two operands. The infix operator
+is placed between its two operands.</p>
+<ul>
+<li><a href="bang= infix operator"><code>!=</code> infix operator</a>
+<dfn>coercing not equal</dfn></li>
+<li><a href="bang== infix operator"><code>!==</code> infix operator</a>
+<dfn>not equal</dfn></li>
+<li><a href="% infix operator"><code>%</code> infix operator</a>
+<dfn>remainder</dfn></li>
+<li><a href="& infix operator"><code>&amp;</code> infix operator</a>
+<dfn>bitwise and</dfn></li>
+<li><a href="&& infix operator"><code>&amp;&amp;</code> infix operator</a>
+<dfn>and</dfn></li>
+<li><a href="* infix operator"><code>*</code> infix operator</a>
+<dfn>multiply</dfn></li>
+<li><a href="+ infix operator"><code>+</code> infix operator</a>
+<dfn>add or concatenate</dfn></li>
+<li><a href=", infix operator"><code>,</code> infix operator</a></li>
+<li><a href="- infix operator"><code>-</code> infix operator</a>
+<dfn>subtract</dfn></li>
+<li><a href="/ infix operator"><code>/</code> infix operator</a>
+<dfn>divide</dfn></li>
+<li><a href="< infix operator"><code>&lt;</code> infix operator</a>
+<dfn>less than</dfn></li>
+<li><a href="<< infix operator"><code>&lt;&lt;</code> infix operator</a>
+<dfn>bitwise shift left</dfn></li>
+<li><a href="<= infix operator"><code>&lt;=</code> infix operator</a>
+<dfn>less than or equal</dfn></li>
+<li><a href="== infix operator"><code>==</code> infix operator</a>
+<dfn>coercing equal</dfn></li>
+<li><a href="=== infix operator"><code>===</code> infix operator</a>
+<dfn>equal</dfn></li>
+<li><a href="> infix operator"><code>&gt;</code> infix operator</a>
+<dfn>greater than</dfn></li>
+<li><a href=">= infix operator"><code>&gt;=</code> infix operator</a>
+<dfn>greater than or equal</dfn></li>
+<li><a href=">> infix operator"><code>&gt;&gt;</code> infix operator</a>
+<dfn>bitwise shift right</dfn></li>
+<li><a href=">>> infix operator"><code>&gt;&gt;&gt;</code> infix operator</a>
+<dfn>bitwise unsigned shift right</dfn></li>
+<li><a href="^ infix operator"><code>^</code> infix operator</a>
+<dfn>bitwise exclusive or</dfn></li>
+<li><a href="| infix operator"><code>|</code> infix operator</a>
+<dfn>bitwise or</dfn></li>
+<li><a href="|| infix operator"><code>||</code> infix operator</a>
+<dfn>or</dfn></li>
+<li><a href="in infix operator"><code>in</code> infix operator</a></li>
+<li><a href="instanceof infix operator"><code>instanceof</code> infix
+operator</a></li>
+
+</ul>
+<p>Also see <a href="O.html#operator precedence">operator precedence</a>. Also
+see  <a href="A.html#assignment operator">assignment operator</a>. </p>
+
+<h2 id="inheritance">inheritance</h2>
+<p>Blah.</p>
+<h2 id="inheritance chain">inheritance chain</h2>
+<p>The inheritance chain (or prototype chain) is the linkage through which an
+<a href="O.html#object">object</a> can delegate or inherit properties from
+another <a href="O.html#object">object</a>. When an
+<a href="O.html#object">object</a> is created, it can be chained to another
+<a href="O.html#object">object</a>. If an attempt is made to get the value of a
+<a href="P.html#property">property</a> of the
+<a href="O.html#object">object</a>, and if the
+<a href="O.html#object">object</a> does not have an
+<a href="O.html#own property">own property</a> with that name, then the chain is
+followed to a second <a href="O.html#object">object</a>. If that second
+<a href="O.html#object">object</a> has the named
+<a href="O.html#own property">own property</a>, then that property's value is
+delivered as if it had come from the first object. However, if the second
+<a href="O.html#object">object</a> does not have the named
+<a href="O.html#own property">own property</a>, then its chain is followed, and
+so on. The chain is not used to set a property to an object. Assignment is
+always to an <a href="O.html#own property">own property</a> of the first
+object.</p>
+<p>The default inheritance chain for an <a href="O.html#object literal">object
+literal</a> is <code>Object.prototype</code>. There are two ways to make objects
+with a different chain. The first is to use the
+<a href="#create Object function"><code>create</code> <code>Object</code>
+function</a>. The second is to use the
+<a href="N.html#new prefix operator"><code>new</code> prefix operator</a> on a
+<a href="#constructor function">constructor function</a> to produce an
+<a href="O.html#object">object</a> that is chained to the
+<a href="P.html#prototype Function prototype object"><code>prototype</code>
+<code>Function</code> prototype object</a>. Once an
+<a href="O.html#object">object</a> is made, it cannot be chained to a different
+object. See the
+<a href="G.html#getPrototypeOf Object function"><code>getPrototypeOf</code>
+<code>Object</code> function</a>.</p>
+<h2 id="inherited property">inherited property</h2>
+<p>An inherited property of an object is a property that is not present in the
+object itself, but is instead inherited through the object's inheritance
+chain.</p>
+
+<h2>instanceof <a href="R.html#reserved word"><strong>reserved
+word</strong></a></h2>
+<h3><code>instanceof</code> infix operator</h3>
+<p>Blah.</p>
+<h2>integer</h2>
+<p>An integer is a <a href="N.html#number">number</a> without a fractional part.
+Integers are sometimes known as whole numbers, counting numbers, and natural
+numbers. JavaScript has a single number type that includes all numeric values,
+including integers. JavaScript does not have a separate integer type.</p>
+<p>Integer arithmetic in JavaScript is exact so long as the operands and results
+fall within the range -9007199254740992...9007199254740992. Integers outside of
+that  domain may be represented inexactly. For example, the integer
+9007199254740993 is represented as the same number as 9007199254740992. </p>
+<pre>// Compute the largest safe integer.
+
+var max_int = (function () {
+    var integer = 1;
+    while (integer + 1 !== integer) {
+        integer = integer * 2;
+    }
+    return integer;
+}());</pre>
+<p>The <a href="special.html#slash infix operator">/ infix operator</a>
+<dfn>division</dfn> can produce a non-integer result even if both of its
+operands are integers. For example, <code>1</code> <code>/</code> <code>2</code>
+produces 0.5, a non-integer result. </p>
+<p>These functions can be used to convert non-integers to integers:</p>
+<ul>
+  <li><a href="C.html#ceil Math function">ceil Math function</a></li>
+  <li><a href="F.html#floor Math function">floor Math function</a></li>
+  <li><a href="R.html#round Math function">round Math function</a></li>
+</ul>
+<p>JavaScript is lacking a <code>trunc</code> <dfn>truncate</dfn> function that
+rounds toward zero. Such a function would round down for positive numbers and
+round up for negative numbers.</p>
+<pre>function trunc(number) {
+    return Math[number &gt;= 0 ? 'floor' : 'ceil'](number);
+}</pre>
+<p>A <a href="B.html#bitwise operator">bitwise operator</a> uses integer
+operands but over a much smaller  range, -2147483648 to 2147483647.</p>
+<h2>interface <a href="R.html#reserved word"><strong>reserved
+word</strong></a></h2>
+
+<h2 id="invocation">invocation</h2>
+<p>There are four forms of function invocation:</p>
+<ol>
+  <li>Function</li>
+  <li>Method</li>
+  <li>Constructor</li>
+  <li>Apply</li>
+</ol>
+<p>Each form has distinctive syntax. They vary in what gets bound to the
+implicit <a href="T.html#this parameter"><code>this</code> parameter</a>. It is
+because of these patterns that</p>
+<pre>var funky = object.method;
+funky();            // Function form</pre>
+<p>may have a different result than</p>
+<pre>object.method();    // Method form</pre>
+<h4>function</h4>
+<p>The function form takes a function literal, a variable, or a parameter. The
+<a href="T.html#this parameter"><code>this</code> parameter</a> will be bound to
+<a href="U.html#undefined"><code>undefined</code></a>.</p>
+<pre>funky()
+
+(function () {
+    return this;
+}())                 // returns undefined</pre>
+<p class="es3">In <a href="E.html#ES3">ES3</a>, the function form binds the
+<a href="T.html#this parameter"><code>this</code> parameter</a> to the
+<a href="G.html#global">global</a> object instead of
+<a href="U.html#undefined"><code>undefined</code></a>. </p>
+<h4>method</h4>
+<p>The method form takes an expression in which the outermost operator is
+<a href="special.html#period suffix operator"><code>.</code> suffix operator</a>
+or <a href="special.hml#leftbracket] suffix operator"><code>[]</code> suffix
+operator</a>. The <a href="T.html#this parameter"><code>this</code>
+parameter</a> will be bound of the value that precedes the suffix operator. The
+late binding of the <a href="T.html#this parameter"><code>this</code>
+parameter</a> makes it possible to have single function act as a method of many
+objects, either by inheritance or by assigning the function to many objects.</p>
+<pre>object.method()
+
+object[variable]()</pre>
+<p>Only use the method form if you intend for the called function to have access
+to the object.</p>
+<h4>constructor</h4>
+<p>The constructor form uses the
+<a href="N.tml#new prefix operator"><code>new</code> prefix operator</a>. The
+<a href="T.html#this parameter"><code>this</code> parameter</a> will be bound to
+a new object that inherits from the function's
+<a href="P.html#prototype"><code>prototype</code></a> property.</p>
+<pre>new Monster()    // this is bound to Object.create(Monster.prototype)</pre>
+<h4>apply</h4>
+<p>The apply form invokes the function by invoking the function's
+<code>apply</code> or <code>call</code> method. The first parameter is the value
+that the <a href="T.html#this parameter"><code>this</code> parameter</a> will be
+bound to.</p>
+<pre>funky.apply(null)</pre>
+<h2>isArray </h2>
+<h3><code>isArray</code> <code>Array</code> function</h3>
+<p>blah.</p>
+<h2>isExtensible</h2>
+<h3><code>isExtensible</code><a href="O.html#Object function">
+<code>Object</code> function</a></h3>
+<p>Blah.</p>
+
+<h2 id="isFinite">isFinite</h2>
+<h3><code>isFinite</code> global function</h3>
+<p>Blah.</p>
+
+<h2>isFrozen</h2>
+<h3><code>isFrozen</code><a href="O.html#Object function"> object
+function</a></h3>
+<p>Blah.</p>
+
+<h2 id="isNaN">isNaN</h2>
+<h3><code>isNaN</code> global function</h3>
+<p>Blah.</p>
+
+<h2>isPrototypeOf</h2>
+<h3><code>isPrototypeOf</code><a href="O.html#Object prototype function"> object
+prototype function</a></h3>
+<p>Blah.</p>
+
+<h2>isSealed</h2>
+<h3><code>isSealed</code><a href="O.html#Object function"> object
+function</a></h3>
+<p>Blah.</p>
+
+<h2>iteration</h2>
+<p>Iteration (or repetition) </p>
+<p>loop statement</p>
+<p>recursion</p>
+<p>enumeration function</p>
+</body>
+</html>

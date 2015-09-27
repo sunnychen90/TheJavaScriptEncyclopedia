@@ -1,0 +1,438 @@
+<html>
+
+<head>
+<title>The JavaScript Encyclopedia: Overview</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body>
+<h1>Overview</h1>
+
+<p>This chapter gives a quick overview of the language. It is intentionally over-simplified and incomplete. The complete language is described in detail in the material that follows, but it is organized around the details. In order to make sense of the details, it is useful to see how the pieces fit together.</p>
+<h2>Whitespace</h2>
+<p>Whitespace can take the form of formatting characters or
+  comments. Whitespace is usually insignificant, but it is occasionally necessary
+  to use whitespace to separate sequences of characters that would otherwise be
+  combined into a single token. For example, in the statement</p>
+
+<pre>var that = this;</pre>
+
+<p>the space between <code>var</code> and <code>that</code> cannot be removed, but the other spaces can be removed.</p>
+
+<p>JavaScript offers two forms of comments, block comments
+formed with <code>/* */</code>, and line ending comments starting
+with <code>//</code>. Comments should be used liberally to improve
+the readability of your programs. Take care that the comments always accurately
+describe the code. Incorrect or obsolete comments are worse than no comments.</p>
+
+<p>The <code>/* */</code> form of block comments
+came from a language called PL/I. PL/I chose those strange pairs as the symbols
+for comments because they were unlikely to occur in that language's programs,
+except perhaps in string literals. In JavaScript, those pairs can also occur in
+regular expression literals, so block comments are not safe for commenting out
+blocks of code. For example,</p>
+
+<pre>/*
+    var rm_a = /a*/.match(s);
+*/</pre>
+
+<p>causes a syntax error. Iit is recommended that <code>/* */</code> comments be avoided and <code>//</code>
+comments be used instead. In this book, <code>//</code> will be used
+exclusively.</p>
+
+<h2>Names</h2>
+
+<p>A name is a letter optionally followed by one or more
+letters, digits. The characters <code>_</code> <small>(underbar)</small> and <code>$</code> <small>(dollar sign)</small> are considered to be letters. A name that is  a <a href="R.html#reserved word"><strong>reserved word</strong></a> cannot be used as variable or parameter name:</p>
+
+<pre>abstract
+boolean break byte
+case catch char class const continue
+debugger default delete do double
+else enum export extends
+false final finally float for function
+goto
+if implements import in instanceof int interface
+long
+native new null
+package private protected public
+return
+short static super switch synchronized
+this throw throws transient true try typeof
+var volatile void
+while with </pre>
+
+<p>Most of the reserved words in this list are not used in the
+language. The list does not include some words like <code>undefined</code>,
+ <code>NaN</code>, and <code>Infinity</code> that should
+have been reserved but were not. </p>
+<p class="es3">ES3 adds two further restrictions on reserved words: A reserved word must be quoted when used as a key in an <a href="O.html#object literal">object literal</a>. Reserved words may not be used with the <a href="special.html#period suffix operator"><code>.</code>&nbsp;suffix operator</a> <dfn>select</dfn>.</p>
+
+<p>Names are used as statements, variables, parameters,
+property names, operators, and labels.</p>
+<h2>Objects</h2>
+<p>All values in the language except for <code>null</code> and <code>undefined</code> are objects. Objects are containers of properties that can have methods (functions) and that inherit properties from other objects. The object that is inherited from is said to be the <em>prototype</em>. Booleans, numbers, and strings are immutable objects. </p>
+<h2>Boolean</h2>
+<p>There are two boolean values, <code>true</code> and <code>false</code>.</p>
+<p>Every value in the language is either truthy or falsy. The <i>falsy</i> values are </p>
+<ul>
+  <li><code>false</code></li>
+  <li><code>null</code></li>
+  <li><code>undefined</code></li>
+  <li>the empty string <code>''</code></li>
+  <li>the number <code>0</code></li>
+  <li>the number <code>NaN</code></li>
+</ul>
+<p>All other values are <em>truthy</em>, including <code>true</code>,
+  the string <code>'false'</code>, and all objects.</p>
+<h2>Numbers</h2>
+
+<p>JavaScript has a single number type. Internally, it is
+represented as 64-bit floating point, the same as Java's <code>double</code>.
+Unlike most other programming languages, there is no separate integer type, so <code>1</code> and <code>1.0</code> are the same value.  This is
+a significant convenience because problems of overflow in short integers are
+completely avoided, and all you need to know about a number is that it is a
+number. A large class of numeric type errors is avoided. Integer wrap around errors are impossible, but underflow errors can occur.</p>
+
+<p>If a number literal has an exponent part, then the value of
+the literal is computed by multiplying the part before the <code>e</code>
+by <code>10</code> raised to the power of the part after the <code>e</code>. So <code>100</code> and <code>1.0e2</code>
+are the same number.</p>
+
+<p>Negative numbers can be formed by using the <a href="special.html#minus prefix operator"><code>–</code> prefix operator</a>.</p>
+
+<p>The value <code>NaN</code> is a number value that
+is the result of an operation that cannot produce a normal result, such as
+division of zero by zero. <code>NaN</code> is not equal to any value,
+including itself. You can detect <code>NaN</code> with the <a href="I.html#isNaN global function"><code>isNaN</code> global function</a>.</p>
+
+<p>The value <code>Infinity</code> represents all
+values greater than <code>1.79769313486231570e+308</code>.</p>
+
+<p>Numbers have methods. JavaScript also has a <code>Math</code>
+object that contains a set of functions that act on numbers.  For example, the <code>Math.floor(</code><i>number</i><code>)</code> method can
+be used to convert a number into an integer.</p>
+
+<h2>Strings</h2>
+
+<p>A string literal can be wrapped in single quotes or double
+quotes. It can contain zero or more characters. The <code>\</code> (backslash)
+is the escape character. JavaScript was built at a time when Unicode was a
+16-bit character set, so all characters in JavaScript are 16 bits wide.</p>
+
+<p>JavaScript does not have a character type. To represent a
+character, make a string with just one character in it.</p>
+
+<p>The escape sequences allow for inserting characters into
+strings that are not normally permitted, such as backslashes, quotes, and
+control characters. The <code>\u</code> convention allows for
+specifying character code points numerically. </p>
+
+<pre>&quot;A&quot; === &quot;\u0041&quot;</pre>
+
+<p>Strings have a <code>length</code> property. <code>&quot;seven&quot;.length</code> is <code>5</code>.</p>
+
+<p>Strings are immutable. Once made, a string can never be
+changed. But it is easy to make a new string by concatenating other strings
+together with the <code>+</code> operator. Two strings containing
+exactly the same characters in the same order are considered to be the same
+string.  </p>
+
+<pre>'cat' === 'c' + 'a' + 't'    // true</pre>
+<p>Strings have methods. </p>
+
+<pre>'cat'.toUpperCase()          // 'CAT'</pre>
+
+<h2>Statements</h2>
+
+<p>A compilation unit contains a set of <code>var</code>
+statements and set of executable statements. The <code>var</code>
+statements define global variables. The statements execute in a context that
+has access to all of the global variables, including global variables that were
+defined in other compilation units. In web browsers, each <code>&lt;script&gt;</code>
+tag delivers a compilation unit that is compiled and immediately executed. Lacking
+a linker, JavaScript throws them all together in a common global namespace. </p>
+
+<p>The <code>var</code> statement, when used inside
+of a function, declares the function's private variables. The <code>var</code>
+statement, when used outside of a function, declares global variables. Variables
+should be declared before they are used.</p>
+
+<p>The <code>switch</code>, <code>while</code>,
+<code>for</code>, and <code>do</code> statements are
+allowed to have an optional <i>label</i> prefix that interacts with the <code>break</code> statement.</p>
+
+<p>Statements tend to be executed in order, from top to bottom.
+The sequence of execution can be altered by the conditional statements (<code>if</code> and <code>switch</code>), by the looping
+statements (<code>while</code>, <code>for</code>, and <code>do</code>), by the disruptive statements (<code>break</code>, <code>continue</code>,
+<code>return</code>, and <code>throw</code>), and by
+function invocation.</p>
+
+<p>A block is a set of statements wrapped in <code>{ }</code><small> (curly braces)</small>.
+Unlike many other languages, blocks in JavaScript do not create a new scope, so
+variables should be defined at the top of the function, not in blocks.</p>
+
+<p>The <code>if</code> statement changes the flow of
+the program based on the value of the expression. The <i>then</i> block is
+executed if the expression is <i>truthy</i>, otherwise the optional <code>else</code> branch is taken. </p>
+<p> The <code>switch</code> statement performs a
+  multiway branch. It compares the expression for equality with all of the
+  specified cases. The expression can produce a number or a string. When an exact
+  match is found, the statements of the matching case clause are executed. If
+  there is no match, the optional <code>default</code> clause is
+executed.</p>
+
+<p>A case clause contains one or more case expressions. Tthe case expressions need not be constants. The statement following a
+clause should be a disruptive statement to prevent fall through into the next
+case. The <code>break</code> statement can be used to exit from a <code>switch</code>.</p>
+
+<p>The <code>while</code> statement performs a
+simple loop. If the expression is falsy then the loop will break. While the
+expression is truthy, the block will be executed.</p>
+
+<p>The <code>for</code> statement is a more
+complicated looping statement. It comes in two forms.</p>
+
+<p>The conventional form is controlled by three optional
+clauses: the <i>initialization</i>, the <i>condition</i>, and the <i>increment</i>.
+First the initialization is done, which typically initializes the loop
+variable. Then the <i>condition</i> is evaluated. Typically, this tests the
+loop variable against a completion criterion. If the <i>condition</i> is
+omitted, then a <i>condition</i> of <code>true</code> is assumed. If
+the <i>condition</i> is falsy, the loop breaks. Otherwise the block is
+executed, and then the <i>increment</i> executes, and then the loop repeats
+with the <i>condition</i>. </p>
+
+<p>The other form (called <code>for</code><i> </i><code>in</code>) enumerates the property names (or keys) of an object. On
+each iteration, another property name string from the <i>object</i> is assigned
+to the <i>variable</i>. It is usually necessary to test <i>object</i><code>.hasOwnProperty(</code><i>variable</i><code>)</code> to
+determine if the property name is truly a member of the object or was found instead
+on the prototype chain. </p>
+
+<pre>for (myvar in obj) {
+    if (obj.hasownProperty(myvar)) {
+        …
+    }
+}</pre>
+
+<p>The <code>do</code> statement is like the <code>while</code> statement except that the expression is tested after
+the block is executed instead of before. That means that the block will always
+be executed at least once.</p>
+
+<p>The <code>try</code> statement executes a block,
+and catches any exceptions that were thrown by the block. The <code>catch</code>
+clause defines a new <i>variable</i> that will receive the exception object. </p>
+
+<p>The <code>throw</code> statement raises an
+exception. If the <code>throw</code> statement is in a <code>try</code> block, then control goes to the <code>catch</code>
+clause. Otherwise, the function invocation is abandoned, and control goes to
+the <code>catch</code> clause of the <code>try</code> in
+the calling function. </p>
+
+<p>The expression is usually an object literal containing a <code>name</code> property and a <code>message</code> property.
+The catcher of the exception can use that information to determine what to do.</p>
+
+<p>The <code>return</code> statement causes the
+early return from a function. It can also specify the value to be returned. If
+a return expression is not specified, then the return value will be <code>undefined</code>.</p>
+
+<p>The <code>break</code> statement causes the exit
+from a loop statement or a <code>switch</code> statement. It can
+optionally have a <i>label</i> that will cause an exit from the labeled
+statement.</p>
+<p>JavaScript does not allow a line end between the <code>break</code> and the <i>label</i>.</p>
+
+<p>An expression statement can assign values to one or more
+variables or members, or can invoke a method, or can delete a property from an
+object. The <code>=</code> operator is used for assignment. Do not
+confuse it with the <code>===</code> equality operator. The <code>+=</code> operator can add or concatenate.</p>
+
+<h2>Expressions</h2>
+
+<p>The simplest expressions are a literal value (such as a
+string or number), a variable, a built-in value (<code>true</code>, <code>false</code>, <code>null</code>, <code>undefined</code>,
+<code>NaN</code>, or <code>Infinity</code>), or an
+invocation expression preceded by <code>new</code>, or a refinement
+expression preceded by <code>delete</code>, or an expression wrapped
+in parentheses, or an expression preceded by a prefix operator, or an
+expression followed by </p>
+
+<ul style='margin-top:0in;' type=disc>
+ <li>an infix operator and another expression;</li>
+ <li>the <code>?</code> ternary operator followed by
+     another expression, and then by <code>:</code> and then yet another
+     expression;</li>
+ <li>an invocation;</li>
+ <li>a refinement.</li>
+</ul>
+
+<p>The <code>?</code> ternary operator takes three
+operands. If the first operand is truthy, it produces the value of the second
+operand. But if the first operand is falsy, it produces the value of the third
+operand.</p>
+
+<p>The operators at the top of the Operator Precedence list
+have higher precedence. They bind the tightest. The operators at the bottom
+have the lowest precedence. Parentheses can be used to alter the normal
+precedence, so</p>
+
+<pre>2 + 3 * 5 === 17
+(2 + 3) * 5 === 25</pre>
+
+<p>The values produced by <code>typeof</code> are <code>'number'</code>, <code>'string'</code>, <code>'boolean'</code>,
+<code>'undefined'</code>, <code>'function'</code>, and <code>'object'</code>.  If the operand is an array or <code>null</code>,
+then the result is <code>'object'</code>, which is wrong. </p>
+
+<p>If the operand of <code>!</code> is truthy, it
+produces <code>false</code>. Otherwise it produces <code>true</code>.</p>
+
+<p>The <code>+</code> operator adds or concatenates.
+If you want it to add, make sure both operands are numbers.</p>
+
+<p>The <code>/</code> operator can produce a non-integer
+result even if both operands are integers. </p>
+
+<p>The <code>&amp;&amp;</code> operator produces the
+value of its first operand if the first operand is falsy. Otherwise it produces
+the value of the second operand.</p>
+
+<p>The <code>||</code> operator produces the value
+of its first operand if the first operand is truthy. Otherwise it produces the
+value of the second operand. </p>
+
+<p>Invocation causes the execution of a function value. The
+invocation operator is a pair of parentheses that follow the function value.
+The parentheses can contain arguments that will be delivered to the function. </p>
+
+<p>A refinement is used to specify a property or element of an
+object or array. </p>
+
+<h2>Literals</h2>
+
+<p>Object literals are a convenient notation for specifying new
+objects. The names of the properties can be specified as names or as strings.
+The names are treated as literal names, not as variable names, so the names of
+the properties of the object must be known in at compile time. The values of
+the properties are expressions. </p>
+
+<p>Array literals are a convenient notation for specifying new arrays.
+</p>
+
+<h2>Functions</h2>
+
+<p>A function literal creates a function value. It can have an
+optional name that it can use to call itself recursively. It can specify a list
+of parameters that will act as variables initialized by the invocation
+arguments. The body of the function includes variable definitions and
+statements.</p>
+<h2>Sample Program</h2>
+<pre>
+var make_tester = (function () {
+
+// The make_tester function produces a tester object that can be used to test
+// programs. It is called with one optional paramter that can customize the
+// object.
+
+// The function will have these methods:
+//      assert(boolean, string)                         Pass if boolean is true.
+//                                                      Returns a boolean.
+//      test(expected, string, function, ...parameters) Pass if the function,
+//                                                      when called with the
+//                                                      parameters, produces
+//                                                      the expected value.
+//                                                      Returns a boolean.
+//      pass(string)                                    Report pass, return true.
+//      fail(string)                                    Report fail, return false.
+
+    var default = {
+        pass: '<span class="pass">Pass.</span> {text}',
+        pass: '<span class="pass">Pass.</span> {text}',
+    };
+
+// The entityify, equal, and supplant functions will be shared by all
+// instances produced by make_tester.
+
+    function entityify(string) {
+
+// Replace '&amp;', '&lt;', and '&gt;' with HTML entities.
+// This makes data safe for display in HTML.
+
+        return string
+             .replace(/&amp;/g, "&amp;amp;")
+             .replace(/&lt;/g, "&amp;lt;")
+                .replace(/&gt;/g, "&amp;gt;");
+    }
+
+
+    function equal(a, b) {
+
+// Return a boolean depending on the equality of a and b.
+// It returns true in the strange case when both a and b are NaN.
+
+        return a === b || (typeof a === 'number' &amp;&amp; isNaN(a) &amp;&amp;
+                           typeof b === 'number' &amp;&amp; isNaN(b));
+    }
+
+
+    function fill_in(template, string) {
+
+// Replace '{text}' and with the entityified string.
+
+        return string.replace(entityify(text));
+    }
+
+
+    return function make_tester(options) {
+
+        function option(name) {
+            var result;
+            if (Object.isObject(options)) {
+                result = options[name];
+            }
+            if (typeof result !== 'string') {
+                result = default[name];
+            }
+            if (typeof result !== 'string') {
+                result = '';
+            }
+            return result;
+        }
+
+        function pass(string) {
+            var template = option('pass');
+            if (template &amp;&amp; string) {
+                log(replace(template, string));
+            }
+            return true;
+        }
+
+        function fail(string) {
+            var template = option('pass');
+            if (template &amp;&amp; string) {
+                log(replace(template, string));
+            }
+            return false;
+        }
+
+        function assert(boolean, string) {
+            return (boolean ? pass : fail)(string);
+        }
+
+        function test(expected, string, func) {
+            var result = func.apply(null, arguments.slice(3));
+            return assert(equal(expected, result), string);
+        }
+
+        return {
+            assert: assert,
+            test: test,
+            pass: pass,
+            fail: fail
+        };
+    };
+}());
+
+</pre>
+</body>
+
+</html>

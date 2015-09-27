@@ -1,0 +1,230 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: C</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>C</h1>
+
+<h2 id="call">call</h2>
+<h3 id="call Function prototype function"><code>call</code> function prototype function</h3>
+<p>Blah.</p>
+<pre>Function.prototype.call = function (thisObject) {<br>    return this.apply(thisObject, Array<br>        .prototype.slice.apply(arguments, [1]));<br>};
+</pre>
+<h2>callback</h2>
+<p>The term <em>callback</em> is given to a function that is passed to another function or stored in an object with the intention that it be  called at a later time. Callbacks are commonly used in subscription patterns where functions are to be called when some event has occurred. In browser applications, an event handler function is a callback.</p>
+<pre>var statusHolder = (function () {
+
+// Produce an object containing three functions:
+//
+//    getStatus(): get the value of a private status variable.
+//
+//    addCallback(callback): subscribe a function that will be
+//        called when the status changes.
+//
+//    setStatus(newStatus): Change the status and inform the
+//        subscribers.
+
+    var status,              // The private status variable.
+        subscribers = [];    // The list of subscribing functions.
+    return {
+        getStatus: function () {
+            return status;
+        },
+        addCallback: function (callback) {
+            subscribers.push(callback);
+        },
+        setStatus: function (newStatus) {
+            status = newStatus;
+            subscribers.forEach(function (callback) {
+                callback(status);
+            });
+        }
+    };
+}());</pre>
+
+<h2 id="cascade">cascade</h2>
+<p>An object's methods return the same object... Blah.</p>
+
+<h2>case <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<p>Also see  <a href="S.html#switch statement"><code>switch</code> statement</a>.</p>
+<p>In many of the world's writing systems (including Latin, Greek, Cyrillic, and Armenian), letters come in two forms: lower case (or small or minuscule) and upper case (or big or capital or majuscule). For the purpose of spelling, the two cases are equivalent, but in usage the cases are distinct and <a href="U.html#Unicode">Unicode</a> gives then unqiue character codes, so while <code>I</code> and <code>i</code> are the same letter, they are different characters and have different codes.</p>
+<pre>'I' === 'i'    // false</pre>
+<p>This language is case sensitive. Case in names and strings case is significant, so <code>'cat'</code> and <code>'Cat'</code> are not the same <a href="S.html#string">string</a> and <code>getElementById</code> and <code>getElementByID</code> are not the same  <a href="N.html#name">name</a>. Every <a href="R.html#reserved word">reserved word</a> is entirely lower case.</p>
+<p>For each lower case letter there is a unique upper case letter, and for each upper case letter there is a unique lower case letter, with the following exceptions:</p>
+<ul>
+  <li>The German character <code>&szlig;</code>&nbsp;<dfn>scharfes S</dfn> (<code>\u00df</code>) does not have an upper case form. Since  <code>&szlig;</code>&nbsp;<dfn>scharfes S</dfn> is a ligature for <code>ss</code>, some systems use <code>SS</code> as the upper case form of <code>&szlig;</code>&nbsp;<dfn>scharfes S</dfn>.</li>
+  <li>Most  languages pair <code>I</code> <dfn>dotless</dfn> with <code>i</code> <dfn>dotted</dfn> but the Turkish language treats <code>I</code> <dfn>dotless</dfn> and <code>&#304;</code> <dfn>dotted</dfn> (<code>\u0130</code>) as distinct letters paired with distinct lower case letters <code>&#305;</code> <dfn>dotless</dfn> (<code>\u0131</code>) and <code>i</code> <dfn>dotted</dfn>. So in order to correctly change the case of a letter, a program must know the language of the text.</li>
+</ul>
+<p>The <a href="T.html#toLowerCase String prototype function"><code>toLowerCase</code> <code>String</code> prototype function</a> produces a string in which all of the upper case letters are replaced with their lower case equivalents, so <code>'VISA'.toLowercase()</code> produces <code>'visa'</code>. The <a href="T.html#toLowerCase String prototype function"><code>toLocaleLowerCase</code> <code>String</code> prototype function</a> produces a string in which all of the upper case letters are replaced with their lower case equivalents using the local convention, so for programs in a Turkish environment, <code>'VISA'.toLocaleLowerCase()</code> might produce <code>'v&#305;sa'</code>.</p>
+<p>These functions are aware of case:</p>
+<ul>
+  <li><a href="C.html#compareLocale String prototype function"><code>compareLocale</code> <code>String</code> prototype function</a></li>
+  <li><a href="T.html#toLocaleLowerCase String prototype function"><code>toLocaleLowerCase</code> <code>String</code> prototype function</a></li>
+  <li><a href="T.html#toLocaleUpperCase String prototype function"><code>toLocaleUpperCase</code> <code>String</code> prototype function</a></li>
+  <li><a href="T.html#toLowerCase String prototype function"><code>toLowerCase</code> <code>String</code> prototype function</a></li>
+  <li><a href="T.html#toUpperCase String prototype function"><code>toUpperCase</code> <code>String</code> prototype function</a></li>
+</ul>
+<p>In <a href="R.html#regexp">regexp</a> pattern matching, the matching of letters is case sensitive. The <a href="R.html#regexp">regexp</a> flag <code>i</code> makes the matching of letters case insensitive. </p>
+<pre>/v/.test('VISA')     // false
+/v/i.test('VISA')    // true</pre>
+<p>The reserved word <code>case</code> is used for a completely unrelated purpose in the <a href="S.html#switch statement"><code>switch</code> statement</a>.</p>
+<h2>catch <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<p>See <a href="T.html#try statement"><code>try</code> statement</a>.</p>
+
+<h2 id="ceil">ceil</h2>
+<h3 id="ceil Math function"><code>ceil</code> <code>Math</code> function <dfn>ceiling</dfn></h3>
+<p>The <code>Math.ceil(</code><var>number</var><code>)</code> function converts a <a href="N.html#number">number</a> into an <a href="I.html#integer">integer</a>. If the <var>number</var> argument is already an <a href="I.html#integer">integer</a>, it simply returns the <var>number</var>. Otherwise, it returns the lowest <a href="I.html#integer">integer</a> that is greater than the <var>number</var>. If the <var>number</var> is less than 0 but greater than -1, the result is -0. The function could be implemented like this:</p>
+<pre>Math.ceil = function (number) {
+    return -Math.floor(-number);
+};</pre>
+<h2 id="character">character</h2>
+<p>Blah.</p>
+<h2 id="charAt">charAt</h2>
+<h3 id="charAt String prototype function"><code>charAt</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="charCodeAt">charCodeAt</h2>
+<h3 id="charCodeAt String prototype function"><code>charCodeAt</code> <code>String</code> prototype function</h3>
+<p>Blah.</p>
+<h2 id="circular definition">circular definition</h2>
+<p>See <a href="D.html#definition, circular">definition, circular</a>.</p>
+
+<h2>class <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h2 id="closure">closure</h2>
+<p>Blah.</p>
+<h2 id="code point">code point</h2>
+<p>Blah.</p>
+<h2 id="code unit">code unit</h2>
+<p>Blah.</p>
+
+<h2 id="comment">comment</h2>
+<p>A comment is text in a <a href="C.html#compilation unit">compilation unit</a> that is ignored by the <a href="O.html#object">compiler</a>. A comment can be used to document a program, giving information about its construction and operation. There are two forms of comment, the <code><a href="special.html#slash/ comment">//</a></code><a href="special.html#slash/ comment"> comment</a> and the <code><a href="special.html#slash* block comment">/*</a></code><a href="special.html#slash* block comment"> block comment</a>.</p>
+<p>It is important to document programs to help a reader (perhaps future you) understand how the program works. It is even more important to keep comments uptodate. Incorrect comments are worse than no comments.</p>
+<h2 id="compilation unit">compilation unit</h2>
+<p>A program is delivered as one or more compilation units. In an <a href="H.html#HTML">HTML</a> application, each <code>&lt;script&gt;</code> tag delivers one compilation unit. Scripts are compiled and executed immediately. The result of the execution could be to output a solution. More commonly, however, the result of execution is to create and modify objects in the global environment, setting up <a href="C.html#callback">callback</a> functions that will execute later in response to user actions and other events. For example, in a web browser, each compilation unit will be attaching event handlers to <a href="D.html#DOM">DOM</a> nodes and installing global objects and functions that will provide services to the event handlers. The program does not stop when the compilation units have finished running. From the user&#8217;s perspective, that is when the program starts.</p>
+<p>A compilation unit contains a sequence of zero or more statements. The statements are executed sequentially. After a <a href="S.html#statement">statement</a> has finished executing, the next <a href="S.html#statement">statement</a> is executed. After executing the last <a href="S.html#statement">statement</a>, the compilation unit's <a href="T.html#turn">turn</a> is finished, at which time another compilation unit might be exececuted, or an event might be fired.</p>
+<p>A compilation unit executes in a <a href="G.html#global">global</a> <a href="S.html#scope">scope</a>, so every <a href="V.html#variable">variable</a> created by the <a href="V.html#var statement"><code>var</code> statement</a> or <a href="F.html#function statement"><code>function</code> statement</a> will be global. There is a phenomenon called <a href="H.html#hoisting">hoisting</a> that can alter the sequential flow of the compilation unit. <a href="H.html#hoisting">Hoisting</a> affects the <a href="V.html#var statement"><code>var</code> statement</a> and the <a href="F.html#function statement"><code>function</code> statement</a>. Every global variable created by one compilation unit will be available to all subsequent compilation units.</p>
+<p>In an <a href="H.html#HTML">HTML</a> application,  each <code>on</code>- event attribute delivers a deferred  compilation unit. Each <code>on</code>- event attribute is compiled and executed when an event is dispatched. Use of <code>on</code>- event attributes is not recommended.</p>
+<h2 id="compiler">compiler</h2>
+<p>A compiler is a program that translates a source program into an executable form. In this language, the compiler can be accessed by the <a href="E.html#eval global function"><code>eval</code> global function</a> and the <a href="F.html#Function global function"><code>Function</code> global function</a>. </p>
+<h2>concat</h2>
+<h3 id="concat Array prototype function"><code>concat</code> array prototype function</h3>
+<p>Blah.</p>
+<h3 id="concat String prototype function"><code>concat</code> string prototype function</h3>
+<p>Blah.</p>
+<h2 id="conditional statement">conditional statement</h2>
+<p>A conditional statement alters the flow of a program, which normally executes from top to bottom, by selecting one path from two or more possibilities, deciding based on the value of an <a href="E.html#expression">expression</a> or the occurence of an <a href="E.html#exception">exception</a>.</p>
+<ul>
+  <li><a href="I.html#if statement"><code>if</code> statement</a></li>
+  <li><a href="S.html#switch statement"><code>switch</code> statement</a></li>
+  <li><a href="T.html#try statement"><code>try</code> statement</a></li>
+</ul>
+<h2 id="const">const <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+
+<h2>constant</h2>
+<p>A constant is a name with a fixed value. Each of these names can be used as an <a href="O.html#operand">operand</a>, but they may not be used as an <a href="L.html#lvalue">lvalue</a>.</p>
+<ul>
+  <li><code>false</code></li>
+  <li><code>Infinity</code></li>
+  <li><code>NaN</code></li>
+  <li><code>null</code></li>
+  <li><code>true</code></li>
+  <li><code>undefined</code></li>
+</ul>
+<p>Strictly speaking, <code>Infinity</code>, <code>Nan</code>, and <code>undefined</code> are not constants, but are <a href="G.html#global">global</a> variables. Bad things could result from attempting to change their values.</p>
+<h2 id="continuation">continuation</h2>
+<p>Blah.</p>
+<h2>continue <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h3 id="continue statement"><code>continue</code> statement</h3>
+<p>Blah.</p>
+
+<h2 id="constructor">constructor</h2>
+<h3 id="constructor function">constructor function</h3>
+<p>Blah.</p>
+<h3 id="constructor function prototype function"><code>constructor</code> function prototype function</h3>
+<p>A constructor is a function that is used to create new objects. A constructor should always be invoked with the <a href="N.html#new prefix operator"><code>new</code> prefix operator</a>. If a constructor is invoked without the <a href="N.html#new prefix operator"><code>new</code> prefix operator</a>, then the this parameter will not be bound to a new object. A constructor has a <a href="prototype function property"><code>prototype</code> <code>Function</code> prototype object</a> that is used as the prototype of the new object. See <a href="I.html#invocation">invocation</a>.</p>
+<h2>copy</h2>
+<h3>copy array</h3>
+<p>Blah.</p>
+<h3>copy object</h3>
+<p>Blah.</p>
+
+<h2 id="correspondence">correspondence</h2>
+<p>The correspondence between the variables of a function and the parameters of an inner function.</p>
+<pre>function frick(n) {
+    var result = 1;
+    while (n &gt; 1) {
+        result *= n;
+        n -= 1;
+    }
+    return result;
+}
+
+function frack(n) {
+    return (function (result) {
+        while (n &gt; 1) {
+            result *= n;
+            n -= 1;
+        }
+        return result;
+    }(1));
+}</pre>
+<p>The functions <code>frick</code> and <code>frack</code> both compute the factorial function. They produce the same result, but <code>frick</code> declares a <a href="V.html#variable">variable</a> called <code>result</code>, and <code>frack</code> uses the result of an <a href="I.html#immediate function">immediate function</a> that has a <a href="P.html#parameter">parameter</a> called <code>result</code>. This demonstrates the correspondence between variables and parameters.</p>
+<p>Holds for expressions except for <code>this</code> and <code>arguments</code>. Renaming as that and them. Holds for statements except
+return, break, and continue, and var and function. Blah.</p>
+<h2 id="cos">cos</h2>
+<h3 id="cos Math function"><code>cos</code> <code>Math</code> function <dfn>cosine</dfn></h3>
+<p><code>The Math.cos(</code><var>radians</var><code>)</code> function, also known as  cosine, takes an angle in <a href="R.html#radians">radians</a> and returns a number in the range -1...1.</p>
+<pre>function rotate(polygon, radians) {
+
+// This function takes an array of points, and returns another array
+// of points rotated around the origin.
+
+    var cos = Math.cos(radians),
+        sin = Math.sin(radians);
+
+    return polygon.map(function (point) {
+        return {
+            x: point.x * cos - point.y * sin,
+            y: point.x * sin + point.y * cos
+        };
+    });
+}</pre>
+<p>This is an approximate   implemention of <code>Math.cos</code>:</p>
+<pre>Math.cos = (function () {
+    var half_pi = Math.PI / 2;
+    return function cos(radians) {
+        return Math.sin(radians + half_pi);
+    };
+}());</pre>
+<p>See <a href="M.html#Math function"><code>Math</code> function</a>. </p>
+<h2 id="cr">cr</h2>
+<p>See <a href="L.html#line terminator">line terminator</a>.</p>
+<h2>create</h2>
+<h3 id="create Object function"><code>create</code> <a href="O.html#Object global function"><code>Object</code></a> function</h3>
+<p>Blah.</p>
+
+<h2 id="CSS">CSS</h2>
+<p>Cascading Style Sheets. Blah.</p>
+
+<h2>curly brace</h2>
+<p>See <a href="special.html#leftbrace"><code>{</code> <dfn>left curly brace</dfn></a> and <a href="special.html#}"><code>}</code> <dfn>right curly brace</dfn></a>.</p>
+<h2 id="curry">curry</h2>
+<p>Blah.</p>
+<pre>function curry(func) {
+    var args = Array.prototype.slice.apply(arguments, [1]);
+    return function () {
+        return func.apply(null, args.concat(Array.prototype.slice.apply(arguments)));
+    };
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+var inc = curry(add, 1);
+
+alert(inc(6));</pre>
+</body>
+</html>

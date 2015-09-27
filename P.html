@@ -1,0 +1,405 @@
+<html>
+<head>
+<title>The JavaScript Encyclopedia: P</title>
+<link rel="stylesheet" href="encyclopedia.css" type="text/css">
+</head>
+
+<body><h1>P</h1>
+<h2>package <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h2 id="parameter">parameter</h2>
+<p>A parameter is a variable of a function that is initialized with a value from the arguments. Parameters are declared in a parameter list, which is a comma separated sequence of zero or more names. The entire parameter list is wrapped in a pair of parentheses. </p>
+<pre>function (first, second, third) {
+    ...
+}</pre>
+<p>does the same thing as</p>
+<pre>function () {
+    var first = arguments[0],
+        second = arguments[1],
+        third = arguments[2];
+    ...
+}</pre>
+<p>Blah.</p>
+<h2 id="parenthesis">parenthesis</h2>
+<p>See <a href="special.html#leftparen"><code>(</code> <dfn>left parenthesis</dfn></a> and <a href="special.html#rightparen"><code>)</code> <dfn>right parenthesis</dfn></a>.</p>
+<h2 id="parse">parse</h2>
+<h3 id="parse JSON function"><code>parse</code> <code>JSON</code> function</h3>
+<p>Blah.</p>
+
+<h2 id="parseFloat">parseFloat</h2>
+<h3 id="parseFloat global function"><code>parseFloat</code> <code>global</code> function</h3>
+<p>Blah.</p>
+
+<h2 id="parseInt">parseInt</h2>
+<h3 id="parseInt global function"><code>parseInt</code> global function</h3>
+<p>Blah.</p>
+
+<h2 id="pi">pi</h2>
+<h3 id="PI Math member"><code>PI</code> <code>Math</code> number <dfn>pi</dfn></h3>
+<p><code>Math.PI</code> contains an approximate value of &pi; which is somewhere around 3.141592653589793. </p>
+<pre>function circumference(radius) {
+    return 2 * Math.PI * radius;
+}</pre>
+<p>Also see <a href="R.html#radians">radians</a>.</p>
+<h2 id="poker">poker</h2>
+<p>See <a href="E.html#enumeration object">enumeration object</a>.</p>
+<h2 id="pop">pop</h2>
+<h3 id="pop Array prototype function"><code>pop</code> <code>Array</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2 id="POSITIVE_INFINITY">POSITIVE_INFINITY</h2>
+<h3 id="POSITIVE_INFINITY Number member"><code>POSITIVE_INFINITY</code> <code>Number</code> number</h3>
+<p><code>Number.POSITIVE_INFINITY</code> is the same as <code>Infinity</code>, and is much more to type. </p>
+
+<h2 id="pow">pow</h2>
+<h3 id="pow math function"><code>pow</code> <code>Math</code> function <dfn>raise to a power</dfn></h3>
+<p>The <code>Math.pow(</code><var>x</var><code>,</code> <var>y</var><code>)</code> function raises a number to a power. In mathematical notation, it is usually written as a superscript: <var>x<sup> y</sup></var>. The result is  <var>x</var> multiplied by itself as many times as indicated by  <var>y</var>, so that <code>Math.pow(2,</code> <code>4)</code> is the same as <code>2</code> <code>*</code> <code>2</code> <code>*</code> <code>2</code> <code>*</code> <code>2</code>, having a result of 16. <var>y</var> is not required to be an integer, and it is not required to be positive. If <var>x</var> is 0, then the result is 0. If <var>y</var> is 0, then result is 1. If both <var>x</var> and <var>y</var> are 0, the result is 1. Some programming languages provide an exponentiation operator such as <code>**</code> or <code>^</code>. This language does not, you must use the <code>Math.pow</code> function instead. It is used  rarely enough that this does not present a hardship.</p>
+<p><code>Math.pow(</code><var>x</var><code>,</code> <code>1</code> <code>/</code> <code>2)</code> is mostly the same as <code>Math.sqrt(</code><var>x</var><code>)</code>. <code>Math.pow(Math.E,</code> <var>x</var><code>)</code> is mostly the same as <code>Math.exp(</code><var>x</var><code>)</code>;</p>
+<p>It could be implemented like this:</p>
+<pre>Math.pow = function (x, y) {
+    var abs_x, y_is_integer, y_is_odd_integer;
+    x = +x;
+    y = +y;
+
+// y is zero...
+
+    if (y === 0) {
+        return 1;
+    }
+
+// x or y are NaN...
+
+    if (isNaN(x) || isNaN(y)) {
+        return NaN;
+    }
+
+    abs_x = x &lt; 0 ? -x : x;
+    y_is_integer = Math.floor(y) === y;
+    y_is_odd_integer = y_is_integer &amp;&amp; Math.floor(y / 2) * 2 !== y;
+
+// y is Infinity...
+
+    if (y === Infinity) {
+        return abs_x &gt; 1 ?
+            Infinity :
+            abs_x === 1 ?
+                NaN :
+                0;
+    }
+    if (y === -Infinity) {
+        return abs_x &gt; 1 ?
+            0 :
+            abs_x === 1 ?
+                NaN :
+                Infinity;
+    }
+
+// x is Infinity...
+
+    if (x === Infinity) {
+        return y &gt; 0 ?
+            Infinity :
+            0;
+    }
+    if (x === -Infinity) {
+        return y &gt; 0 ?
+            y_is_odd_integer ?
+                -Infinity :
+                Infinity :
+            y_is_odd_integer ?
+                -0 :
+                0;
+    }
+
+// x is zero...
+
+    if (x === 0) {
+        if (1 / x &gt; 0) {
+            return y &gt; 0 ?
+                0 :
+                Infinity;
+
+// x is -0...
+
+        } else {
+            return y &gt; 0 ?
+                y_is_odd_integer ?
+                    -0 :
+                    0 :
+                y_is_odd_integer ?
+                    -Infinity :
+                    Infinity;
+        }
+    }
+
+    if (x &lt; 0 &amp;&amp; !y_is_integer) {
+        return NaN;
+    }
+
+// eventually the computation occurs.
+
+    return Math.exp(Math.log(x) * y);
+};</pre>
+<p id="precedence">Also see <a href="E.html#exp Math function"><code>exp</code> <code>Math</code> function</a> and <a href="S.html#sqrt Math function"><code>sqrt</code> <code>Math</code> function</a>.</p>
+<p>Example:</p>
+<pre>function monthly_payment(principal, interest_rate, nr_years) {
+    var monthly_interest = (interest_rate / 100) / 12,
+        nr_monthly_payments = nr_years * 12;
+
+    return principal * monthly_interest /
+        (1 - Math.pow(1 + monthly_interest, -nr_monthly_payments));
+}
+</pre>
+<h2>precedence</h2>
+<p>See <a href="O.html#operator precedence">operator precedence</a>.</p>
+
+<h2 id="prefix operator">prefix operator</h2>
+<p>A prefix operator is a unary operator that is placed before its operand. Prefix operators are higher in precedence than all of the binary operators, but lower in precedence than the suffix operators.</p>
+<ul>
+  <li><a href="special.html#! prefix operator"><code>!</code> prefix operator</a> <dfn>not</dfn></li>
+  <li><a href="special.html#plus prefix operator"><code>+</code> prefix operator</a> <dfn>to number</dfn></li>
+  <li><a href="special.html#minus prefix operator"><code>-</code> prefix operator</a> <dfn>negate</dfn></li>
+  <li><a href="special.html#tilde prefix operator"><code>~</code> prefix operator</a> <dfn>bitwise not</dfn></li>
+  <li><a href="D.html#delete prefix operator"><code>delete</code> prefix operator</a></li>
+  <li><a href="N.html#new prefix operator"><code>new</code> prefix operator</a></li>
+  <li><a href="T.html#typeof prefix operator"><code>typeof</code> prefix operator</a></li>
+  <li><a href="V.html#void prefix operator"><code>void</code> prefix operator</a></li>
+</ul>
+<p>Also see <a href="A.html#assignment prefix operator">assignment prefix operator</a>.</p>
+<h2 id="preventExtensions">preventExtensions</h2>
+<h3><code>preventExtensions</code> <a href="O.html#Object function"><code>Object</code> function</a></h3>
+<p>Blah.</p>
+
+<h2>private <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h2>program</h2>
+<p>A program is a complex set of instructions that control the operation of a computer. In this language, a program is delivered to the execution site in a textual form (or as source code or as script) which is then compiled and immediately executed. See <a href="C.html#compilation unit">compilation unit</a>.</p>
+<h2>promise</h2>
+<p>A promise is an <a href="O.html#object">object</a> that represents a value that may be unknown at the present time but which might become known in the future. A promise allows us to act on the future value now, remembering our intentions until the promise is ultimately kept or broken. The resolution of a promise might depend in a result that will be determined on the other side of the network or in a different process. </p>
+<p>Promises are not yet a standard feature of the language, but could be implemented as follows.A promise is an object containing 5 methods:</p>
+<ul>
+  <li><code>
+    when(</code><var>func</var><code>)</code>
+    <p>The <var>func</var> is a function that takes one argument, the future value. The <var>func</var> will be called with the value when the promise is kept. This function can be called many times to register many functions. There is no guarentee the <var>func</var> will ever be called.</p>
+  </li>
+  <li><code>
+    fail(</code><var>func</var><code>)</code>
+    <p>The <var>func</var> is a function that takes one argument, an error object. The function will be called with the error object when the promise is broken. This function can be called many times to register many functions. There is no guarentee that the <var>func</var> will ever be called.</p>
+  </li>
+  <li><code>keep(</code><var>value</var><code>)</code>
+  <p>Call this function in the future to keep the promise when the <var>value</var> becomes known. The functions that were registered with <code>when</code> will be called with the <var>value</var>.</p></li>
+  <li><code>break(</code><var>err</var><code>)</code>
+      <p>Call this function in the future to break the promise. The argument <var>err</var> is an error object or string. The functions that were registered with <code>fail</code> will be called.</p>
+  <div class="es3">
+      <p>ES3 makes use of a method with a <a href="R.html#reserved word"><strong>reserved word</strong></a> awkward. The calling form</p>
+<pre>promise.break('whoops');</pre>
+  <p>must be written as</p>  <pre>promise['break']('whoops');</pre></div></li>
+  <li><code>status()</code></li>
+  <p>This function returns the status of the promise, which is either <code>'unresolved'</code>, <code>'kept'</code>, or <code>'broken'</code>.</p>
+</ul>
+<p>Typically, the <code>when</code>, <code>fail</code>, and <code>status</code> functions would be given to a consumer, and the <code>keep</code>, <code>break</code>, and <code>status</code> functions would be given to a producer. </p>
+<pre>function make_promise() {
+
+// The make_promise function produces a promise object. A promise object
+// represents a value that will be determined in the future, but which can be
+// acted upon immediately. It could represent something that will come from
+// a server or a database or user input. You can call functions on the
+// result now, and they will be processed when the promise is ultimately
+// resolved. It is possible that the promise will be broken, so we can also
+// call the promise for the cases where it fails.
+
+// Functions can be applied to the outcome of the promise. By passing a function
+// to the promise's when method, that function will be called when the promise
+// is kept. By passing a function to the promise's fail method, that function
+// will be called with the outcome value when the promise is broken. Any
+// functions passed to when or fail are held until the outcome is known.
+
+    var outcome,            // The ultimate value of the promise
+        status = 'unresolved',
+                            // The current status of the promise
+        waiting = [],       // The functions that are waiting for fulfillment
+        dreading = [];      // The functions that are waiting for failure
+
+// The object makes use of two helper functions, vouch (called by the when and
+// fail methods) and resolve (called by the keep and break methods).
+
+    function vouch(deed, func) {
+        switch (status) {
+
+// If the promise has not been resolved, then make the func wait in a queue.
+
+        case 'unresolved':
+            (deed === 'kept' ? waiting : dreading).push(func);
+            break;
+
+// If the deed matches the promise's status, then the promise has been resolved
+// and the func can be called immediately. Otherwise the func is ignored.
+
+        case deed:
+            func(outcome);
+            break;
+        }
+    }
+
+
+    function resolve(deed, value) {
+
+// The resolve function processes the promise, setting its outcome.
+
+        if (status !== 'unresolved') {
+            throw new Error('The promise has already been resolved: ' + status);
+        }
+        status = deed;
+        outcome = value;
+
+// Call the waiting functions if the promise was kept, and call the
+// dreading functions if it was broken. We want to call all of the queued
+// functions, even if one of those functions throws an exception, so we must
+// catch and ignore all exceptions. So for each waiting/dreading function, we
+// will call a function that calls and catches it.
+
+        (deed === 'kept' ? waiting : dreading).forEach(function (func) {
+            try {
+                func(value);
+            } catch (ignore) {}
+        });
+
+// We can then discard both queues.
+
+        waiting = null;
+        dreading = null;
+    }
+
+
+// Construct and return the promise object. It contains the methods
+// when, fail, keep, break, status.
+
+    return {
+        when: function (func) {
+
+// The func will be called with the promise outcome as its parameter
+// when the promise is kept.
+
+            vouch('kept', func);
+        },
+
+        fail: function (func) {
+
+// The func will be called with an error string when the promise is broken.
+
+            vouch('broken', func);
+        },
+
+        keep: function (value) {
+
+// Keep the promise, giving it a value. If any when functions are waiting,
+// they can be called now. A promise can only be resolved once.
+
+            resolve('kept', value);
+        },
+
+        break: function (err) {
+
+// Break the promise, giving an explanation. If any fail functions are waiting,
+// they can be called now. A promise can only be resolved once. If err is a
+// string, turn it into an Error.
+
+            resolve('broken', typeof err === 'string' ? new Error(err) : err);
+        },
+
+        status: function () {
+
+// Return the status of the promise: 'kept', 'broken', 'unresolved'.
+
+            return status;
+        }
+    };
+}</pre><p>Also see <a href="C.html#callback">callback</a>.</p>
+
+<h2 id="property">property</h2>
+<p>A property is a component of an object that is associated with a key string. There are two kinds of properties: data properties and accessor properties. A data property holds a value that can be get or set. An accessor property instead holds one or two functions that will be called when an attempt is made to get or set the property. A property can be inherited, or it can be the object&#8217;s own property. See <a href="O.html#object">object</a>. Also see <a href="special.html#period suffix operator"><code>.</code> suffix operator <dfn>select</dfn></a> and <a href="special.html#leftbracket ] suffix operator"><code>[</code> <code>]</code> suffix operator <dfn>subscript</dfn></a>.</p>
+<h2 id="propertyIsEnumerable">propertyIsEnumerable</h2>
+<h3 id="propertyIsEnumerable Object prototype function"><code>propertyIsEnumerable</code> <code>Object</code> prototype function</h3>
+<p>Blah.</p>
+
+<h2>protected <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+
+<h2 id="prototypal inheritance">prototypal inheritance</h2>
+<p>Blah.</p>
+<pre>function new_constructor(prototype, initializer) {
+    return function () {
+        var that = Object.create(prototype);
+        initializer.apply(that, arguments);
+        return that;
+    };
+}</pre>
+
+<h2 id="prototype">prototype</h2>
+<p>Every object can  inherit properties from a prototype object. When fetching a named property of an object using the <a href="special.html#period suffix operator"><code>.</code>&nbsp;suffix operator <dfn>select</dfn></a> or the <a href="special.html#leftbracket] suffix operator"><code>[]</code> suffix operator <dfn>subscript</dfn></a>, if the object does not own a property with that name, then its prototype is examined. If the prototype object owns a property with that name, then the value of that property is fetched. </p>
+<p>Every function contains a <code>prototype</code> property. The value of that property is usually an object. That object</p>
+<h3>prototype chain</h3>
+<p>See <a href="C.html#chain">chain</a>.</p>
+<h3>prototype function</h3>
+<p>Blah.</p>
+
+<h3 id="prototype function property"><code>prototype</code> <code>Function</code> prototype object</h3>
+<p>Blah.</p>
+
+<h2 id="pseudoclassical">pseudoclassical</h2>
+<p>Blah.</p>
+
+<h2>public <a href="R.html#reserved word"><strong>reserved word</strong></a></h2>
+<h2>punctuator</h2>
+<p>A punctuator is a symbol composed of one or more <a href="S.html#special">special</a> characters that is used as a <a href="S.html#separator">separator</a> or <a href="O.htl#operator">operator</a>.</p>
+<ul style="float: left; width: 1in;"><li><a href="special.html#!"><code>!</code></a></li>
+<li><a href="special.html#!="><code>!=</code></a></li>
+<li><a href="special.html#!=="><code>!==</code></a></li>
+<li><a href="special.html#%"><code>%</code></a></li>
+<li><a href="special.html#%="><code>%=</code></a></li>
+<li><a href="special.html#ampersand"><code>&amp;</code></a></li>
+<li><a href="special.html#ampersand&"><code>&amp;&amp;</code></a></li>
+<li><a href="special.html#ampersand="><code>&amp;=</code></a></li>
+<li><a href="special.html#leftparen"><code>(</code></a></li>
+<li><a href="special.html#rightparen"><code>)</code></a></li>
+<li><a href="special.html#asterisk"><code>*</code></a></li>
+<li><a href="special.html#asterisk="><code>*=</code></a></li></ul><ul style="float: left; width: 1in;">
+<li><a href="special.html#plus"><code>+</code></a></li>
+<li><a href="special.html#plus+"><code>++</code></a></li>
+<li><a href="special.html#plus="><code>+=</code></a></li>
+<li><a href="special.html#comma"><code>,</code></a></li>
+<li><a href="special.html#minus"><code>-</code></a></li>
+<li><a href="special.html#minus-"><code>--</code></a></li>
+<li><a href="special.html#minus="><code>-=</code></a></li>
+<li><a href="special.html#period"><code>.</code></a></li>
+<li><a href="special.html#slash"><code>/</code></a></li>
+<li><a href="special.html#slash="><code>/=</code></a></li>
+<li><a href="special.html#colon"><code>:</code></a></li>
+<li><a href="special.html#;"><code>;</code></a></li></ul><ul style="float: left; width: 1in;">
+<li><a href="special.html#%3c"><code>&lt;</code></a></li>
+<li><a href="special.html#%3c="><code>&lt;=</code></a></li>
+<li><a href="special.html#%3c%3c"><code>&lt;&lt;</code></a></li>
+<li><a href="special.html#%3c%3c="><code>&lt;&lt;=</code></a></li>
+<li><a href="special.html#equal"><code>=</code></a></li>
+<li><a href="special.html#equal="><code>==</code></a></li>
+<li><a href="special.html#equal=="><code>===</code></a></li>
+<li><a href="special.html#%3e"><code>&gt;</code></a></li>
+<li><a href="special.html#%3e="><code>&gt;=</code></a></li>
+<li><a href="special.html#%3e%3e"><code>&gt;&gt;</code></a></li>
+<li><a href="special.html#%3e%3e="><code>&gt;&gt;=</code></a></li>
+<li><a href="special.html#%3e%3e%3e"><code>&gt;&gt;&gt;</code></a></li></ul><ul style="float: left; width: 1in;">
+<li><a href="special.html#%3e%3e%3e="><code>&gt;&gt;&gt;=</code></a></li>
+<li><a href="special.html#question"><code>?</code></a></li>
+<li><a href="special.html#leftbracket"><code>[</code></a></li>
+<li><a href="special.html#rightbracket"><code>]</code></a></li>
+<li><a href="special.html#caret"><code>^</code></a></li>
+<li><a href="special.html#caret="><code>^=</code></a></li>
+<li><a href="special.html#leftbrace"><code>{</code></a></li>
+<li><a href="special.html#bar"><code>|</code></a></li>
+<li><a href="special.html#bar="><code>|=</code></a></li>
+<li><a href="special.html#bar|"><code>||</code></a></li>
+<li><a href="special.html#}"><code>}</code></a></li>
+<li><a href="special.html#tilde"><code>~</code></a></li></ul>
+<br clear=all><h2 id="push">push</h2>
+<h3 id="push Array prototype function"><code>push</code> <code>Array</code> prototype function</h3>
+<p>Blah.</p>
+
+</body>
+</html>
