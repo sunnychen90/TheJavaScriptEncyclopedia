@@ -4,6 +4,7 @@ This is an extremely incomplete encyclopedic presentation in HTML of the
 JavaScript programming language as hypertext.
 
 encyclopedia.css    The encyclopedic style
+index.html          The Table of Contents
 A.html              The A articles
 ...                 ...
 Z.html              The Z articles
