@@ -1,0 +1,20 @@
+The JavaScript Encyclopedia
+
+This is an extremely incomplete encyclopedic presentation in HTML of the
+JavaScript programming language as hypertext.
+
+encyclopedia.css    The encyclopedic style
+A.html              The A articles
+...                 ...
+Z.html              The Z articles
+special             The articles about special characters
+preface.html        The story of the project
+introduction.html   How the encyclopedia works
+overview.html       An overview of the language
+regexp.html         The appendix on regular expressions
+browser.html        The appendix on web browsers
+css.html            The appendix on Cascading Style Sheets
+es3.png             The ES3 flag
+
+The JavaScript Encyclopdia may be viewed at
+http://www.crockford.com/javascript/encyclopedia.
